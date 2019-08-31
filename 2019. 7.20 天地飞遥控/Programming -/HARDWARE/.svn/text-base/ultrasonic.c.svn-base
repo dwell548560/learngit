@@ -1,0 +1,723 @@
+#include "ultrasonic.h"
+
+ultra_para  ULTRA_DATA;
+
+
+//智嵌板子  增强型  485 A2 B2
+void ultrasonic_485_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG,ENABLE); //
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE); //
+	
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3,ENABLE);//
+	
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource10,GPIO_AF_USART3); //
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource11,GPIO_AF_USART3);//
+	
+		
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 |GPIO_Pin_11; //
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //上拉
+	GPIO_Init(GPIOB,&GPIO_InitStructure); //
+
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2; //SP485芯片的发送接收使能端
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//??
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; //?? 100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //????
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //??
+	GPIO_Init(GPIOG,&GPIO_InitStructure); //PG4
+		
+	
+//USART3
+	USART_InitStructure.USART_BaudRate = 115200;//波特率
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//因为有一位偶校验所以9位,艾思控固定8位数据位，再加上一位校验位(偶校验)，就是9位字长，f407是这样的，其他芯片可能是分开的
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;//对于艾思控的驱动器在波特率位115200时，无奇偶校验时，停止位为2位
+	USART_InitStructure.USART_Parity = USART_Parity_No;//
+	USART_InitStructure.USART_HardwareFlowControl =USART_HardwareFlowControl_None;//无硬件控制流
+	USART_InitStructure.USART_Mode =  USART_Mode_Tx|USART_Mode_Rx;//收发模式
+	USART_Init(USART3, &USART_InitStructure); //
+	
+	USART_ClearFlag(USART3, USART_FLAG_TC);
+	
+	
+	USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);//??????
+	USART_ITConfig(USART3, USART_IT_IDLE, ENABLE);//??????
+	USART_DMACmd(USART3,USART_DMAReq_Rx,ENABLE); 
+
+	USART_DMACmd(USART3,USART_DMAReq_Tx,ENABLE); 
+	USART_ClearITPendingBit(USART3, USART_IT_TC);//清除中断TC位	
+
+	USART_Cmd(USART3, ENABLE); //
+
+
+
+	NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;//????? 3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;  //????? 3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ ????
+	NVIC_Init(&NVIC_InitStructure);  //?????????? VIC ????
+	
+//	GPIO_InitTypeDef GPIO_InitStructure;//定义GPIO_InitTypeDef类型的结构体成员GPIO_InitStructure
+
+//	USART_InitTypeDef USART_InitStructure;
+//	USART_ClockInitTypeDef USART_ClockInitStruct;
+//	NVIC_InitTypeDef   NVIC_InitStructure;
+//	
+//	//使能需要用到的GPIO管脚时钟
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
+//	//使能USART1 时钟
+//	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+//  
+//	//485_CON引脚初始化
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;    //复用
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽输出
+//	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
+//	GPIO_Init(GPIOG, &GPIO_InitStructure);
+//	
+//	//串口IO
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;    //复用
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽输出
+//	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3;
+//	GPIO_Init(GPIOA, &GPIO_InitStructure);
+//	GPIO_PinAFConfig(GPIOA,GPIO_PinSource2,GPIO_AF_USART2);        
+//	GPIO_PinAFConfig(GPIOA,GPIO_PinSource3,GPIO_AF_USART2);        
+
+//	USART_InitStructure.USART_BaudRate = 115200;
+//	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+//	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+//	USART_InitStructure.USART_Parity = USART_Parity_No;
+//	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+//	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+//	USART_Init(USART2,&USART_InitStructure);
+//	
+//	//以下的初始化必须做好，不然很有可能会出现莫名奇妙无法接收数据的情况——2017.07.05   GBZ
+////	USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;  
+////	USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;  
+////	USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;  
+////	USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable;  
+////	USART_ClockInit(USART2,&USART_ClockInitStruct);
+
+//	//配置总线空闲中断
+//	USART_ITConfig(USART2,USART_IT_RXNE,DISABLE);  
+//	USART_ITConfig(USART2,USART_IT_IDLE,ENABLE);
+//// 	USART_ITConfig(USART1, USART_IT_TC, ENABLE);// 
+
+// 	//采用DMA方式发送
+//	USART_DMACmd(USART2,USART_DMAReq_Tx,ENABLE);
+//	//采用DMA方式接收
+//	USART_DMACmd(USART2,USART_DMAReq_Rx,ENABLE);
+
+//	USART_Cmd(USART2, ENABLE);
+//	USART_ClearITPendingBit(USART2, USART_IT_TC);//清除中断TC位
+//	
+//	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//	NVIC_Init(&NVIC_InitStructure);
+
+	RS485_RX_EN = 1;//初始状态为发送模式，sp485芯片引脚控制
+
+	ULTRA_DATA.avoid_act_dis_for_back = FOR_STOP_DISTANCE;//默认避障触发距离300mm
+	ULTRA_DATA.avoid_act_dis_left_right = LEFT_STOP_DISTANCE;//默认避障触发距离300mm
+
+}
+
+
+
+void USART3_IRQHandler(void)
+{
+
+	u8 clearflag = 0;
+	u16 len =0;
+
+	if(USART_GetITStatus(USART3,USART_IT_IDLE)==SET)
+	{
+		clearflag = USART3->SR;
+		clearflag = USART3->DR;//先读SR  再读DR清除IDLE标志
+
+		DMA_Cmd(DMA1_Stream1, DISABLE);
+
+		//DMA_ClearFlag( DMA2_Stream2, DMA_FLAG_TCIF2 );    //清除传输完成标志位，否则进入传输完成中断
+		while (DMA_GetCmdStatus(DMA1_Stream1) != DISABLE){}
+
+		len = ULTRA_RX_SIZE-DMA_GetCurrDataCounter(DMA1_Stream1);
+
+		if(len>0)
+		{
+			ULTRA_DATA.rx_done_flag = 1;//上位机一帧数据接收完成标志
+			ULTRA_DATA.rx_len_ultra = len;//实际接收到的数据长度
+			//Usart6_reopen_rx();
+			//USART_Cmd(USART6, DISABLE); 
+		}
+		else 
+		{
+			//memset( ( uint8_t* )KULUN_DATA.kl_receive_data, 0 , sizeof(KULUN_DATA.kl_receive_data) );
+		//	KULUN_DATA.rx_done_flag=0;
+			Usart3_reopen_rx();
+							
+		}
+				
+	}
+	//USART_ClearITPendingBit(USART1,USART_IT_IDLE);
+}
+
+
+
+//
+void Usart3_rx_Check(void)
+{
+	u8 i,j,k,sum;
+	u16 crc_check = 0;
+	
+	if(ULTRA_DATA.rx_len_ultra > 8)
+	{
+		for(i = 0;i < ULTRA_DATA.rx_len_ultra ;i++)//接收的超声波数据
+		{
+			if((ULTRA_DATA.rx_485_ultra[i] == 0xff)&&(ULTRA_DATA.rx_485_ultra[i+1] == 0xa7))
+			{
+				for(j = i;j < ULTRA_DATA.rx_len_ultra-i-1 ; j++)
+				{
+					sum ^= ULTRA_DATA.rx_485_ultra[j];
+				}
+				if(ULTRA_DATA.rx_485_ultra[j] == sum)
+				{
+					ULTRA_DATA.rx_check_flag = 1;
+					memcpy(ULTRA_DATA.rx_check_ultra,ULTRA_DATA.rx_485_ultra,ULTRA_NDTX_SIZE);
+					//break;
+				}
+				else Usart3_reopen_rx();
+			}
+			else Usart3_reopen_rx();
+		
+		}
+
+	}
+	else
+	{
+		//这部分是之前写的，超声波协议不是标准modbus，所以它是独占一个485总线的  11.29
+
+//		for(k = 0;k < ULTRA_DATA.rx_len_ultra ;k++)//接收的刹车驱动器数据
+//		{
+//			if((ULTRA_DATA.rx_485_ultra[k] == 0x02)&&(ULTRA_DATA.rx_485_ultra[k+1] == 0x06))//回复正确指令
+//			{
+//				crc_check = CRC16(ULTRA_DATA.rx_485_ultra,6);
+//				if((ULTRA_DATA.rx_485_ultra[k+6] == (u8)crc_check)&&(ULTRA_DATA.rx_485_ultra[k+7] == (crc_check>>8)))
+//				{
+//					memcpy(break_rx_data,ULTRA_DATA.rx_485_ultra,8);//接收完成
+//					 break_rx_right_flag = 1;
+//				}
+//					
+
+//			}
+//			else if((ULTRA_DATA.rx_485_ultra[k+1] == 0x86)&&(ULTRA_DATA.rx_485_ultra[k] == 0x02))//回复故障指令
+//			{
+//				crc_check = CRC16(ULTRA_DATA.rx_485_ultra,3);
+//				
+//				if((ULTRA_DATA.rx_485_ultra[k+3] == (u8)crc_check)&&(ULTRA_DATA.rx_485_ultra[k+4] == (crc_check>>8)) )
+//				{
+//					break_rx_err_flag = 1;//接收
+//				}
+
+
+
+//			}
+
+//		}
+
+	}
+
+}
+
+
+
+
+void Ultra_hanle(void)
+{
+	if(ULTRA_DATA.rx_done_flag == 1)
+	{
+		ULTRA_DATA.rx_done_flag = 0;
+		Usart3_rx_Check();
+
+		if(ULTRA_DATA.rx_check_flag == 1)
+		{
+			ULTRA_DATA.timeout_ultrasonic_cnt = 0;//超时计数清零，正常每次接到超声波都会对其清零
+
+			ULTRA_DATA.rx_check_flag = 0;
+			Ultra_data_save();
+			Usart3_reopen_rx();
+		}
+		//else Usart3_reopen_rx();
+	}
+
+	if(ULTRA_DATA.timeout_ultrasonic_cnt > 10)//判断是否超时需要上报
+	{
+		ULTRA_DATA.timeout_ultrs_flag = ULTRA_TIMEOUT_CMD;//计时10*120ms，超声波数据都有问题，超声波超时标志置0x70
+		
+		usart4_tx_DMA(&ULTRA_DATA.timeout_ultrs_flag , 1 , ULTRA_DATA.timeout_ultrs_flag);//向上位机发送超声波异常
+	}
+}
+
+
+//将返回的12路超声波数据保存
+//设备返回的数据是三个字节，前两个字节是十进制BCD码，后面的第几路超声波发过来的数据，总共12路
+void Ultra_data_save(void)
+{
+	u8 i = 3,j;
+	while(i<36)
+	{	
+		for(j =0; j<12; j++)
+		{
+			ULTRA_DATA.ultra_distance[j] = BCD_to_HEX(ULTRA_DATA.rx_check_ultra[i])*100 + BCD_to_HEX(ULTRA_DATA.rx_check_ultra[i+1]);
+			i += 3;
+		}
+		
+	}
+
+}
+
+
+//BCD码转HEX进制
+//BCD码就是一个四位二进制数 ，实际却表示的是十进制意义  0x20   代表十进制20
+u8 BCD_to_HEX(u8 data)
+{
+	unsigned char temp;
+
+    temp = ((data>>4)*10 + (data&0x0f));
+    return temp;
+
+}
+
+
+
+void DMA_Usart3_Init(void)
+{
+	DMA_InitTypeDef DMA_InitStructure;
+	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);  
+
+    DMA_DeInit(DMA1_Stream1);
+	while (DMA_GetCmdStatus(DMA1_Stream1) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART3->DR);  
+    DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(ULTRA_DATA.rx_485_ultra);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_PeripheralToMemory;
+    DMA_InitStructure.DMA_BufferSize         = ULTRA_RX_SIZE;
+    DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Circular;
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+    DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA1_Stream1, &DMA_InitStructure); 
+                     
+    DMA_Cmd(DMA1_Stream1, ENABLE); 
+
+	
+}
+
+
+
+void DMA_Usart3TX_Config(u16 tx_len)
+{
+	DMA_InitTypeDef DMA_InitStructure;
+	NVIC_InitTypeDef  NVIC_InitStructure;
+
+	ULTRA_DATA.tx_485_ultra[0] = 0xb7;//测量范围  200mm-5000mm，不间断返回数据
+	ULTRA_DATA.tx_485_ultra[1] = 0x1f;
+	ULTRA_DATA.tx_485_ultra[2] = 0xff;//向超声波设备索要所有探头数据，且探头不停发送数据给上位机
+
+	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA1, ENABLE);    
+	DMA_DeInit(DMA1_Stream3);
+	while (DMA_GetCmdStatus(DMA1_Stream3) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;//发送管道
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART3->DR);  
+	DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(ULTRA_DATA.tx_485_ultra);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
+    DMA_InitStructure.DMA_BufferSize         = ULTRA_TX_SIZE;
+	DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Normal;//正常模式
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+	DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA1_Stream3, &DMA_InitStructure);  
+
+	//DMA_ITConfig(DMA1_Stream6, DMA_IT_TC, ENABLE);
+
+	NVIC_InitStructure.NVIC_IRQChannel = DMA1_Stream3_IRQn; 
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2; 
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1; 
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
+	NVIC_Init(&NVIC_InitStructure);
+
+	 //DMA_Cmd(DMA1_Stream3, ENABLE); 
+
+	MYDMA_Tx_Config(tx_len);//先发送一次指令给超声波设备索要测量数据
+
+}
+
+
+void Time_ultra_avoid_Init(void)
+{
+
+	u16 arr;
+	u16 psc;
+	
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	arr=12000-1;                  //定时器120ms
+	psc=1680-1;
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10,ENABLE); //??? TIM3 ??
+	
+	TIM_TimeBaseInitStructure.TIM_Period = arr; //??????
+	TIM_TimeBaseInitStructure.TIM_Prescaler=psc; //?????
+	TIM_TimeBaseInitStructure.TIM_CounterMode=TIM_CounterMode_Up; //??????
+	TIM_TimeBaseInitStructure.TIM_ClockDivision=TIM_CKD_DIV1;
+	TIM_TimeBaseInit(TIM10,&TIM_TimeBaseInitStructure);// ??????? TIM3
+
+	TIM_ITConfig(TIM10,TIM_IT_Update,ENABLE); //?????? 3 ????
+	
+	NVIC_InitStructure.NVIC_IRQChannel=TIM1_UP_TIM10_IRQn ; //??? 3 ??
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0x00; //????? 1
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0x00; //????? 3
+	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Init(&NVIC_InitStructure);// ???? NVIC
+	
+	TIM_Cmd(TIM10,ENABLE); //?????? 3
+
+
+}
+
+
+//超声波定时中断
+void TIM1_UP_TIM10_IRQHandler(void)
+{
+
+	if(TIM_GetITStatus(TIM10,TIM_IT_Update)==SET)
+	{
+		if(ULTRA_DATA.ultra_distance[0] >= 200)//超声波数据使用的模式是b7,最小测得距离时200mm
+		{
+			ULTRA_DATA.timeout_ultrasonic_cnt++;
+			KULUN_DATA.kulun_timeout_cnt++;
+
+			ultra_avoid_handle();//
+		}
+		
+
+	}
+
+	TIM_ClearITPendingBit(TIM10,TIM_IT_Update);
+
+}
+
+//每120mm查一次超声波数据，如果有一个超声波的数据小于300mm，就停止运动,大于400mm放行
+void ultra_avoid_handle(void)
+{
+	u8 i,y;
+	u16 ultra_dis = 0,data_para = 0x0000;
+
+	#if 1
+
+	for(i =0 ;i < 12 ; i++)//1-4号超声波放在前后，其他放在左右，前后触发距离和左后可能不同，这里分开处理
+	{
+		if(i < 4) //1-4号数据  前后超声波
+		{
+			ultra_dis = ULTRA_DATA.ultra_distance[i];
+
+			if(ultra_dis <= ULTRA_DATA.avoid_act_dis_for_back)
+			{
+				//ULTRA_DATA.avoid_ultra_flag |= (0x0001<<i);
+				switch (i)//每一位标志一个超声波触发情况，1 触发 0未触发
+				{
+					case 0:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0001;
+						break;
+			
+					}
+					case 1:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0002;
+						break;
+			
+					}
+					case 2:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0004;
+						break;
+			
+					}
+					case 3:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0008;
+						break;
+					}
+					default: break;
+				}
+
+			}
+			else  if(ultra_dis > FOR_RUN_DISTANCE)//如果测得距离在400以上就放行
+			{
+				switch (i)//每一位标志一个超声波触发情况，1 触发 0未触发
+				{
+					case 0:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfffe;
+						break;
+			
+					}
+					case 1:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfffc;
+						break;
+			
+					}
+					case 2:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfffb;
+						break;
+			
+					}
+					case 3:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfff7;
+						break;
+			
+					}
+
+					default: break;
+				}
+
+			}
+			//ULTRA_DATA.avoid_ultra_flag &= (0xfffe<<i);//如果大于就把相应位置0
+
+		}
+		else //4-12号数据
+		{
+			ultra_dis = ULTRA_DATA.ultra_distance[i];
+			if(ultra_dis < ULTRA_DATA.avoid_act_dis_left_right)
+			{
+				switch (i)
+				{
+					case 4:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0010;
+						break;			
+					}
+					case 5:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0020;
+						break;			
+					}
+					case 6:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0040;
+						break;			
+					}
+					case 7:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0080;
+						break;			
+					}
+					case 8:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0100;
+						break;			
+					}
+					case 9:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0200;
+						break;			
+					}
+					case 10:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0400;
+						break;			
+					}
+					case 11:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x0800;
+						break;
+					}
+					case 12:
+					{
+						ULTRA_DATA.avoid_ultra_flag |= 0x1000;
+						break;
+					}
+					default: break;
+
+
+				}
+
+					
+
+			}
+		//ULTRA_DATA.avoid_ultra_flag |= 0x0010<<((i-4));
+			else if(ultra_dis > LEFT_RUN_DISTANCE)  
+			{
+				switch (i)
+				{
+					case 4:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xffef;
+						break;			
+					}
+					case 5:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xffcf;
+						break;			
+					}
+					case 6:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xffbf;
+						break;			
+					}
+					case 7:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xff7f;
+						break;			
+					}
+					case 8:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfeff;
+						break;			
+					}
+					case 9:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfcff;
+						break;			
+					}
+					case 10:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xfbff;
+						break;			
+					}
+					case 11:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xf7ff;
+						break;
+					}
+					case 12:
+					{
+						ULTRA_DATA.avoid_ultra_flag &= 0xefff;
+						break;
+					}
+					default: break;
+		
+				}
+			
+			}
+
+		}
+		
+	}
+	#endif
+
+	#if 0
+	ultra_dis = ULTRA_DATA.ultra_distance[0];
+	if(ultra_dis < ULTRA_DATA.avoid_act_dis_left_right)ULTRA_DATA.avoid_ultra_flag  = 1;
+	else ULTRA_DATA.avoid_ultra_flag  = 0;
+	#endif
+
+
+
+
+	if(ULTRA_DATA.avoid_ultra_flag != 0)//如果超声波的数据有一个小于300mm，则进行停止所有运动操作
+	{
+		
+		//停止所有动作操作，包括后轮电机、清扫  
+		ULTRA_DATA.ultrasonic_allow_move_flag = 1;//禁止所有的运动操作
+		Stop_BackWheel();//停止后轮电机运动
+		CAN_data(0x0000);//停止16继电器所有操作
+
+	}
+
+	if(ULTRA_DATA.avoid_ultra_flag == 0)//距离大于触发距离时
+	{
+
+		//ULTRA_DATA.avoid_ultra_flag = 0;// 当距离达到放行距离时才清理
+		ULTRA_DATA.ultrasonic_allow_move_flag = 0;//超声波允许放行标志，此标志为1时，所有可以运动的皆被禁止
+	}
+
+}
+
+
+
+
+
+
+//开启一次DMA发送，先发送一次指令给超声波才有数据返回
+//ndtx 要发送的字节数
+void MYDMA_Tx_Config(u16 ndtx)
+{
+
+	DMA_Cmd(DMA1_Stream3, DISABLE); //?? DMA ??
+	while (DMA_GetCmdStatus(DMA1_Stream3) != DISABLE){} //?? DMA ?????
+	USART_DMACmd(USART3,USART_DMAReq_Tx,ENABLE);
+	DMA_SetCurrDataCounter(DMA1_Stream3,ndtx); //?????
+	DMA_ClearFlag( DMA1_Stream3,DMA_FLAG_TCIF3 );	
+	RS485_RX_EN = 1;//发送模式
+	DMA_Cmd(DMA1_Stream3, ENABLE); //?? DMA ??
+		
+	//while(DMA_GetFlagStatus(DMA1_Stream6,DMA_FLAG_TCIF6)==RESET){}
+	delay_ms(1);//等待发送请求指令完成
+	RS485_RX_EN = 0;//485接收模式
+
+}
+
+
+
+
+//DMA发送完成中断，传输完成就让485进入接收模式
+void DMA1_Stream6_IRQHandler(void)
+{
+	if(DMA_GetFlagStatus(DMA1_Stream3,DMA_FLAG_TCIF3)!=RESET)
+	{
+
+		RS485_RX_EN = 0;//485接收模式
+		//Usart3_reopen_rx();
+	}
+	DMA_ClearFlag(DMA1_Stream3,DMA_FLAG_TCIF3);
+
+
+
+}
+
+
+
+void Usart3_reopen_rx(void)
+{
+
+	DMA_Cmd(DMA1_Stream1, DISABLE);
+	DMA_ClearFlag( DMA1_Stream1, DMA_FLAG_TCIF1 );    //清除传输完成标志位，否则进入传输完成中断
+	while (DMA_GetCmdStatus(DMA1_Stream1) != DISABLE){}
+	
+	DMA_SetCurrDataCounter(DMA1_Stream1,ULTRA_RX_SIZE);
+	DMA_Cmd(DMA1_Stream1, ENABLE);
+
+}
+
+

@@ -1,0 +1,5525 @@
+<modify-entry
+   name="ExtDll.iex"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ExtDll.iex"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ExtDll.iex"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ExtDll.iex"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ExtDll.iex"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ExtDll.iex"
+   name=".svn/tmp/text-base/ExtDll.iex.svn-base"/>
+<mv
+   dest=".svn/text-base/ExtDll.iex.svn-base"
+   name=".svn/tmp/text-base/ExtDll.iex.svn-base"/>
+<readonly
+   name=".svn/text-base/ExtDll.iex.svn-base"/>
+<modify-entry
+   name="ExtDll.iex"
+   checksum="7100000cc92c01cd97d259f8e295306a"/>
+<modify-entry
+   name="ExtDll.iex"
+   text-time="working"/>
+<modify-entry
+   name="ExtDll.iex"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.axf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/ZNSD.axf.svn-base"
+   name=".svn/prop-base/tempfile.tmp"/>
+<readonly
+   name=".svn/prop-base/ZNSD.axf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.axf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.axf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.axf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.axf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.axf"
+   name=".svn/tmp/text-base/ZNSD.axf.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.axf.svn-base"
+   name=".svn/tmp/text-base/ZNSD.axf.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.axf.svn-base"/>
+<modify-entry
+   name="ZNSD.axf"
+   checksum="5b5511885a3ca1e6da082db7134da669"/>
+<modify-entry
+   name="ZNSD.axf"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.axf"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.bin"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/ZNSD.bin.svn-base"
+   name=".svn/prop-base/tempfile.2.tmp"/>
+<readonly
+   name=".svn/prop-base/ZNSD.bin.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.bin"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.bin"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.bin"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.bin"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.bin"
+   name=".svn/tmp/text-base/ZNSD.bin.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.bin.svn-base"
+   name=".svn/tmp/text-base/ZNSD.bin.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.bin.svn-base"/>
+<modify-entry
+   name="ZNSD.bin"
+   checksum="f2201e43ab8bd0b76de0f0994ff4f85e"/>
+<modify-entry
+   name="ZNSD.bin"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.bin"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.build_log.htm"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.build_log.htm"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.build_log.htm"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.build_log.htm"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.build_log.htm"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.build_log.htm"
+   name=".svn/tmp/text-base/ZNSD.build_log.htm.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.build_log.htm.svn-base"
+   name=".svn/tmp/text-base/ZNSD.build_log.htm.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.build_log.htm.svn-base"/>
+<modify-entry
+   name="ZNSD.build_log.htm"
+   checksum="b31fe8b8a9ccc6e3780854fd904879f5"/>
+<modify-entry
+   name="ZNSD.build_log.htm"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.build_log.htm"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.htm"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.htm"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.htm"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.htm"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.htm"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.htm"
+   name=".svn/tmp/text-base/ZNSD.htm.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.htm.svn-base"
+   name=".svn/tmp/text-base/ZNSD.htm.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.htm.svn-base"/>
+<modify-entry
+   name="ZNSD.htm"
+   checksum="0170986b57919d4c5d4cf446a2d2d0b9"/>
+<modify-entry
+   name="ZNSD.htm"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.htm"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.lnp"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.lnp"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.lnp"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.lnp"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.lnp"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.lnp"
+   name=".svn/tmp/text-base/ZNSD.lnp.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.lnp.svn-base"
+   name=".svn/tmp/text-base/ZNSD.lnp.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.lnp.svn-base"/>
+<modify-entry
+   name="ZNSD.lnp"
+   checksum="1372d565e16f74cb144f90a2660ef9ff"/>
+<modify-entry
+   name="ZNSD.lnp"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.lnp"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD.sct"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD.sct"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD.sct"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD.sct"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD.sct"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD.sct"
+   name=".svn/tmp/text-base/ZNSD.sct.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD.sct.svn-base"
+   name=".svn/tmp/text-base/ZNSD.sct.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD.sct.svn-base"/>
+<modify-entry
+   name="ZNSD.sct"
+   checksum="f7f86b6943e72a94a4bda522cfa1a4f0"/>
+<modify-entry
+   name="ZNSD.sct"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD.sct"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD_1.bin"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/ZNSD_1.bin.svn-base"
+   name=".svn/prop-base/tempfile.3.tmp"/>
+<readonly
+   name=".svn/prop-base/ZNSD_1.bin.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD_1.bin"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD_1.bin"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD_1.bin"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD_1.bin"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD_1.bin"
+   name=".svn/tmp/text-base/ZNSD_1.bin.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD_1.bin.svn-base"
+   name=".svn/tmp/text-base/ZNSD_1.bin.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD_1.bin.svn-base"/>
+<modify-entry
+   name="ZNSD_1.bin"
+   checksum="8a6e9e9840e9ea1670e902889ceaccba"/>
+<modify-entry
+   name="ZNSD_1.bin"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD_1.bin"
+   working-size="working"/>
+<modify-entry
+   name="ZNSD_sct.Bak"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ZNSD_sct.Bak"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ZNSD_sct.Bak"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ZNSD_sct.Bak"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ZNSD_sct.Bak"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ZNSD_sct.Bak"
+   name=".svn/tmp/text-base/ZNSD_sct.Bak.svn-base"/>
+<mv
+   dest=".svn/text-base/ZNSD_sct.Bak.svn-base"
+   name=".svn/tmp/text-base/ZNSD_sct.Bak.svn-base"/>
+<readonly
+   name=".svn/text-base/ZNSD_sct.Bak.svn-base"/>
+<modify-entry
+   name="ZNSD_sct.Bak"
+   checksum="4a96439b88af6cf03deb863c47cb6e97"/>
+<modify-entry
+   name="ZNSD_sct.Bak"
+   text-time="working"/>
+<modify-entry
+   name="ZNSD_sct.Bak"
+   working-size="working"/>
+<modify-entry
+   name="accelerate.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/accelerate.crf.svn-base"
+   name=".svn/prop-base/tempfile.4.tmp"/>
+<readonly
+   name=".svn/prop-base/accelerate.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="accelerate.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="accelerate.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/accelerate.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="accelerate.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="accelerate.crf"
+   name=".svn/tmp/text-base/accelerate.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/accelerate.crf.svn-base"
+   name=".svn/tmp/text-base/accelerate.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/accelerate.crf.svn-base"/>
+<modify-entry
+   name="accelerate.crf"
+   checksum="98fece6654394f629f1e08795f262744"/>
+<modify-entry
+   name="accelerate.crf"
+   text-time="working"/>
+<modify-entry
+   name="accelerate.crf"
+   working-size="working"/>
+<modify-entry
+   name="accelerate.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="accelerate.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="accelerate.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/accelerate.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="accelerate.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="accelerate.d"
+   name=".svn/tmp/text-base/accelerate.d.svn-base"/>
+<mv
+   dest=".svn/text-base/accelerate.d.svn-base"
+   name=".svn/tmp/text-base/accelerate.d.svn-base"/>
+<readonly
+   name=".svn/text-base/accelerate.d.svn-base"/>
+<modify-entry
+   name="accelerate.d"
+   checksum="f983af30d0652feceb7c987141d8ccbf"/>
+<modify-entry
+   name="accelerate.d"
+   text-time="working"/>
+<modify-entry
+   name="accelerate.d"
+   working-size="working"/>
+<modify-entry
+   name="app_update.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/app_update.crf.svn-base"
+   name=".svn/prop-base/tempfile.5.tmp"/>
+<readonly
+   name=".svn/prop-base/app_update.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="app_update.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="app_update.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/app_update.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="app_update.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="app_update.crf"
+   name=".svn/tmp/text-base/app_update.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/app_update.crf.svn-base"
+   name=".svn/tmp/text-base/app_update.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/app_update.crf.svn-base"/>
+<modify-entry
+   name="app_update.crf"
+   checksum="8a5a4745c783da8695acd0977b2ada84"/>
+<modify-entry
+   name="app_update.crf"
+   text-time="working"/>
+<modify-entry
+   name="app_update.crf"
+   working-size="working"/>
+<modify-entry
+   name="app_update.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="app_update.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="app_update.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/app_update.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="app_update.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="app_update.d"
+   name=".svn/tmp/text-base/app_update.d.svn-base"/>
+<mv
+   dest=".svn/text-base/app_update.d.svn-base"
+   name=".svn/tmp/text-base/app_update.d.svn-base"/>
+<readonly
+   name=".svn/text-base/app_update.d.svn-base"/>
+<modify-entry
+   name="app_update.d"
+   checksum="51a12070736dfc0f01c951deac63b99e"/>
+<modify-entry
+   name="app_update.d"
+   text-time="working"/>
+<modify-entry
+   name="app_update.d"
+   working-size="working"/>
+<modify-entry
+   name="break.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/break.crf.svn-base"
+   name=".svn/prop-base/tempfile.6.tmp"/>
+<readonly
+   name=".svn/prop-base/break.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="break.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="break.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/break.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="break.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="break.crf"
+   name=".svn/tmp/text-base/break.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/break.crf.svn-base"
+   name=".svn/tmp/text-base/break.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/break.crf.svn-base"/>
+<modify-entry
+   name="break.crf"
+   checksum="334ee588208758694cdbcb85f4cd9fb4"/>
+<modify-entry
+   name="break.crf"
+   text-time="working"/>
+<modify-entry
+   name="break.crf"
+   working-size="working"/>
+<modify-entry
+   name="break.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="break.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="break.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/break.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="break.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="break.d"
+   name=".svn/tmp/text-base/break.d.svn-base"/>
+<mv
+   dest=".svn/text-base/break.d.svn-base"
+   name=".svn/tmp/text-base/break.d.svn-base"/>
+<readonly
+   name=".svn/text-base/break.d.svn-base"/>
+<modify-entry
+   name="break.d"
+   checksum="f272c224a08a9b6479414d1a30459952"/>
+<modify-entry
+   name="break.d"
+   text-time="working"/>
+<modify-entry
+   name="break.d"
+   working-size="working"/>
+<modify-entry
+   name="crash.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/crash.crf.svn-base"
+   name=".svn/prop-base/tempfile.7.tmp"/>
+<readonly
+   name=".svn/prop-base/crash.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="crash.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="crash.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/crash.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="crash.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="crash.crf"
+   name=".svn/tmp/text-base/crash.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/crash.crf.svn-base"
+   name=".svn/tmp/text-base/crash.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/crash.crf.svn-base"/>
+<modify-entry
+   name="crash.crf"
+   checksum="8edb9dd538fdddecad750805883c6a7f"/>
+<modify-entry
+   name="crash.crf"
+   text-time="working"/>
+<modify-entry
+   name="crash.crf"
+   working-size="working"/>
+<modify-entry
+   name="crash.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="crash.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="crash.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/crash.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="crash.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="crash.d"
+   name=".svn/tmp/text-base/crash.d.svn-base"/>
+<mv
+   dest=".svn/text-base/crash.d.svn-base"
+   name=".svn/tmp/text-base/crash.d.svn-base"/>
+<readonly
+   name=".svn/text-base/crash.d.svn-base"/>
+<modify-entry
+   name="crash.d"
+   checksum="83656f75deca6bf5fa6ed7f4f61f4304"/>
+<modify-entry
+   name="crash.d"
+   text-time="working"/>
+<modify-entry
+   name="crash.d"
+   working-size="working"/>
+<modify-entry
+   name="delay.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/delay.crf.svn-base"
+   name=".svn/prop-base/tempfile.8.tmp"/>
+<readonly
+   name=".svn/prop-base/delay.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="delay.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="delay.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/delay.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="delay.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="delay.crf"
+   name=".svn/tmp/text-base/delay.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/delay.crf.svn-base"
+   name=".svn/tmp/text-base/delay.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/delay.crf.svn-base"/>
+<modify-entry
+   name="delay.crf"
+   checksum="6f657b288faafdcd17106425e5d89234"/>
+<modify-entry
+   name="delay.crf"
+   text-time="working"/>
+<modify-entry
+   name="delay.crf"
+   working-size="working"/>
+<modify-entry
+   name="delay.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="delay.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="delay.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/delay.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="delay.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="delay.d"
+   name=".svn/tmp/text-base/delay.d.svn-base"/>
+<mv
+   dest=".svn/text-base/delay.d.svn-base"
+   name=".svn/tmp/text-base/delay.d.svn-base"/>
+<readonly
+   name=".svn/text-base/delay.d.svn-base"/>
+<modify-entry
+   name="delay.d"
+   checksum="d10953d359dc73b5e334b894ff27c668"/>
+<modify-entry
+   name="delay.d"
+   text-time="working"/>
+<modify-entry
+   name="delay.d"
+   working-size="working"/>
+<modify-entry
+   name="electricity_pole.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/electricity_pole.crf.svn-base"
+   name=".svn/prop-base/tempfile.9.tmp"/>
+<readonly
+   name=".svn/prop-base/electricity_pole.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="electricity_pole.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="electricity_pole.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/electricity_pole.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="electricity_pole.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="electricity_pole.crf"
+   name=".svn/tmp/text-base/electricity_pole.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/electricity_pole.crf.svn-base"
+   name=".svn/tmp/text-base/electricity_pole.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/electricity_pole.crf.svn-base"/>
+<modify-entry
+   name="electricity_pole.crf"
+   checksum="8a5a4745c783da8695acd0977b2ada84"/>
+<modify-entry
+   name="electricity_pole.crf"
+   text-time="working"/>
+<modify-entry
+   name="electricity_pole.crf"
+   working-size="working"/>
+<modify-entry
+   name="electricity_pole.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="electricity_pole.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="electricity_pole.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/electricity_pole.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="electricity_pole.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="electricity_pole.d"
+   name=".svn/tmp/text-base/electricity_pole.d.svn-base"/>
+<mv
+   dest=".svn/text-base/electricity_pole.d.svn-base"
+   name=".svn/tmp/text-base/electricity_pole.d.svn-base"/>
+<readonly
+   name=".svn/text-base/electricity_pole.d.svn-base"/>
+<modify-entry
+   name="electricity_pole.d"
+   checksum="bbcfa9f46df293d06aa31ac8a653398e"/>
+<modify-entry
+   name="electricity_pole.d"
+   text-time="working"/>
+<modify-entry
+   name="electricity_pole.d"
+   working-size="working"/>
+<modify-entry
+   name="enconder.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/enconder.crf.svn-base"
+   name=".svn/prop-base/tempfile.10.tmp"/>
+<readonly
+   name=".svn/prop-base/enconder.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="enconder.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="enconder.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/enconder.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="enconder.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="enconder.crf"
+   name=".svn/tmp/text-base/enconder.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/enconder.crf.svn-base"
+   name=".svn/tmp/text-base/enconder.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/enconder.crf.svn-base"/>
+<modify-entry
+   name="enconder.crf"
+   checksum="a6ec1469b60b871add56badb9133d50b"/>
+<modify-entry
+   name="enconder.crf"
+   text-time="working"/>
+<modify-entry
+   name="enconder.crf"
+   working-size="working"/>
+<modify-entry
+   name="enconder.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="enconder.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="enconder.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/enconder.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="enconder.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="enconder.d"
+   name=".svn/tmp/text-base/enconder.d.svn-base"/>
+<mv
+   dest=".svn/text-base/enconder.d.svn-base"
+   name=".svn/tmp/text-base/enconder.d.svn-base"/>
+<readonly
+   name=".svn/text-base/enconder.d.svn-base"/>
+<modify-entry
+   name="enconder.d"
+   checksum="b282dcc83747798e7a650a93b930fd22"/>
+<modify-entry
+   name="enconder.d"
+   text-time="working"/>
+<modify-entry
+   name="enconder.d"
+   working-size="working"/>
+<modify-entry
+   name="kulun.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/kulun.crf.svn-base"
+   name=".svn/prop-base/tempfile.11.tmp"/>
+<readonly
+   name=".svn/prop-base/kulun.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="kulun.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="kulun.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/kulun.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="kulun.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="kulun.crf"
+   name=".svn/tmp/text-base/kulun.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/kulun.crf.svn-base"
+   name=".svn/tmp/text-base/kulun.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/kulun.crf.svn-base"/>
+<modify-entry
+   name="kulun.crf"
+   checksum="806ccbbd8a62760410d208f022828000"/>
+<modify-entry
+   name="kulun.crf"
+   text-time="working"/>
+<modify-entry
+   name="kulun.crf"
+   working-size="working"/>
+<modify-entry
+   name="kulun.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="kulun.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="kulun.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/kulun.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="kulun.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="kulun.d"
+   name=".svn/tmp/text-base/kulun.d.svn-base"/>
+<mv
+   dest=".svn/text-base/kulun.d.svn-base"
+   name=".svn/tmp/text-base/kulun.d.svn-base"/>
+<readonly
+   name=".svn/text-base/kulun.d.svn-base"/>
+<modify-entry
+   name="kulun.d"
+   checksum="00f512e71cda8df54b5200efbb3b6a33"/>
+<modify-entry
+   name="kulun.d"
+   text-time="working"/>
+<modify-entry
+   name="kulun.d"
+   working-size="working"/>
+<modify-entry
+   name="main.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/main.crf.svn-base"
+   name=".svn/prop-base/tempfile.12.tmp"/>
+<readonly
+   name=".svn/prop-base/main.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="main.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="main.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/main.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="main.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="main.crf"
+   name=".svn/tmp/text-base/main.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/main.crf.svn-base"
+   name=".svn/tmp/text-base/main.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/main.crf.svn-base"/>
+<modify-entry
+   name="main.crf"
+   checksum="512b2f1fbb1f092148c907b3cd754f09"/>
+<modify-entry
+   name="main.crf"
+   text-time="working"/>
+<modify-entry
+   name="main.crf"
+   working-size="working"/>
+<modify-entry
+   name="main.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="main.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="main.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/main.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="main.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="main.d"
+   name=".svn/tmp/text-base/main.d.svn-base"/>
+<mv
+   dest=".svn/text-base/main.d.svn-base"
+   name=".svn/tmp/text-base/main.d.svn-base"/>
+<readonly
+   name=".svn/text-base/main.d.svn-base"/>
+<modify-entry
+   name="main.d"
+   checksum="a855d1c3e1b1b75f49b222d748e8263c"/>
+<modify-entry
+   name="main.d"
+   text-time="working"/>
+<modify-entry
+   name="main.d"
+   working-size="working"/>
+<modify-entry
+   name="misc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/misc.crf.svn-base"
+   name=".svn/prop-base/tempfile.13.tmp"/>
+<readonly
+   name=".svn/prop-base/misc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="misc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="misc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/misc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="misc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="misc.crf"
+   name=".svn/tmp/text-base/misc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/misc.crf.svn-base"
+   name=".svn/tmp/text-base/misc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/misc.crf.svn-base"/>
+<modify-entry
+   name="misc.crf"
+   checksum="8a64ef2f6560a693c297ed030a29c301"/>
+<modify-entry
+   name="misc.crf"
+   text-time="working"/>
+<modify-entry
+   name="misc.crf"
+   working-size="working"/>
+<modify-entry
+   name="misc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="misc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="misc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/misc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="misc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="misc.d"
+   name=".svn/tmp/text-base/misc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/misc.d.svn-base"
+   name=".svn/tmp/text-base/misc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/misc.d.svn-base"/>
+<modify-entry
+   name="misc.d"
+   checksum="40ae0d3232071151c6aeac429b01ee8d"/>
+<modify-entry
+   name="misc.d"
+   text-time="working"/>
+<modify-entry
+   name="misc.d"
+   working-size="working"/>
+<modify-entry
+   name="motor_device.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/motor_device.crf.svn-base"
+   name=".svn/prop-base/tempfile.14.tmp"/>
+<readonly
+   name=".svn/prop-base/motor_device.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="motor_device.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="motor_device.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/motor_device.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="motor_device.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="motor_device.crf"
+   name=".svn/tmp/text-base/motor_device.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/motor_device.crf.svn-base"
+   name=".svn/tmp/text-base/motor_device.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/motor_device.crf.svn-base"/>
+<modify-entry
+   name="motor_device.crf"
+   checksum="094aa73a2d4bcf90c9c35206f962ebc9"/>
+<modify-entry
+   name="motor_device.crf"
+   text-time="working"/>
+<modify-entry
+   name="motor_device.crf"
+   working-size="working"/>
+<modify-entry
+   name="motor_device.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="motor_device.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="motor_device.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/motor_device.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="motor_device.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="motor_device.d"
+   name=".svn/tmp/text-base/motor_device.d.svn-base"/>
+<mv
+   dest=".svn/text-base/motor_device.d.svn-base"
+   name=".svn/tmp/text-base/motor_device.d.svn-base"/>
+<readonly
+   name=".svn/text-base/motor_device.d.svn-base"/>
+<modify-entry
+   name="motor_device.d"
+   checksum="fc11c674daadb9fbafce96d02f08e0c4"/>
+<modify-entry
+   name="motor_device.d"
+   text-time="working"/>
+<modify-entry
+   name="motor_device.d"
+   working-size="working"/>
+<modify-entry
+   name="pixhawk_pwm_capture.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/pixhawk_pwm_capture.crf.svn-base"
+   name=".svn/prop-base/tempfile.15.tmp"/>
+<readonly
+   name=".svn/prop-base/pixhawk_pwm_capture.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="pixhawk_pwm_capture.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="pixhawk_pwm_capture.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/pixhawk_pwm_capture.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="pixhawk_pwm_capture.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="pixhawk_pwm_capture.crf"
+   name=".svn/tmp/text-base/pixhawk_pwm_capture.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/pixhawk_pwm_capture.crf.svn-base"
+   name=".svn/tmp/text-base/pixhawk_pwm_capture.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/pixhawk_pwm_capture.crf.svn-base"/>
+<modify-entry
+   name="pixhawk_pwm_capture.crf"
+   checksum="34e6c84f7d1fb1941d1eb8a14335fd54"/>
+<modify-entry
+   name="pixhawk_pwm_capture.crf"
+   text-time="working"/>
+<modify-entry
+   name="pixhawk_pwm_capture.crf"
+   working-size="working"/>
+<modify-entry
+   name="pixhawk_pwm_capture.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="pixhawk_pwm_capture.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="pixhawk_pwm_capture.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/pixhawk_pwm_capture.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="pixhawk_pwm_capture.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="pixhawk_pwm_capture.d"
+   name=".svn/tmp/text-base/pixhawk_pwm_capture.d.svn-base"/>
+<mv
+   dest=".svn/text-base/pixhawk_pwm_capture.d.svn-base"
+   name=".svn/tmp/text-base/pixhawk_pwm_capture.d.svn-base"/>
+<readonly
+   name=".svn/text-base/pixhawk_pwm_capture.d.svn-base"/>
+<modify-entry
+   name="pixhawk_pwm_capture.d"
+   checksum="d9d786eb9f062e868f920fda0abdd0a3"/>
+<modify-entry
+   name="pixhawk_pwm_capture.d"
+   text-time="working"/>
+<modify-entry
+   name="pixhawk_pwm_capture.d"
+   working-size="working"/>
+<modify-entry
+   name="reset.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/reset.crf.svn-base"
+   name=".svn/prop-base/tempfile.16.tmp"/>
+<readonly
+   name=".svn/prop-base/reset.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="reset.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="reset.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/reset.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="reset.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="reset.crf"
+   name=".svn/tmp/text-base/reset.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/reset.crf.svn-base"
+   name=".svn/tmp/text-base/reset.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/reset.crf.svn-base"/>
+<modify-entry
+   name="reset.crf"
+   checksum="da3d1cc4045929252523e37c732e9c71"/>
+<modify-entry
+   name="reset.crf"
+   text-time="working"/>
+<modify-entry
+   name="reset.crf"
+   working-size="working"/>
+<modify-entry
+   name="reset.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="reset.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="reset.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/reset.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="reset.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="reset.d"
+   name=".svn/tmp/text-base/reset.d.svn-base"/>
+<mv
+   dest=".svn/text-base/reset.d.svn-base"
+   name=".svn/tmp/text-base/reset.d.svn-base"/>
+<readonly
+   name=".svn/text-base/reset.d.svn-base"/>
+<modify-entry
+   name="reset.d"
+   checksum="19b9e2956062ffeef8e9f69c8cd6991b"/>
+<modify-entry
+   name="reset.d"
+   text-time="working"/>
+<modify-entry
+   name="reset.d"
+   working-size="working"/>
+<modify-entry
+   name="rs485_device.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/rs485_device.crf.svn-base"
+   name=".svn/prop-base/tempfile.17.tmp"/>
+<readonly
+   name=".svn/prop-base/rs485_device.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="rs485_device.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="rs485_device.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/rs485_device.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="rs485_device.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="rs485_device.crf"
+   name=".svn/tmp/text-base/rs485_device.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/rs485_device.crf.svn-base"
+   name=".svn/tmp/text-base/rs485_device.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/rs485_device.crf.svn-base"/>
+<modify-entry
+   name="rs485_device.crf"
+   checksum="f239024d312d62671db23f7f682220b4"/>
+<modify-entry
+   name="rs485_device.crf"
+   text-time="working"/>
+<modify-entry
+   name="rs485_device.crf"
+   working-size="working"/>
+<modify-entry
+   name="rs485_device.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="rs485_device.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="rs485_device.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/rs485_device.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="rs485_device.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="rs485_device.d"
+   name=".svn/tmp/text-base/rs485_device.d.svn-base"/>
+<mv
+   dest=".svn/text-base/rs485_device.d.svn-base"
+   name=".svn/tmp/text-base/rs485_device.d.svn-base"/>
+<readonly
+   name=".svn/text-base/rs485_device.d.svn-base"/>
+<modify-entry
+   name="rs485_device.d"
+   checksum="efb04f7a558f21903b92a424c3144171"/>
+<modify-entry
+   name="rs485_device.d"
+   text-time="working"/>
+<modify-entry
+   name="rs485_device.d"
+   working-size="working"/>
+<modify-entry
+   name="run_led.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/run_led.crf.svn-base"
+   name=".svn/prop-base/tempfile.18.tmp"/>
+<readonly
+   name=".svn/prop-base/run_led.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_led.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_led.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_led.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_led.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_led.crf"
+   name=".svn/tmp/text-base/run_led.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/run_led.crf.svn-base"
+   name=".svn/tmp/text-base/run_led.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/run_led.crf.svn-base"/>
+<modify-entry
+   name="run_led.crf"
+   checksum="5a48c4e4b20c3018e656495353672883"/>
+<modify-entry
+   name="run_led.crf"
+   text-time="working"/>
+<modify-entry
+   name="run_led.crf"
+   working-size="working"/>
+<modify-entry
+   name="run_led.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_led.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_led.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_led.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_led.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_led.d"
+   name=".svn/tmp/text-base/run_led.d.svn-base"/>
+<mv
+   dest=".svn/text-base/run_led.d.svn-base"
+   name=".svn/tmp/text-base/run_led.d.svn-base"/>
+<readonly
+   name=".svn/text-base/run_led.d.svn-base"/>
+<modify-entry
+   name="run_led.d"
+   checksum="24e580b4e168c4c081c5dc99f464abcf"/>
+<modify-entry
+   name="run_led.d"
+   text-time="working"/>
+<modify-entry
+   name="run_led.d"
+   working-size="working"/>
+<modify-entry
+   name="run_motor.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/run_motor.crf.svn-base"
+   name=".svn/prop-base/tempfile.19.tmp"/>
+<readonly
+   name=".svn/prop-base/run_motor.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_motor.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_motor.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_motor.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_motor.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_motor.crf"
+   name=".svn/tmp/text-base/run_motor.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/run_motor.crf.svn-base"
+   name=".svn/tmp/text-base/run_motor.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/run_motor.crf.svn-base"/>
+<modify-entry
+   name="run_motor.crf"
+   checksum="35bf65805fc42cbce022b33977b91e46"/>
+<modify-entry
+   name="run_motor.crf"
+   text-time="working"/>
+<modify-entry
+   name="run_motor.crf"
+   working-size="working"/>
+<modify-entry
+   name="run_motor.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_motor.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_motor.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_motor.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_motor.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_motor.d"
+   name=".svn/tmp/text-base/run_motor.d.svn-base"/>
+<mv
+   dest=".svn/text-base/run_motor.d.svn-base"
+   name=".svn/tmp/text-base/run_motor.d.svn-base"/>
+<readonly
+   name=".svn/text-base/run_motor.d.svn-base"/>
+<modify-entry
+   name="run_motor.d"
+   checksum="8a4e122a369bdb8a1b6c249392c26521"/>
+<modify-entry
+   name="run_motor.d"
+   text-time="working"/>
+<modify-entry
+   name="run_motor.d"
+   working-size="working"/>
+<modify-entry
+   name="run_motor_485.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/run_motor_485.crf.svn-base"
+   name=".svn/prop-base/tempfile.20.tmp"/>
+<readonly
+   name=".svn/prop-base/run_motor_485.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_motor_485.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_motor_485.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_motor_485.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_motor_485.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_motor_485.crf"
+   name=".svn/tmp/text-base/run_motor_485.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/run_motor_485.crf.svn-base"
+   name=".svn/tmp/text-base/run_motor_485.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/run_motor_485.crf.svn-base"/>
+<modify-entry
+   name="run_motor_485.crf"
+   checksum="b28660df70b8e4bfa024b64f7ffe8691"/>
+<modify-entry
+   name="run_motor_485.crf"
+   text-time="working"/>
+<modify-entry
+   name="run_motor_485.crf"
+   working-size="working"/>
+<modify-entry
+   name="run_motor_485.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="run_motor_485.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="run_motor_485.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/run_motor_485.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="run_motor_485.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="run_motor_485.d"
+   name=".svn/tmp/text-base/run_motor_485.d.svn-base"/>
+<mv
+   dest=".svn/text-base/run_motor_485.d.svn-base"
+   name=".svn/tmp/text-base/run_motor_485.d.svn-base"/>
+<readonly
+   name=".svn/text-base/run_motor_485.d.svn-base"/>
+<modify-entry
+   name="run_motor_485.d"
+   checksum="11ffb4f632ffc36a7e39a93bf7109723"/>
+<modify-entry
+   name="run_motor_485.d"
+   text-time="working"/>
+<modify-entry
+   name="run_motor_485.d"
+   working-size="working"/>
+<modify-entry
+   name="startup_stm32f40_41xxx.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="startup_stm32f40_41xxx.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="startup_stm32f40_41xxx.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/startup_stm32f40_41xxx.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="startup_stm32f40_41xxx.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="startup_stm32f40_41xxx.d"
+   name=".svn/tmp/text-base/startup_stm32f40_41xxx.d.svn-base"/>
+<mv
+   dest=".svn/text-base/startup_stm32f40_41xxx.d.svn-base"
+   name=".svn/tmp/text-base/startup_stm32f40_41xxx.d.svn-base"/>
+<readonly
+   name=".svn/text-base/startup_stm32f40_41xxx.d.svn-base"/>
+<modify-entry
+   name="startup_stm32f40_41xxx.d"
+   checksum="8886ea70f6290ee97904c1e73e210a53"/>
+<modify-entry
+   name="startup_stm32f40_41xxx.d"
+   text-time="working"/>
+<modify-entry
+   name="startup_stm32f40_41xxx.d"
+   working-size="working"/>
+<modify-entry
+   name="steer_motor.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/steer_motor.crf.svn-base"
+   name=".svn/prop-base/tempfile.21.tmp"/>
+<readonly
+   name=".svn/prop-base/steer_motor.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="steer_motor.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="steer_motor.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/steer_motor.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="steer_motor.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="steer_motor.crf"
+   name=".svn/tmp/text-base/steer_motor.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/steer_motor.crf.svn-base"
+   name=".svn/tmp/text-base/steer_motor.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/steer_motor.crf.svn-base"/>
+<modify-entry
+   name="steer_motor.crf"
+   checksum="927134131f526e1d65313acc834dcb84"/>
+<modify-entry
+   name="steer_motor.crf"
+   text-time="working"/>
+<modify-entry
+   name="steer_motor.crf"
+   working-size="working"/>
+<modify-entry
+   name="steer_motor.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="steer_motor.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="steer_motor.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/steer_motor.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="steer_motor.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="steer_motor.d"
+   name=".svn/tmp/text-base/steer_motor.d.svn-base"/>
+<mv
+   dest=".svn/text-base/steer_motor.d.svn-base"
+   name=".svn/tmp/text-base/steer_motor.d.svn-base"/>
+<readonly
+   name=".svn/text-base/steer_motor.d.svn-base"/>
+<modify-entry
+   name="steer_motor.d"
+   checksum="7712658dcbb56163b405c0e576c56422"/>
+<modify-entry
+   name="steer_motor.d"
+   text-time="working"/>
+<modify-entry
+   name="steer_motor.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_adc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_adc.crf.svn-base"
+   name=".svn/prop-base/tempfile.22.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_adc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_adc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_adc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_adc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_adc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_adc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_adc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_adc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_adc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_adc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_adc.crf"
+   checksum="27557cd39b5be7e0610f67136795a1b6"/>
+<modify-entry
+   name="stm32f4xx_adc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_adc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_adc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_adc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_adc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_adc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_adc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_adc.d"
+   name=".svn/tmp/text-base/stm32f4xx_adc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_adc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_adc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_adc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_adc.d"
+   checksum="a067b68bd9c35b0f53a4cbec2e08458b"/>
+<modify-entry
+   name="stm32f4xx_adc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_adc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_can.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_can.crf.svn-base"
+   name=".svn/prop-base/tempfile.23.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_can.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_can.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_can.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_can.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_can.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_can.crf"
+   name=".svn/tmp/text-base/stm32f4xx_can.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_can.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_can.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_can.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_can.crf"
+   checksum="3e00d36e13e1cab52214e563729076e0"/>
+<modify-entry
+   name="stm32f4xx_can.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_can.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_can.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_can.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_can.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_can.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_can.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_can.d"
+   name=".svn/tmp/text-base/stm32f4xx_can.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_can.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_can.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_can.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_can.d"
+   checksum="b24eac933d7f541b6c5b76db2fca929f"/>
+<modify-entry
+   name="stm32f4xx_can.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_can.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_crc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_crc.crf.svn-base"
+   name=".svn/prop-base/tempfile.24.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_crc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_crc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_crc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_crc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_crc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_crc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_crc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_crc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_crc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_crc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_crc.crf"
+   checksum="3ea58eda951d357fcf6c05cfbd16b273"/>
+<modify-entry
+   name="stm32f4xx_crc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_crc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_crc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_crc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_crc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_crc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_crc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_crc.d"
+   name=".svn/tmp/text-base/stm32f4xx_crc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_crc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_crc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_crc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_crc.d"
+   checksum="d5c7cb8c04fd34d456106ab94276100e"/>
+<modify-entry
+   name="stm32f4xx_crc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_crc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_cryp.crf.svn-base"
+   name=".svn/prop-base/tempfile.25.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_cryp.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp.crf"
+   name=".svn/tmp/text-base/stm32f4xx_cryp.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp.crf"
+   checksum="b7edb749cab7fd673c4ddb50b366a567"/>
+<modify-entry
+   name="stm32f4xx_cryp.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp.d"
+   name=".svn/tmp/text-base/stm32f4xx_cryp.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp.d"
+   checksum="91cef4e4b93702b770b23bfeb6fdca3e"/>
+<modify-entry
+   name="stm32f4xx_cryp.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_cryp_aes.crf.svn-base"
+   name=".svn/prop-base/tempfile.26.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_cryp_aes.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_aes.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_aes.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_aes.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_aes.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_aes.crf"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_aes.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_aes.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_aes.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_aes.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.crf"
+   checksum="e2849c1d48dbb71d71f383db30f66c26"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_aes.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_aes.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_aes.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_aes.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_aes.d"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_aes.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_aes.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_aes.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_aes.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.d"
+   checksum="bcdec090c8103a2eb2b9ac954f3e8703"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_aes.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_cryp_des.crf.svn-base"
+   name=".svn/prop-base/tempfile.27.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_cryp_des.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_des.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_des.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_des.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_des.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_des.crf"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_des.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_des.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_des.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_des.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.crf"
+   checksum="31d30865b77c980124446d68710697b8"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_des.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_des.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_des.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_des.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_des.d"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_des.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_des.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_des.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_des.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.d"
+   checksum="fe2450ac4702491a8c87e25052a94476"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_des.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_cryp_tdes.crf.svn-base"
+   name=".svn/prop-base/tempfile.28.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_cryp_tdes.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_tdes.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_tdes.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_tdes.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_tdes.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_tdes.crf"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_tdes.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_tdes.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_tdes.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_tdes.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.crf"
+   checksum="4fa47ec0e3523a2b32359127119000f4"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_cryp_tdes.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_cryp_tdes.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_cryp_tdes.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_cryp_tdes.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_cryp_tdes.d"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_tdes.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_cryp_tdes.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_cryp_tdes.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_cryp_tdes.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.d"
+   checksum="4eb4a46872c6de0d292aafdc61da83e1"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_cryp_tdes.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dac.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_dac.crf.svn-base"
+   name=".svn/prop-base/tempfile.29.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_dac.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dac.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dac.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dac.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dac.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dac.crf"
+   name=".svn/tmp/text-base/stm32f4xx_dac.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dac.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dac.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dac.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dac.crf"
+   checksum="4c412ec20d7ff12a6956f5703d99f3e5"/>
+<modify-entry
+   name="stm32f4xx_dac.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dac.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dac.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dac.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dac.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dac.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dac.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dac.d"
+   name=".svn/tmp/text-base/stm32f4xx_dac.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dac.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dac.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dac.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dac.d"
+   checksum="7b760cc6287dee7133393d462caa8e79"/>
+<modify-entry
+   name="stm32f4xx_dac.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dac.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_dbgmcu.crf.svn-base"
+   name=".svn/prop-base/tempfile.30.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_dbgmcu.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dbgmcu.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dbgmcu.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dbgmcu.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dbgmcu.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dbgmcu.crf"
+   name=".svn/tmp/text-base/stm32f4xx_dbgmcu.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dbgmcu.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dbgmcu.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dbgmcu.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.crf"
+   checksum="d233456a0e9c7d2adc2ee0745d2078ed"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dbgmcu.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dbgmcu.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dbgmcu.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dbgmcu.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dbgmcu.d"
+   name=".svn/tmp/text-base/stm32f4xx_dbgmcu.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dbgmcu.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dbgmcu.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dbgmcu.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.d"
+   checksum="22c1e20360ae67d8d733a0645110bd14"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dbgmcu.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dcmi.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_dcmi.crf.svn-base"
+   name=".svn/prop-base/tempfile.31.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_dcmi.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dcmi.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dcmi.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dcmi.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dcmi.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dcmi.crf"
+   name=".svn/tmp/text-base/stm32f4xx_dcmi.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dcmi.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dcmi.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dcmi.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dcmi.crf"
+   checksum="fe88b2d7d2d426233ea23ebd7a53276d"/>
+<modify-entry
+   name="stm32f4xx_dcmi.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dcmi.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dcmi.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dcmi.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dcmi.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dcmi.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dcmi.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dcmi.d"
+   name=".svn/tmp/text-base/stm32f4xx_dcmi.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dcmi.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dcmi.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dcmi.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dcmi.d"
+   checksum="b00bf252ff50b47cf47e67be9ddfc212"/>
+<modify-entry
+   name="stm32f4xx_dcmi.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dcmi.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dma.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_dma.crf.svn-base"
+   name=".svn/prop-base/tempfile.32.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_dma.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dma.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dma.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dma.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dma.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dma.crf"
+   name=".svn/tmp/text-base/stm32f4xx_dma.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dma.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dma.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dma.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dma.crf"
+   checksum="ba7379d1a4a5d87b9669c6a3afdee8e9"/>
+<modify-entry
+   name="stm32f4xx_dma.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dma.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dma.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dma.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dma.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dma.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dma.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dma.d"
+   name=".svn/tmp/text-base/stm32f4xx_dma.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dma.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dma.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dma.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dma.d"
+   checksum="ef15dafa12214c541207a71af353d04e"/>
+<modify-entry
+   name="stm32f4xx_dma.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dma.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dma2d.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_dma2d.crf.svn-base"
+   name=".svn/prop-base/tempfile.33.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_dma2d.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dma2d.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dma2d.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dma2d.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dma2d.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dma2d.crf"
+   name=".svn/tmp/text-base/stm32f4xx_dma2d.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dma2d.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dma2d.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dma2d.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dma2d.crf"
+   checksum="25d9afdbd15b1053edcb205e609cd9ea"/>
+<modify-entry
+   name="stm32f4xx_dma2d.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dma2d.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_dma2d.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_dma2d.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_dma2d.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_dma2d.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_dma2d.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_dma2d.d"
+   name=".svn/tmp/text-base/stm32f4xx_dma2d.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_dma2d.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_dma2d.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_dma2d.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_dma2d.d"
+   checksum="fdc1cc835d57470ac1e83b7c31c779fb"/>
+<modify-entry
+   name="stm32f4xx_dma2d.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_dma2d.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_exti.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_exti.crf.svn-base"
+   name=".svn/prop-base/tempfile.34.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_exti.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_exti.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_exti.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_exti.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_exti.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_exti.crf"
+   name=".svn/tmp/text-base/stm32f4xx_exti.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_exti.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_exti.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_exti.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_exti.crf"
+   checksum="79bd4dfb3aaaa654b41b26dd99c9850c"/>
+<modify-entry
+   name="stm32f4xx_exti.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_exti.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_exti.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_exti.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_exti.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_exti.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_exti.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_exti.d"
+   name=".svn/tmp/text-base/stm32f4xx_exti.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_exti.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_exti.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_exti.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_exti.d"
+   checksum="6a7cfe27abe8e3cbf705277d95bfeeb1"/>
+<modify-entry
+   name="stm32f4xx_exti.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_exti.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_flash.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_flash.crf.svn-base"
+   name=".svn/prop-base/tempfile.35.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_flash.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_flash.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_flash.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_flash.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_flash.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_flash.crf"
+   name=".svn/tmp/text-base/stm32f4xx_flash.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_flash.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_flash.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_flash.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_flash.crf"
+   checksum="002c4b7186bf103c536ef91ea04aed27"/>
+<modify-entry
+   name="stm32f4xx_flash.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_flash.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_flash.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_flash.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_flash.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_flash.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_flash.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_flash.d"
+   name=".svn/tmp/text-base/stm32f4xx_flash.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_flash.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_flash.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_flash.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_flash.d"
+   checksum="a0f923813ecf320f63ef9350f42ba078"/>
+<modify-entry
+   name="stm32f4xx_flash.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_flash.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_flash_ramfunc.crf.svn-base"
+   name=".svn/prop-base/tempfile.36.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_flash_ramfunc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_flash_ramfunc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_flash_ramfunc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_flash_ramfunc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_flash_ramfunc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_flash_ramfunc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_flash_ramfunc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_flash_ramfunc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_flash_ramfunc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_flash_ramfunc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.crf"
+   checksum="722bba9afba354b3951ed31b3f7b03fd"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_flash_ramfunc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_flash_ramfunc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_flash_ramfunc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_flash_ramfunc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_flash_ramfunc.d"
+   name=".svn/tmp/text-base/stm32f4xx_flash_ramfunc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_flash_ramfunc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_flash_ramfunc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_flash_ramfunc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.d"
+   checksum="32fd061395f30945d8ef38c8bee8c3ad"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_flash_ramfunc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_fsmc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_fsmc.crf.svn-base"
+   name=".svn/prop-base/tempfile.37.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_fsmc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_fsmc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_fsmc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_fsmc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_fsmc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_fsmc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_fsmc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_fsmc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_fsmc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_fsmc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_fsmc.crf"
+   checksum="63d27fbac69442e2a3ab19aa1d044410"/>
+<modify-entry
+   name="stm32f4xx_fsmc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_fsmc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_fsmc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_fsmc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_fsmc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_fsmc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_fsmc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_fsmc.d"
+   name=".svn/tmp/text-base/stm32f4xx_fsmc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_fsmc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_fsmc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_fsmc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_fsmc.d"
+   checksum="2f40f72081e02ae0361d8f74d6bf5b21"/>
+<modify-entry
+   name="stm32f4xx_fsmc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_fsmc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_gpio.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_gpio.crf.svn-base"
+   name=".svn/prop-base/tempfile.38.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_gpio.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_gpio.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_gpio.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_gpio.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_gpio.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_gpio.crf"
+   name=".svn/tmp/text-base/stm32f4xx_gpio.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_gpio.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_gpio.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_gpio.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_gpio.crf"
+   checksum="eeb294a8cf3e64f6107cc0a9866de624"/>
+<modify-entry
+   name="stm32f4xx_gpio.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_gpio.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_gpio.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_gpio.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_gpio.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_gpio.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_gpio.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_gpio.d"
+   name=".svn/tmp/text-base/stm32f4xx_gpio.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_gpio.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_gpio.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_gpio.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_gpio.d"
+   checksum="db87991070f4d7fa44d5fc1c5914351f"/>
+<modify-entry
+   name="stm32f4xx_gpio.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_gpio.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_hash.crf.svn-base"
+   name=".svn/prop-base/tempfile.39.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_hash.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash.crf"
+   name=".svn/tmp/text-base/stm32f4xx_hash.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash.crf"
+   checksum="4a67170a03de377574e4b4ebe38025d5"/>
+<modify-entry
+   name="stm32f4xx_hash.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash.d"
+   name=".svn/tmp/text-base/stm32f4xx_hash.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash.d"
+   checksum="261a9a7f85dd4c393b1e7afc44bc3ce6"/>
+<modify-entry
+   name="stm32f4xx_hash.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_hash_md5.crf.svn-base"
+   name=".svn/prop-base/tempfile.40.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_hash_md5.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash_md5.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash_md5.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash_md5.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash_md5.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash_md5.crf"
+   name=".svn/tmp/text-base/stm32f4xx_hash_md5.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash_md5.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash_md5.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash_md5.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.crf"
+   checksum="bf0e32c721d5d7740b26f190b2edc91f"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash_md5.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash_md5.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash_md5.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash_md5.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash_md5.d"
+   name=".svn/tmp/text-base/stm32f4xx_hash_md5.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash_md5.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash_md5.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash_md5.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.d"
+   checksum="34d2bac93fcbe6b131d04757b2abdf73"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash_md5.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_hash_sha1.crf.svn-base"
+   name=".svn/prop-base/tempfile.41.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_hash_sha1.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash_sha1.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash_sha1.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash_sha1.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash_sha1.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash_sha1.crf"
+   name=".svn/tmp/text-base/stm32f4xx_hash_sha1.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash_sha1.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash_sha1.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash_sha1.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.crf"
+   checksum="16fa3b4d9707f6d7dd8bf563c0044127"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_hash_sha1.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_hash_sha1.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_hash_sha1.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_hash_sha1.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_hash_sha1.d"
+   name=".svn/tmp/text-base/stm32f4xx_hash_sha1.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_hash_sha1.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_hash_sha1.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_hash_sha1.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.d"
+   checksum="f5296cb3bd31b818472259f0899085c5"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_hash_sha1.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_i2c.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_i2c.crf.svn-base"
+   name=".svn/prop-base/tempfile.42.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_i2c.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_i2c.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_i2c.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_i2c.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_i2c.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_i2c.crf"
+   name=".svn/tmp/text-base/stm32f4xx_i2c.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_i2c.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_i2c.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_i2c.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_i2c.crf"
+   checksum="a6eb78f228b7fec79ff121d144e56e41"/>
+<modify-entry
+   name="stm32f4xx_i2c.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_i2c.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_i2c.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_i2c.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_i2c.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_i2c.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_i2c.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_i2c.d"
+   name=".svn/tmp/text-base/stm32f4xx_i2c.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_i2c.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_i2c.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_i2c.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_i2c.d"
+   checksum="0d27153057f322a68fd9acaff70396ed"/>
+<modify-entry
+   name="stm32f4xx_i2c.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_i2c.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_it.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_it.crf.svn-base"
+   name=".svn/prop-base/tempfile.43.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_it.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_it.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_it.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_it.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_it.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_it.crf"
+   name=".svn/tmp/text-base/stm32f4xx_it.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_it.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_it.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_it.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_it.crf"
+   checksum="14bbf760bee24213044c4c3432ae0ace"/>
+<modify-entry
+   name="stm32f4xx_it.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_it.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_it.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_it.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_it.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_it.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_it.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_it.d"
+   name=".svn/tmp/text-base/stm32f4xx_it.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_it.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_it.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_it.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_it.d"
+   checksum="2df74ad95f7a551f5c8a6afab6c6c2f1"/>
+<modify-entry
+   name="stm32f4xx_it.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_it.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_iwdg.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_iwdg.crf.svn-base"
+   name=".svn/prop-base/tempfile.44.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_iwdg.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_iwdg.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_iwdg.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_iwdg.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_iwdg.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_iwdg.crf"
+   name=".svn/tmp/text-base/stm32f4xx_iwdg.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_iwdg.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_iwdg.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_iwdg.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_iwdg.crf"
+   checksum="5e9d16ed9a2e633c7171c90ebdf337f1"/>
+<modify-entry
+   name="stm32f4xx_iwdg.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_iwdg.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_iwdg.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_iwdg.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_iwdg.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_iwdg.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_iwdg.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_iwdg.d"
+   name=".svn/tmp/text-base/stm32f4xx_iwdg.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_iwdg.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_iwdg.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_iwdg.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_iwdg.d"
+   checksum="b507cc25159ff4de2871a7507c371b4c"/>
+<modify-entry
+   name="stm32f4xx_iwdg.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_iwdg.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_ltdc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_ltdc.crf.svn-base"
+   name=".svn/prop-base/tempfile.45.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_ltdc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_ltdc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_ltdc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_ltdc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_ltdc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_ltdc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_ltdc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_ltdc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_ltdc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_ltdc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_ltdc.crf"
+   checksum="255f7205b1a65a6e1bf6cb936a3bad6d"/>
+<modify-entry
+   name="stm32f4xx_ltdc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_ltdc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_ltdc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_ltdc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_ltdc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_ltdc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_ltdc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_ltdc.d"
+   name=".svn/tmp/text-base/stm32f4xx_ltdc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_ltdc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_ltdc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_ltdc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_ltdc.d"
+   checksum="6e92b6323aac89e59d3a78fc50f0df61"/>
+<modify-entry
+   name="stm32f4xx_ltdc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_ltdc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_pwr.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_pwr.crf.svn-base"
+   name=".svn/prop-base/tempfile.46.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_pwr.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_pwr.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_pwr.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_pwr.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_pwr.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_pwr.crf"
+   name=".svn/tmp/text-base/stm32f4xx_pwr.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_pwr.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_pwr.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_pwr.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_pwr.crf"
+   checksum="d53db3958c8026577301460d7d2accab"/>
+<modify-entry
+   name="stm32f4xx_pwr.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_pwr.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_pwr.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_pwr.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_pwr.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_pwr.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_pwr.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_pwr.d"
+   name=".svn/tmp/text-base/stm32f4xx_pwr.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_pwr.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_pwr.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_pwr.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_pwr.d"
+   checksum="a3b17be2803a148e9303ab2099a9aa7e"/>
+<modify-entry
+   name="stm32f4xx_pwr.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_pwr.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rcc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_rcc.crf.svn-base"
+   name=".svn/prop-base/tempfile.47.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_rcc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rcc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rcc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rcc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rcc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rcc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_rcc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rcc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rcc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rcc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rcc.crf"
+   checksum="b7ff268a69d84ec86fcbc680840d41b1"/>
+<modify-entry
+   name="stm32f4xx_rcc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rcc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rcc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rcc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rcc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rcc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rcc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rcc.d"
+   name=".svn/tmp/text-base/stm32f4xx_rcc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rcc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rcc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rcc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rcc.d"
+   checksum="f530d7d18f726e62beab2c14ca3bf193"/>
+<modify-entry
+   name="stm32f4xx_rcc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rcc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rng.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_rng.crf.svn-base"
+   name=".svn/prop-base/tempfile.48.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_rng.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rng.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rng.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rng.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rng.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rng.crf"
+   name=".svn/tmp/text-base/stm32f4xx_rng.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rng.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rng.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rng.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rng.crf"
+   checksum="d6165f79fc82f8a268e035f681fe4a3c"/>
+<modify-entry
+   name="stm32f4xx_rng.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rng.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rng.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rng.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rng.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rng.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rng.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rng.d"
+   name=".svn/tmp/text-base/stm32f4xx_rng.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rng.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rng.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rng.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rng.d"
+   checksum="7b7f6b55f513858ec877d98fdd1c7c44"/>
+<modify-entry
+   name="stm32f4xx_rng.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rng.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rtc.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_rtc.crf.svn-base"
+   name=".svn/prop-base/tempfile.49.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_rtc.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rtc.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rtc.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rtc.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rtc.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rtc.crf"
+   name=".svn/tmp/text-base/stm32f4xx_rtc.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rtc.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rtc.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rtc.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rtc.crf"
+   checksum="c111d823f9de6f04c1872e76a4574674"/>
+<modify-entry
+   name="stm32f4xx_rtc.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rtc.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_rtc.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_rtc.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_rtc.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_rtc.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_rtc.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_rtc.d"
+   name=".svn/tmp/text-base/stm32f4xx_rtc.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_rtc.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_rtc.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_rtc.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_rtc.d"
+   checksum="4031d7e2168dd831695c0e0d2bfb2e63"/>
+<modify-entry
+   name="stm32f4xx_rtc.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_rtc.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_sai.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_sai.crf.svn-base"
+   name=".svn/prop-base/tempfile.50.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_sai.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_sai.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_sai.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_sai.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_sai.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_sai.crf"
+   name=".svn/tmp/text-base/stm32f4xx_sai.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_sai.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_sai.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_sai.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_sai.crf"
+   checksum="8613a376d151e0fe83e99b944feabcfc"/>
+<modify-entry
+   name="stm32f4xx_sai.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_sai.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_sai.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_sai.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_sai.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_sai.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_sai.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_sai.d"
+   name=".svn/tmp/text-base/stm32f4xx_sai.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_sai.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_sai.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_sai.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_sai.d"
+   checksum="35311baf7645497056c940f90612808f"/>
+<modify-entry
+   name="stm32f4xx_sai.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_sai.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_sdio.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_sdio.crf.svn-base"
+   name=".svn/prop-base/tempfile.51.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_sdio.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_sdio.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_sdio.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_sdio.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_sdio.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_sdio.crf"
+   name=".svn/tmp/text-base/stm32f4xx_sdio.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_sdio.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_sdio.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_sdio.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_sdio.crf"
+   checksum="001110a97d9b9049f66b287c0886b35d"/>
+<modify-entry
+   name="stm32f4xx_sdio.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_sdio.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_sdio.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_sdio.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_sdio.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_sdio.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_sdio.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_sdio.d"
+   name=".svn/tmp/text-base/stm32f4xx_sdio.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_sdio.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_sdio.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_sdio.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_sdio.d"
+   checksum="b8403b07a692b79662dcea6fae6a38e7"/>
+<modify-entry
+   name="stm32f4xx_sdio.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_sdio.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_spi.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_spi.crf.svn-base"
+   name=".svn/prop-base/tempfile.52.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_spi.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_spi.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_spi.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_spi.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_spi.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_spi.crf"
+   name=".svn/tmp/text-base/stm32f4xx_spi.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_spi.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_spi.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_spi.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_spi.crf"
+   checksum="f5d1e1a5fef47246ddb4f7f035767a16"/>
+<modify-entry
+   name="stm32f4xx_spi.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_spi.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_spi.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_spi.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_spi.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_spi.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_spi.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_spi.d"
+   name=".svn/tmp/text-base/stm32f4xx_spi.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_spi.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_spi.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_spi.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_spi.d"
+   checksum="51f140d7e2e5892bbcd1bf12a78ef22d"/>
+<modify-entry
+   name="stm32f4xx_spi.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_spi.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_syscfg.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_syscfg.crf.svn-base"
+   name=".svn/prop-base/tempfile.53.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_syscfg.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_syscfg.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_syscfg.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_syscfg.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_syscfg.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_syscfg.crf"
+   name=".svn/tmp/text-base/stm32f4xx_syscfg.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_syscfg.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_syscfg.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_syscfg.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_syscfg.crf"
+   checksum="bfb9d89aee112e61a0ab6c3e420cecf1"/>
+<modify-entry
+   name="stm32f4xx_syscfg.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_syscfg.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_syscfg.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_syscfg.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_syscfg.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_syscfg.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_syscfg.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_syscfg.d"
+   name=".svn/tmp/text-base/stm32f4xx_syscfg.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_syscfg.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_syscfg.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_syscfg.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_syscfg.d"
+   checksum="00f14d32b802e164381dd8276f660cc2"/>
+<modify-entry
+   name="stm32f4xx_syscfg.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_syscfg.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_tim.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_tim.crf.svn-base"
+   name=".svn/prop-base/tempfile.54.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_tim.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_tim.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_tim.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_tim.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_tim.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_tim.crf"
+   name=".svn/tmp/text-base/stm32f4xx_tim.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_tim.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_tim.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_tim.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_tim.crf"
+   checksum="7e2f5359e96a548a0c5f8bddc2057466"/>
+<modify-entry
+   name="stm32f4xx_tim.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_tim.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_tim.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_tim.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_tim.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_tim.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_tim.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_tim.d"
+   name=".svn/tmp/text-base/stm32f4xx_tim.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_tim.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_tim.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_tim.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_tim.d"
+   checksum="4014c13344262a52000d52c7c67a4697"/>
+<modify-entry
+   name="stm32f4xx_tim.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_tim.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_usart.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_usart.crf.svn-base"
+   name=".svn/prop-base/tempfile.55.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_usart.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_usart.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_usart.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_usart.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_usart.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_usart.crf"
+   name=".svn/tmp/text-base/stm32f4xx_usart.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_usart.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_usart.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_usart.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_usart.crf"
+   checksum="c40f6c6fb533e1f6575310f56c94ef06"/>
+<modify-entry
+   name="stm32f4xx_usart.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_usart.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_usart.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_usart.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_usart.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_usart.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_usart.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_usart.d"
+   name=".svn/tmp/text-base/stm32f4xx_usart.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_usart.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_usart.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_usart.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_usart.d"
+   checksum="ffc15c3889a258637a79126f8f73027c"/>
+<modify-entry
+   name="stm32f4xx_usart.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_usart.d"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_wwdg.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stm32f4xx_wwdg.crf.svn-base"
+   name=".svn/prop-base/tempfile.56.tmp"/>
+<readonly
+   name=".svn/prop-base/stm32f4xx_wwdg.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_wwdg.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_wwdg.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_wwdg.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_wwdg.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_wwdg.crf"
+   name=".svn/tmp/text-base/stm32f4xx_wwdg.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_wwdg.crf.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_wwdg.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_wwdg.crf.svn-base"/>
+<modify-entry
+   name="stm32f4xx_wwdg.crf"
+   checksum="11ffbbab7fffe0a7d3cd98f4312f94e4"/>
+<modify-entry
+   name="stm32f4xx_wwdg.crf"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_wwdg.crf"
+   working-size="working"/>
+<modify-entry
+   name="stm32f4xx_wwdg.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stm32f4xx_wwdg.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stm32f4xx_wwdg.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stm32f4xx_wwdg.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stm32f4xx_wwdg.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stm32f4xx_wwdg.d"
+   name=".svn/tmp/text-base/stm32f4xx_wwdg.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stm32f4xx_wwdg.d.svn-base"
+   name=".svn/tmp/text-base/stm32f4xx_wwdg.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stm32f4xx_wwdg.d.svn-base"/>
+<modify-entry
+   name="stm32f4xx_wwdg.d"
+   checksum="a750c8b11aee516b3b1e601a637a5a1c"/>
+<modify-entry
+   name="stm32f4xx_wwdg.d"
+   text-time="working"/>
+<modify-entry
+   name="stm32f4xx_wwdg.d"
+   working-size="working"/>
+<modify-entry
+   name="stmflash.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/stmflash.crf.svn-base"
+   name=".svn/prop-base/tempfile.57.tmp"/>
+<readonly
+   name=".svn/prop-base/stmflash.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stmflash.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stmflash.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stmflash.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stmflash.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stmflash.crf"
+   name=".svn/tmp/text-base/stmflash.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/stmflash.crf.svn-base"
+   name=".svn/tmp/text-base/stmflash.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/stmflash.crf.svn-base"/>
+<modify-entry
+   name="stmflash.crf"
+   checksum="c6cedb58f03e80b2552cc3c7a2765df1"/>
+<modify-entry
+   name="stmflash.crf"
+   text-time="working"/>
+<modify-entry
+   name="stmflash.crf"
+   working-size="working"/>
+<modify-entry
+   name="stmflash.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="stmflash.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="stmflash.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/stmflash.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="stmflash.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="stmflash.d"
+   name=".svn/tmp/text-base/stmflash.d.svn-base"/>
+<mv
+   dest=".svn/text-base/stmflash.d.svn-base"
+   name=".svn/tmp/text-base/stmflash.d.svn-base"/>
+<readonly
+   name=".svn/text-base/stmflash.d.svn-base"/>
+<modify-entry
+   name="stmflash.d"
+   checksum="8f45c4f698412adf6100be0d81bf4a2c"/>
+<modify-entry
+   name="stmflash.d"
+   text-time="working"/>
+<modify-entry
+   name="stmflash.d"
+   working-size="working"/>
+<modify-entry
+   name="swap.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/swap.crf.svn-base"
+   name=".svn/prop-base/tempfile.58.tmp"/>
+<readonly
+   name=".svn/prop-base/swap.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="swap.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="swap.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/swap.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="swap.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="swap.crf"
+   name=".svn/tmp/text-base/swap.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/swap.crf.svn-base"
+   name=".svn/tmp/text-base/swap.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/swap.crf.svn-base"/>
+<modify-entry
+   name="swap.crf"
+   checksum="9fd307a7d2f268d3fd07f33ad87924d1"/>
+<modify-entry
+   name="swap.crf"
+   text-time="working"/>
+<modify-entry
+   name="swap.crf"
+   working-size="working"/>
+<modify-entry
+   name="swap.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="swap.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="swap.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/swap.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="swap.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="swap.d"
+   name=".svn/tmp/text-base/swap.d.svn-base"/>
+<mv
+   dest=".svn/text-base/swap.d.svn-base"
+   name=".svn/tmp/text-base/swap.d.svn-base"/>
+<readonly
+   name=".svn/text-base/swap.d.svn-base"/>
+<modify-entry
+   name="swap.d"
+   checksum="0642e13c7b52e8e6558593f6c61bbabd"/>
+<modify-entry
+   name="swap.d"
+   text-time="working"/>
+<modify-entry
+   name="swap.d"
+   working-size="working"/>
+<modify-entry
+   name="sys.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/sys.crf.svn-base"
+   name=".svn/prop-base/tempfile.59.tmp"/>
+<readonly
+   name=".svn/prop-base/sys.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="sys.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="sys.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/sys.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="sys.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="sys.crf"
+   name=".svn/tmp/text-base/sys.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/sys.crf.svn-base"
+   name=".svn/tmp/text-base/sys.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/sys.crf.svn-base"/>
+<modify-entry
+   name="sys.crf"
+   checksum="e53a975baebd5cc2c14fc4ac55783211"/>
+<modify-entry
+   name="sys.crf"
+   text-time="working"/>
+<modify-entry
+   name="sys.crf"
+   working-size="working"/>
+<modify-entry
+   name="sys.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="sys.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="sys.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/sys.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="sys.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="sys.d"
+   name=".svn/tmp/text-base/sys.d.svn-base"/>
+<mv
+   dest=".svn/text-base/sys.d.svn-base"
+   name=".svn/tmp/text-base/sys.d.svn-base"/>
+<readonly
+   name=".svn/text-base/sys.d.svn-base"/>
+<modify-entry
+   name="sys.d"
+   checksum="c6a3c5c6204109b17d0fb4a41dd149a1"/>
+<modify-entry
+   name="sys.d"
+   text-time="working"/>
+<modify-entry
+   name="sys.d"
+   working-size="working"/>
+<modify-entry
+   name="system_stm32f4xx.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/system_stm32f4xx.crf.svn-base"
+   name=".svn/prop-base/tempfile.60.tmp"/>
+<readonly
+   name=".svn/prop-base/system_stm32f4xx.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="system_stm32f4xx.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="system_stm32f4xx.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/system_stm32f4xx.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="system_stm32f4xx.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="system_stm32f4xx.crf"
+   name=".svn/tmp/text-base/system_stm32f4xx.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/system_stm32f4xx.crf.svn-base"
+   name=".svn/tmp/text-base/system_stm32f4xx.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/system_stm32f4xx.crf.svn-base"/>
+<modify-entry
+   name="system_stm32f4xx.crf"
+   checksum="35e45eb9d0be692561bb8e04348923ae"/>
+<modify-entry
+   name="system_stm32f4xx.crf"
+   text-time="working"/>
+<modify-entry
+   name="system_stm32f4xx.crf"
+   working-size="working"/>
+<modify-entry
+   name="system_stm32f4xx.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="system_stm32f4xx.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="system_stm32f4xx.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/system_stm32f4xx.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="system_stm32f4xx.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="system_stm32f4xx.d"
+   name=".svn/tmp/text-base/system_stm32f4xx.d.svn-base"/>
+<mv
+   dest=".svn/text-base/system_stm32f4xx.d.svn-base"
+   name=".svn/tmp/text-base/system_stm32f4xx.d.svn-base"/>
+<readonly
+   name=".svn/text-base/system_stm32f4xx.d.svn-base"/>
+<modify-entry
+   name="system_stm32f4xx.d"
+   checksum="1c73563dc425620f80ee98c5ae5879f4"/>
+<modify-entry
+   name="system_stm32f4xx.d"
+   text-time="working"/>
+<modify-entry
+   name="system_stm32f4xx.d"
+   working-size="working"/>
+<modify-entry
+   name="ultrasonic.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/ultrasonic.crf.svn-base"
+   name=".svn/prop-base/tempfile.61.tmp"/>
+<readonly
+   name=".svn/prop-base/ultrasonic.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ultrasonic.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ultrasonic.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ultrasonic.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ultrasonic.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ultrasonic.crf"
+   name=".svn/tmp/text-base/ultrasonic.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/ultrasonic.crf.svn-base"
+   name=".svn/tmp/text-base/ultrasonic.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/ultrasonic.crf.svn-base"/>
+<modify-entry
+   name="ultrasonic.crf"
+   checksum="4ebf41338d3b72c097529afe36da22d9"/>
+<modify-entry
+   name="ultrasonic.crf"
+   text-time="working"/>
+<modify-entry
+   name="ultrasonic.crf"
+   working-size="working"/>
+<modify-entry
+   name="ultrasonic.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="ultrasonic.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="ultrasonic.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/ultrasonic.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="ultrasonic.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="ultrasonic.d"
+   name=".svn/tmp/text-base/ultrasonic.d.svn-base"/>
+<mv
+   dest=".svn/text-base/ultrasonic.d.svn-base"
+   name=".svn/tmp/text-base/ultrasonic.d.svn-base"/>
+<readonly
+   name=".svn/text-base/ultrasonic.d.svn-base"/>
+<modify-entry
+   name="ultrasonic.d"
+   checksum="59333ee5ad24355d77d67dd098072237"/>
+<modify-entry
+   name="ultrasonic.d"
+   text-time="working"/>
+<modify-entry
+   name="ultrasonic.d"
+   working-size="working"/>
+<modify-entry
+   name="usart4_to_pixhawks.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/usart4_to_pixhawks.crf.svn-base"
+   name=".svn/prop-base/tempfile.62.tmp"/>
+<readonly
+   name=".svn/prop-base/usart4_to_pixhawks.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="usart4_to_pixhawks.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="usart4_to_pixhawks.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/usart4_to_pixhawks.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="usart4_to_pixhawks.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="usart4_to_pixhawks.crf"
+   name=".svn/tmp/text-base/usart4_to_pixhawks.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/usart4_to_pixhawks.crf.svn-base"
+   name=".svn/tmp/text-base/usart4_to_pixhawks.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/usart4_to_pixhawks.crf.svn-base"/>
+<modify-entry
+   name="usart4_to_pixhawks.crf"
+   checksum="dbd4b72ac6171a8c87edbfdedda7c79d"/>
+<modify-entry
+   name="usart4_to_pixhawks.crf"
+   text-time="working"/>
+<modify-entry
+   name="usart4_to_pixhawks.crf"
+   working-size="working"/>
+<modify-entry
+   name="usart4_to_pixhawks.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="usart4_to_pixhawks.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="usart4_to_pixhawks.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/usart4_to_pixhawks.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="usart4_to_pixhawks.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="usart4_to_pixhawks.d"
+   name=".svn/tmp/text-base/usart4_to_pixhawks.d.svn-base"/>
+<mv
+   dest=".svn/text-base/usart4_to_pixhawks.d.svn-base"
+   name=".svn/tmp/text-base/usart4_to_pixhawks.d.svn-base"/>
+<readonly
+   name=".svn/text-base/usart4_to_pixhawks.d.svn-base"/>
+<modify-entry
+   name="usart4_to_pixhawks.d"
+   checksum="ec452b537b407c38f1e4d40923fbc18e"/>
+<modify-entry
+   name="usart4_to_pixhawks.d"
+   text-time="working"/>
+<modify-entry
+   name="usart4_to_pixhawks.d"
+   working-size="working"/>
+<modify-entry
+   name="usart5_to_pixhawks.crf"
+   present-props=""
+   has-prop-mods="false"
+   has-props="true"/>
+<mv
+   dest=".svn/prop-base/usart5_to_pixhawks.crf.svn-base"
+   name=".svn/prop-base/tempfile.63.tmp"/>
+<readonly
+   name=".svn/prop-base/usart5_to_pixhawks.crf.svn-base"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="usart5_to_pixhawks.crf"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="usart5_to_pixhawks.crf"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/usart5_to_pixhawks.crf"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="usart5_to_pixhawks.crf"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="usart5_to_pixhawks.crf"
+   name=".svn/tmp/text-base/usart5_to_pixhawks.crf.svn-base"/>
+<mv
+   dest=".svn/text-base/usart5_to_pixhawks.crf.svn-base"
+   name=".svn/tmp/text-base/usart5_to_pixhawks.crf.svn-base"/>
+<readonly
+   name=".svn/text-base/usart5_to_pixhawks.crf.svn-base"/>
+<modify-entry
+   name="usart5_to_pixhawks.crf"
+   checksum="cb02c90644507d69e9537d87636fcd2f"/>
+<modify-entry
+   name="usart5_to_pixhawks.crf"
+   text-time="working"/>
+<modify-entry
+   name="usart5_to_pixhawks.crf"
+   working-size="working"/>
+<modify-entry
+   name="usart5_to_pixhawks.d"
+   present-props=""
+   has-prop-mods="false"
+   has-props="false"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name="usart5_to_pixhawks.d"
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name="usart5_to_pixhawks.d"
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ/usart5_to_pixhawks.d"/>
+<modify-entry
+   text-time="1970-01-01T00:00:00.000000Z"
+   name="usart5_to_pixhawks.d"
+   kind="file"
+   deleted="false"
+   working-size="-1"
+   absent="false"
+   revision="267"/>
+<cp-and-translate
+   dest="usart5_to_pixhawks.d"
+   name=".svn/tmp/text-base/usart5_to_pixhawks.d.svn-base"/>
+<mv
+   dest=".svn/text-base/usart5_to_pixhawks.d.svn-base"
+   name=".svn/tmp/text-base/usart5_to_pixhawks.d.svn-base"/>
+<readonly
+   name=".svn/text-base/usart5_to_pixhawks.d.svn-base"/>
+<modify-entry
+   name="usart5_to_pixhawks.d"
+   checksum="613446ad773def95c0a231c135b6fa1f"/>
+<modify-entry
+   name="usart5_to_pixhawks.d"
+   text-time="working"/>
+<modify-entry
+   name="usart5_to_pixhawks.d"
+   working-size="working"/>
+<modify-entry
+   committed-rev="266"
+   committed-date="2018-12-03T13:18:10.239793Z"
+   name=""
+   last-author="pingyuqing"
+   uuid="4395db65-1928-1e41-8466-088ba857ae55"/>
+<modify-wcprop
+   name=""
+   propname="svn:wc:ra_dav:version-url"
+   propval="/svn/Server3F/!svn/ver/266/%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8A%80%E6%9C%AF%E9%83%A81%E7%BB%84/shared/Programming%20-%20%2011.30/OBJ"/>

@@ -1,0 +1,40 @@
+#ifndef _ENCONDER_H
+#define _ENCONDER_H
+
+#include "stm32f4xx_tim.h"
+#include "stm32f4xx.h"
+#include "stm32f4xx_rcc.h"
+#include "sys.h"
+#include "delay.h"
+
+//#define PUL_ONE_CIRCLE       600          //编码器一圈需600脉冲
+#define PUL_ONE_CIRCLE       1000
+#define Distance_one_Circle  0.998        //编码器一个脉冲换算道轮胎上的位移  单位mm
+#define SMALL_GEAR_NUM       31           //小链轮齿数
+#define BIG_GEAR_NUM         65           //大链轮齿数
+#define WHEEL_LENGTH         1.256        //轮胎周长1.256m
+
+/**********左轮编码器定义**************/
+void Enconder_Init(void);          		  //左轮编码器定时器初始化 TIM4
+void Enconder_Distancd_Left(void);        //返回轮胎的实际走的路程
+//void Enconder_Distace_Left_
+void Left_Enconder_Rate(void);            //计算左轮速度
+void Count_Time_Init(void);               //计时定时器初始化  左右轮共用  TIM9
+void Get_Left_PUL(void);                  //获取左轮编码器脉冲数
+//extern u32 Absolute_Dsitance;
+//extern u32 Enconder_IT_Cnt;              //用来计数编码器定时器中断次数
+extern float Left_Rate;                    //左轮速度
+extern int64_t Motor_Plus_Absolute;     
+
+/***********右轮编码器定义*************/
+void Right_Enconde_Init(void);             //右轮定时器初始化   TIM3_CH1-PA6   TIM3_CH2-PA7
+void Right_Enconder_Rate(void);            //计算右轮速度
+void Get_Right_PUL(void);                  //获取右轮编码器脉冲数
+extern float Right_Rate;                   //右轮转速   rpm
+extern int64_t Right_Motor_Pul_Absolu;     //右轮编码器绝对脉冲数
+
+
+
+
+
+#endif

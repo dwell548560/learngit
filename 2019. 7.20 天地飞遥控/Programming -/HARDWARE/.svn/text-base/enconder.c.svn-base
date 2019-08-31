@@ -1,0 +1,306 @@
+#include "enconder.h"
+
+/**********左轮编码器**************/		
+uint64_t Posi_Over_Cnt=0;					//上溢出次数
+uint64_t Pess_Over_Cnt=0;					//下溢出次数
+float Left_Rate=0;
+int64_t Motor_Plus_Absolute=0;				//电机绝对脉冲数 
+int64_t Last_Motor_Plus_Absolute=0;			//用于保存上次电机绝对脉冲数 计算速度用
+u8 Rate_Col_Cnt=0;							//用来设定速度采样时间，100ms采样速度一次  左右轮共用
+static u8 Overflow_flag=0;					//溢出标志  0：上溢出  1：下溢出
+u16 Cur_CNT=0;								//用于记录本次的脉冲数
+u8 Left_Count_Tim_Flag=0;						//提取脉冲成功标志    左右轮共用 
+//u8 Right_Count_Tim_Flag=0;
+//float Left_Distance_Per=0;
+float Left_Distace_Cur=0;
+float Left_Distace_Last=0;
+
+/***********右编码器**************/
+uint64_t Right_Posi_Over_Cnt=0;				//上溢出次数
+uint64_t Right_Pess_Over_Cnt=0;				//下溢出次数
+float Right_Rate=0;							//右轮速度
+int64_t Right_Motor_Pul_Absolu=0;			//右轮绝对脉冲
+int64_t Right_Last_Motor_Plus_Absolute=0;	//保存上次脉冲
+static u8 Right_Overflow_flag=0;			//溢出标志  0：上溢出  1：下溢出
+u16 Right_Cur_CNT=0;						//用于记录本次的脉冲数
+u8 Right_Count_Tim_Flag=0;					//提取脉冲成功标志
+
+float Right_Distace_Cur=0;
+float Right_Distace_Last=0;
+
+
+//左编码器
+//PB6-TIM4_CH1    PB7-TIM4_CH2  定时器编码器接口模式,同一个定时器的两个通道
+//定时器的编码器接口会根据硬件过来的脉冲相位自行判断计数时减还是加，也就是TIM4_CR1的DIR位会被硬件自动修改来决定计数器增或减
+void Enconder_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef TIM_ICInitStructure;      
+	NVIC_InitTypeDef NVIC_Initstructure;
+		
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);//??TIM4??  
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//??GPIOA??
+	//GPIO_PinAFConfig(GPIOB,GPIO_PinSource6|GPIO_PinSource7,GPIO_AF_TIM4);//不能合并写，必须 像下面那样分开写
+	
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource6,GPIO_AF_TIM4);//开启GPIOA0的TIM2时钟引脚
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource7,GPIO_AF_TIM4);
+	
+	GPIO_StructInit(&GPIO_InitStructure);//?GPIO_InitStruct??????????
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;         
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//PA6 PA7????  
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);                           
+
+    //TIM_DeInit(TIM4);
+    //TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Period = PUL_ONE_CIRCLE*4-1;  //TIMx_ARR = Pul_one_Circle*4,这里的360是编码器的线数，也就是多少个脉冲转一圈，这个要根据不同的编码器来定，乘4是因为在A B过的脉冲的上升沿和下降沿都计数了所以乘4，用的都是一个计数器
+	TIM_TimeBaseStructure.TIM_Prescaler = 0; //
+	TIM_TimeBaseStructure.TIM_ClockDivision =TIM_CKD_DIV1 ;//   
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);              
+	
+	TIM_EncoderInterfaceConfig(TIM4, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising ,TIM_ICPolarity_Rising);//TI T2处上升沿计数  TIM_ICPolarity_Rising是一圈是编码器器线数的4倍  设置为TIM_ICPolarity_BothEdge却是编码器线数的2倍，stmf4中文手册有说TIM_ICPolarity_BothEdge不能用于编码器模式  而stm32f1可以
+    
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 6;  
+	TIM_ICInit(TIM4, &TIM_ICInitStructure);
+
+	TIM_ClearFlag(TIM4, TIM_FLAG_Update);
+	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
+   //Reset counter
+	TIM4->CNT = 0;//
+    
+	NVIC_Initstructure.NVIC_IRQChannel=TIM4_IRQn;
+	NVIC_Initstructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Initstructure.NVIC_IRQChannelPreemptionPriority=0x02;
+	NVIC_Initstructure.NVIC_IRQChannelSubPriority=0x02;
+	NVIC_Init(&NVIC_Initstructure);
+
+	TIM_Cmd(TIM4, ENABLE); 
+}
+
+
+//用于产生1ms的中断，在中断里提取编码器脉冲数  TIM9  stmf407的TIM9是时钟是168M
+void Count_Time_Init(void)
+{
+	u16 arr;
+	u16 psc;
+	
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	arr=1000-1;                  //定时1ms中断一次
+	psc=168-1;
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9,ENABLE); //??? TIM3 ??
+	
+	TIM_TimeBaseInitStructure.TIM_Period = arr; //??????
+	TIM_TimeBaseInitStructure.TIM_Prescaler=psc; //?????
+	TIM_TimeBaseInitStructure.TIM_CounterMode=TIM_CounterMode_Up; //??????
+	TIM_TimeBaseInitStructure.TIM_ClockDivision=TIM_CKD_DIV1;
+	TIM_TimeBaseInit(TIM9,&TIM_TimeBaseInitStructure);// ??????? TIM3
+	TIM_ITConfig(TIM9,TIM_IT_Update,ENABLE); //??0???? 3 ????
+	
+	NVIC_InitStructure.NVIC_IRQChannel=TIM1_BRK_TIM9_IRQn; //??? 3 ??
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0x02; //????? 1
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0x01; //????? 3
+	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Init(&NVIC_InitStructure);// ???? NVIC
+	
+	TIM_Cmd(TIM9,ENABLE); //?????? 3
+
+}
+
+//在定时器中断里提取脉冲数,计算速度  1ms一次  普通定时器   左右轮提取脉冲和计算速度时间相同
+void TIM1_BRK_TIM9_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM9,TIM_IT_Update)==SET)
+	{
+		Left_Count_Tim_Flag=1;//提取成功置1；  
+		Right_Count_Tim_Flag=1;
+		Get_Left_PUL(); //1ms中断一次采集脉冲
+		Get_Right_PUL();
+		if(Rate_Col_Cnt==200)//100ms采集一次速度
+		{
+			Rate_Col_Cnt=0;
+			Left_Enconder_Rate();
+			Right_Enconder_Rate();
+		}
+		Rate_Col_Cnt++;
+	}
+	TIM_ClearITPendingBit(TIM9,TIM_IT_Update);
+}
+
+
+//中断记录圈数   编码器定时器
+void TIM4_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM4,TIM_IT_Update)==SET)
+	{
+		
+		if((TIM4->CR1&0x0010)==0)//方向向上计数
+		{
+			Posi_Over_Cnt++;//上溢出加
+			Overflow_flag=0;//计数器上溢进入中断
+		}
+		else if(TIM4->CR1&0x0010)//方向向下计数
+		{
+			Pess_Over_Cnt++;//下溢出加
+			Overflow_flag=1;//计数器上溢进入中断
+
+		}
+	}
+	TIM_ClearITPendingBit(TIM4,TIM_IT_Update);
+}
+
+
+//计算轮胎实际走的距离  左轮   按的时间为单位计时左轮转动距离 
+void Enconder_Distancd_Left(void)
+{
+	
+	
+}
+
+//需要考虑   电机绝对脉冲的正负，最近一次的溢出是上溢还是下溢
+void Get_Left_PUL(void)
+{
+	Cur_CNT=TIM4->CNT;
+    
+	if(Motor_Plus_Absolute>=0)//电机的绝对脉冲数大于等于0
+	{
+		if(Overflow_flag==0)Motor_Plus_Absolute=Cur_CNT+(Posi_Over_Cnt-Pess_Over_Cnt)*PUL_ONE_CIRCLE*4;//最近的一是上溢出或者是刚上电计数  (Posi_Over_Cnt-Pess_Over_Cnt)是正数
+		else if(Overflow_flag==1)Motor_Plus_Absolute=(Posi_Over_Cnt-Pess_Over_Cnt)*PUL_ONE_CIRCLE*4-(PUL_ONE_CIRCLE*4-Cur_CNT)+PUL_ONE_CIRCLE*4;//最近一次是下溢出
+	}
+	else if(Motor_Plus_Absolute<0)
+	{
+		if(Overflow_flag==0)Motor_Plus_Absolute=(Posi_Over_Cnt-Pess_Over_Cnt)*PUL_ONE_CIRCLE*4+Cur_CNT;//最近的一是上溢出 (Posi_Over_Cnt-Pess_Over_Cnt)是负数
+		else if(Overflow_flag==1)Motor_Plus_Absolute=(Posi_Over_Cnt-Pess_Over_Cnt)*PUL_ONE_CIRCLE*4-(PUL_ONE_CIRCLE*4-Cur_CNT)+PUL_ONE_CIRCLE*4;//最近一次是下溢出
+	}
+}
+
+
+
+
+
+//计算左轮胎速度 m/s  单位时间设1ms
+void Left_Enconder_Rate(void)
+{
+	if(Left_Count_Tim_Flag==1)
+	{
+		//Left_Rate=(float)(Motor_Plus_Absolute-Last_Motor_Plus_Absolute)*Distance_one_Circle*0.01;//  单位m/s
+		Left_Rate=((float)(Motor_Plus_Absolute-Last_Motor_Plus_Absolute)/(4*PUL_ONE_CIRCLE))*10*60; // 单位 rpm r/min
+		
+	}	
+	
+	Last_Motor_Plus_Absolute=Motor_Plus_Absolute;//保存本次脉冲数
+	Left_Count_Tim_Flag=0;  
+}
+
+
+/************右轮*******************/
+void Right_Enconde_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef TIM_ICInitStructure;      
+	NVIC_InitTypeDef NVIC_Initstructure;
+		
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);//??TIM4??  
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//??GPIOA??
+	//GPIO_PinAFConfig(GPIOB,GPIO_PinSource6|GPIO_PinSource7,GPIO_AF_TIM4);//不能合并写，必须 像下面那样分开写
+	
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource6,GPIO_AF_TIM3);//开启GPIOA0的TIM2时钟引脚
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource7,GPIO_AF_TIM3);
+	
+	GPIO_StructInit(&GPIO_InitStructure);//?GPIO_InitStruct??????????
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;         
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//PA6 PA7????  
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+	GPIO_InitStructure.GPIO_PuPd=GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);                           
+
+    //TIM_DeInit(TIM4);
+    //TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Period = PUL_ONE_CIRCLE*4-1;  //TIMx_ARR = Pul_one_Circle*4,这里的360是编码器的线数，也就是多少个脉冲转一圈，这个要根据不同的编码器来定，乘4是因为在A B过的脉冲的上升沿和下降沿都计数了所以乘4，用的都是一个计数器
+	TIM_TimeBaseStructure.TIM_Prescaler = 0; //
+	TIM_TimeBaseStructure.TIM_ClockDivision =TIM_CKD_DIV1 ;//   
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);              
+	
+	TIM_EncoderInterfaceConfig(TIM3, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising ,TIM_ICPolarity_Rising);//TI T2处上升沿计数  TIM_ICPolarity_Rising是一圈是编码器器线数的4倍  设置为TIM_ICPolarity_BothEdge却是编码器线数的2倍，stmf4中文手册有说TIM_ICPolarity_BothEdge不能用于编码器模式  而stm32f1可以
+    
+	TIM_ICStructInit(&TIM_ICInitStructure);
+	TIM_ICInitStructure.TIM_ICFilter = 6;  
+	TIM_ICInit(TIM3, &TIM_ICInitStructure);
+
+	TIM_ClearFlag(TIM3, TIM_FLAG_Update);
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+   //Reset counter
+	TIM3->CNT = 0;//
+    
+	NVIC_Initstructure.NVIC_IRQChannel=TIM3_IRQn;
+	NVIC_Initstructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Initstructure.NVIC_IRQChannelPreemptionPriority=0x01;
+	NVIC_Initstructure.NVIC_IRQChannelSubPriority=0x02;
+	NVIC_Init(&NVIC_Initstructure);
+
+	TIM_Cmd(TIM3, ENABLE); 
+}
+
+//中断记录圈数   编码器定时器
+void TIM3_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET)
+	{
+		
+		if((TIM3->CR1&0x0010)==0)//方向向上计数
+		{
+			Right_Posi_Over_Cnt++;//上溢出加
+			Right_Overflow_flag=0;//计数器上溢进入中断
+		}
+		else if(TIM3->CR1&0x0010)//方向向下计数
+		{
+			Right_Pess_Over_Cnt++;//下溢出加
+			Right_Overflow_flag=1;//计数器上溢进入中断
+
+		}
+	}
+	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
+}
+
+
+
+//提取右轮脉冲
+void Get_Right_PUL(void)
+{
+	Right_Cur_CNT=TIM3->CNT;
+    
+	if(Right_Motor_Pul_Absolu>=0)//电机的绝对脉冲数大于等于0
+	{
+		if(Right_Overflow_flag==0)Right_Motor_Pul_Absolu=Right_Cur_CNT+(Right_Posi_Over_Cnt-Right_Pess_Over_Cnt)*PUL_ONE_CIRCLE*4;//最近的一是上溢出或者是刚上电计数  (Posi_Over_Cnt-Pess_Over_Cnt)是正数
+		else if(Right_Overflow_flag==1)Right_Motor_Pul_Absolu=(Right_Posi_Over_Cnt-Right_Pess_Over_Cnt)*PUL_ONE_CIRCLE*4-(PUL_ONE_CIRCLE*4-Right_Cur_CNT)+PUL_ONE_CIRCLE*4;//最近一次是下溢出
+	}
+	else if(Right_Motor_Pul_Absolu<0)
+	{
+		if(Right_Overflow_flag==0)Right_Motor_Pul_Absolu=(Right_Posi_Over_Cnt-Right_Pess_Over_Cnt)*PUL_ONE_CIRCLE*4+Right_Cur_CNT;//最近的一是上溢出 (Posi_Over_Cnt-Pess_Over_Cnt)是负数
+		else if(Right_Overflow_flag==1)Right_Motor_Pul_Absolu=(Right_Posi_Over_Cnt-Right_Pess_Over_Cnt)*PUL_ONE_CIRCLE*4-(PUL_ONE_CIRCLE*4-Right_Cur_CNT)+PUL_ONE_CIRCLE*4;//最近一次是下溢出
+	}
+
+}
+
+//计算右轮速度
+void Right_Enconder_Rate(void)
+{
+	if(Right_Count_Tim_Flag==1)
+	{
+		//Left_Rate=(float)(Motor_Plus_Absolute-Last_Motor_Plus_Absolute)*Distance_one_Circle*0.01;//  单位m/s
+		Right_Rate=((float)(Right_Motor_Pul_Absolu-Right_Last_Motor_Plus_Absolute)/(4*PUL_ONE_CIRCLE))*10*60; // 单位 rpm r/min
+		
+	}	
+	Right_Last_Motor_Plus_Absolute=Right_Motor_Pul_Absolu;//保存本次脉冲数
+	Right_Count_Tim_Flag=0;
+}

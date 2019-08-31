@@ -1,0 +1,81 @@
+#ifndef _RUN_MOTOR_H
+#define _RUN_MOTOR_H
+#include "sys.h"
+#include <string.h>
+#include "delay.h"
+#include "pixhawk_pwm_capture.h"
+#include "steer_motor.h"
+
+
+#define s_ORDER_SET         0X73   //ascii  s的值  16进制
+#define g_ORDER_REDA        0X67   
+#define i_ORDER_WRITEREAD   0x69 
+#define space_ASCII_ORDER   0X20  //空格ascii码
+#define RETURN_ASCII_ORDER  0X0D  //回车ASCII码
+#define o_ASCII_ORDER       0X6F
+#define k_ASCII_ORDER       0X6B  
+#define e_ASCII_ORDER       0X65
+#define f_ASCII_ORDER       0X66
+#define r_ASCII_ORDER		0X72
+#define x_ASCII_ORDER       0X78
+
+
+#define RATE_MODE_ID        0X24  //设置控制模式的ID
+#define RATE_PROGRAME_SET   0X0B  //设置为速度模式，发送速度控制  
+#define STOP_SET            0X00  //停止       
+#define RATE_SET_VALUE      0X2f  //速度给定值
+#define ACCELARATE_SET_VALUE   0X36 //加速度设置ID
+#define DECELERATE_SET_VALUE             0X37
+#define STOP_RATE_VALUE      0X39  //紧急停止速率
+
+
+
+#define USART1_RX_MAX_SIZE     50
+#define USART1_TX_MAX_SIZE      50
+
+
+#define FEEDBACK_ENCODER_COUNT     120  //电机霍尔编码器是 10极个数，三相出来是30脉冲每圈，驱动器软件配置成4倍频，则为120脉冲
+//#define REDUCE_RATIO               40   //减速比  后轮
+
+
+
+void Run_motor_usart1_init(u32 baud);
+
+void USRAT1_DMA2_Init(void);
+void USART1_Reopen(void);
+
+
+void MYDMA2_TX_USART1_Config(u16 ndtx);
+
+void Send_usart1_driver(u8  * driver_buf);
+
+void Send_Buf_Set(u8 order,u8 memory,u8 id,u32 value );//设置要发送的指令的内容，这里有三个value是考虑有多个值，一个时赋0即可
+
+
+void Send_Velocity_Handle(int16_t rate);
+
+void Run_motor_handle(void);//后轮电机运动函数
+
+u8 Hex_to_Ascii(u8 data );// 将十进制某一位转换成16进制表示的ASCII码
+void DEC_Per_Bit(u32 para);//取十进制的每一位
+
+__packed typedef struct run{
+
+u8 rx_run_data[USART1_RX_MAX_SIZE];
+u8 tx_run_data[USART1_TX_MAX_SIZE];
+u8 rx_check_data[USART1_RX_MAX_SIZE];
+
+u8 rx_over_flag;
+u8 rx_check_flag;
+u8 rx_len;
+
+
+
+u8 hex_to_ascii_value[10];//用于存放要设置的10进制数据的每一位转换后的16进制ASCII码值
+u8 ascii_avail_cnt;//用于统计ascii数据组里有有效值的个数
+
+}RUN_MOTOR;
+
+
+
+#endif

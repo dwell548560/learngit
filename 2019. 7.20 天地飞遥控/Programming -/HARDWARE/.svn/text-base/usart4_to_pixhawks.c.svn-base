@@ -1,0 +1,527 @@
+#include "usart4_to_pixhawks.h"
+
+
+uart4_pixhawks UART4_PARA;
+
+
+CHASIS_PARA chasis_pixhawks;
+
+
+//串口初始化 TTL 转232 通信PIXHAWKS  UART4 半双工
+void Usart4_Pixhawks_Init(u32 baud)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE); //
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);//
+	
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource9,GPIO_AF_USART1); //
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource10,GPIO_AF_USART1);//
+	
+		
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 |GPIO_Pin_9; //
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //上拉
+	GPIO_Init(GPIOA,&GPIO_InitStructure); //
+
+			
+//USART3
+	USART_InitStructure.USART_BaudRate = baud;//波特率
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//因为有一位偶校验所以9位,艾思控固定8位数据位，再加上一位校验位(偶校验)，就是9位字长，f407是这样的，其他芯片可能是分开的
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;//对于艾思控的驱动器在波特率位115200时，无奇偶校验时，停止位为2位
+	USART_InitStructure.USART_Parity = USART_Parity_No;//
+	USART_InitStructure.USART_HardwareFlowControl =USART_HardwareFlowControl_None;//无硬件控制流
+	USART_InitStructure.USART_Mode =  USART_Mode_Tx|USART_Mode_Rx;//收发模式
+	USART_Init(USART1, &USART_InitStructure); //
+	
+	USART_ClearFlag(USART1, USART_FLAG_TC);
+	
+	
+	USART_ITConfig(USART1, USART_IT_RXNE, DISABLE);//??????
+	USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);//??????
+
+	USART_DMACmd(USART1,USART_DMAReq_Rx,ENABLE); 
+	USART_DMACmd(USART1,USART_DMAReq_Tx,ENABLE); 
+
+	USART_ClearITPendingBit(USART1, USART_IT_TC);//清除中断TC位	
+
+	USART_Cmd(USART1, ENABLE); //
+
+
+
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;//????? 3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;  //????? 3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ ????
+	NVIC_Init(&NVIC_InitStructure);  //?????????? VIC ????          
+    
+	
+}
+
+
+void Usart4_DMA1_Init(void)
+{
+
+//	DMA_InitTypeDef DMA_InitStructure;
+//	NVIC_InitTypeDef  NVIC_InitStructure;
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);  
+
+//    DMA_DeInit(DMA1_Stream2);
+//	while (DMA_GetCmdStatus(DMA1_Stream2) != DISABLE){}//?? DMA ???
+//    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;
+//    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&UART4->DR);  
+//    DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(UART4_PARA.rx_pixhawks_buf);
+//    DMA_InitStructure.DMA_DIR                = DMA_DIR_PeripheralToMemory;
+//    DMA_InitStructure.DMA_BufferSize         = RX_MAX_SIZE;
+//    DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+//    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+//    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+//    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+//    DMA_InitStructure.DMA_Mode               = DMA_Mode_Circular;
+//    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+//    DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+//    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+//    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+//    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+//    DMA_Init(DMA1_Stream2, &DMA_InitStructure); 
+//                     
+//    DMA_Cmd(DMA1_Stream2, ENABLE); 
+
+
+//	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_DMA1, ENABLE);    
+//	DMA_DeInit(DMA1_Stream4);
+//	while (DMA_GetCmdStatus(DMA1_Stream4) != DISABLE){}//?? DMA ???
+//    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;//发送管道
+//    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&UART4->DR);  
+//	DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(UART4_PARA.tx_pixhawks_buf);
+//    DMA_InitStructure.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
+//    DMA_InitStructure.DMA_BufferSize         = TX_MAX_SIZE;
+//	DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+//    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+//    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+//    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+//    DMA_InitStructure.DMA_Mode               = DMA_Mode_Normal;//正常模式
+//    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+//	DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+//    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+//    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+//    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+//    DMA_Init(DMA1_Stream4, &DMA_InitStructure);  
+
+//	//DMA_ITConfig(DMA1_Stream6, DMA_IT_TC, ENABLE);
+
+//	NVIC_InitStructure.NVIC_IRQChannel = DMA1_Stream4_IRQn; 
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2; 
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1; 
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
+//	NVIC_Init(&NVIC_InitStructure);
+
+//	DMA_Cmd(DMA1_Stream4, ENABLE); 
+
+
+	DMA_InitTypeDef DMA_InitStructure;
+	NVIC_InitTypeDef  NVIC_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);  
+
+    DMA_DeInit(DMA2_Stream5);
+	while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART1->DR);   
+    DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(UART4_PARA.rx_pixhawks_buf);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_PeripheralToMemory;
+    DMA_InitStructure.DMA_BufferSize         = RX_MAX_SIZE;
+    DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Circular;
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+    DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA2_Stream5, &DMA_InitStructure); 
+                     
+    DMA_Cmd(DMA2_Stream5, ENABLE); 
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);  
+	DMA_DeInit(DMA2_Stream7);
+	while (DMA_GetCmdStatus(DMA2_Stream7) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;//发送管道
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART1->DR);  
+	DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(UART4_PARA.tx_pixhawks_buf);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
+    DMA_InitStructure.DMA_BufferSize         = TX_MAX_SIZE;
+	DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Normal;//正常模式
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+	DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA2_Stream7, &DMA_InitStructure);  
+
+	//DMA_ITConfig(DMA1_Stream6, DMA_IT_TC, ENABLE);
+
+//	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream7_IRQn; 
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
+//	NVIC_Init(&NVIC_InitStructure);
+	
+	 DMA_Cmd(DMA2_Stream7, ENABLE); 
+
+}
+
+
+
+//开启一次DMA发送，先发送一次指令给超声波才有数据返回
+//ndtx 要发送的字节数
+void MYDMA_Uart4_Tx_Config(u8* tx_uart4_buf,u16 ndtx)
+{
+
+	DMA_Cmd(DMA2_Stream7, DISABLE); //?? DMA ??
+	while (DMA_GetCmdStatus(DMA2_Stream7) != DISABLE){} //?? DMA ?????
+
+
+	//DMA2_Stream7->M0AR  = (uint32_t)tx_uart4_buf;//缓冲地址
+	//DMA2_Stream7->M0AR  = (uint32_t)UART4_PARA.tx_pixhawks_buf;//缓冲地址
+
+	DMA_SetCurrDataCounter(DMA2_Stream7,ndtx); //?????
+
+	DMA_ClearFlag( DMA2_Stream7,DMA_FLAG_TCIF7 );	
+
+	USART_DMACmd(USART1,USART_DMAReq_Tx,ENABLE);
+	DMA_Cmd(DMA2_Stream7, ENABLE); //
+		
+	while(DMA_GetFlagStatus(DMA2_Stream7,DMA_FLAG_TCIF7) == RESET){}
+	
+
+}
+
+
+
+//重新开启接收
+void Usart4_reopen_rx(void)
+{
+
+	DMA_Cmd(DMA2_Stream5, DISABLE);
+	DMA_ClearFlag( DMA2_Stream5, DMA_FLAG_TCIF5 );    //清除传输完成标志位，否则进入传输完成中断
+	while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}
+	
+	DMA_SetCurrDataCounter(DMA2_Stream5,RX_MAX_SIZE);
+	DMA_Cmd(DMA2_Stream5, ENABLE);
+
+
+}
+
+
+
+void USART1_IRQHandler(void)
+{
+
+	u8 clearflag=0;
+	u16 len =0;
+
+	if(USART_GetITStatus(USART1,USART_IT_IDLE)==SET)
+	{
+		clearflag = USART1->SR;
+		clearflag = USART1->DR;//先读SR  再读DR清除IDLE标志
+
+		DMA_Cmd(DMA2_Stream5, DISABLE);
+
+		//DMA_ClearFlag( DMA2_Stream2, DMA_FLAG_TCIF2 );    //清除传输完成标志位，否则进入传输完成中断
+		while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}
+
+		len = RX_MAX_SIZE-DMA_GetCurrDataCounter(DMA2_Stream5);
+
+		if(len>0)
+		{
+			UART4_PARA.rx_pixhawks_len = len;//保存本次接收到的数据的长度
+			UART4_PARA.rx_finish_flag = 1;//数据接收完成，但未校验
+		
+			//Usart6_reopen_rx();
+			//USART_Cmd(USART6, DISABLE); 
+		}
+		else 
+		{
+			//memset( ( uint8_t* )KULUN_DATA.kl_receive_data, 0 , sizeof(KULUN_DATA.kl_receive_data) );
+		//	KULUN_DATA.rx_done_flag=0;
+			Usart4_reopen_rx();
+							
+		}
+				
+	}
+	//USART_ClearITPendingBit(USART1,USART_IT_IDLE);
+}
+
+
+
+
+u8  Check_uart4_rx(void)
+{
+
+	u8 i,j,crc,Data_Len;
+
+	if(UART4_PARA.rx_finish_flag == 1)//如果一帧数据接收完成
+	{
+		UART4_PARA.rx_finish_flag = 0;//清零
+
+		for(i = 0; i < UART4_PARA.rx_pixhawks_len; i++ )
+		{
+			if(UART4_PARA.rx_pixhawks_buf[i] == 0x7e)//头帧
+			{
+				Data_Len = UART4_PARA.rx_pixhawks_buf[i+1];//后面的有效数据部分长度
+
+				crc = uart4_get_crc(&UART4_PARA.rx_pixhawks_buf[i],Data_Len+2);//加2是前面的头帧和数据长度1个字节
+
+				if(crc == UART4_PARA.rx_pixhawks_buf[i+1+Data_Len+1])//计算的CRC正确
+				{
+					if(UART4_PARA.rx_pixhawks_buf[i+1+Data_Len+1+1] == 0x7e)//帧尾
+					{
+						UART4_PARA.rx_check_finish = 1;//校验成功
+						memcpy(UART4_PARA.rx_check_buf , &UART4_PARA.rx_pixhawks_buf[i] , Data_Len+4);
+						
+						//memset(UART4_PARA.rx_pixhawks_buf,0,UART4_PARA.rx_pixhawks_len);//本次复制有效数据完成，清空串口缓存
+						return UART4_PARA.rx_check_finish ;//返回成功标志  1 校验成功  0 校验失败
+
+					}
+
+				}
+
+			}
+
+
+		}
+
+		if(UART4_PARA.rx_check_finish == 0)//校验失败，清空接收缓冲
+		{
+			memset(UART4_PARA.rx_check_buf,0,UART4_PARA.rx_pixhawks_len);
+			UART4_PARA.rx_check_finish = 0;
+			Usart4_reopen_rx();//打开再次接收
+			return UART4_PARA.rx_check_finish;
+		}
+		
+	}
+
+	
+}
+
+
+void uart4_pixhawks_handle(void)
+{
+	
+	if(Check_uart4_rx())//如果通过验证   
+	{
+		
+		UART4_PARA.rx_check_finish = 0;//清零
+		
+		usart4_rx_handle(UART4_PARA.rx_check_buf,sizeof(UART4_PARA.rx_check_buf));//根据手刚到指令的操作
+		Usart4_reopen_rx();//打开再次接收
+		
+	}
+
+
+}
+
+
+
+
+
+
+//处理接收PIXHAWKS的数据，并执行相应的操作和反馈信号
+void usart4_rx_handle(u8 * rx_check_pix,u8 avail_len)
+{
+	u8 cmd,i;
+
+	cmd = rx_check_pix[2];//提取指令
+
+	switch (cmd)
+	{
+		//以下内容为底层向上位机汇报底层数据
+		case REPORT_ROVER_SONAR  :   //上报12路超声波数据   0x00
+		{
+			
+			for(i = 0;i<12;i++)
+			{
+				chasis_pixhawks.ultrasonic_tx[i] = ULTRA_DATA.ultra_distance[i];
+			}			
+
+			usart4_tx_DMA((u8 *)chasis_pixhawks.ultrasonic_tx,sizeof(chasis_pixhawks.ultrasonic_tx),REPORT_ROVER_SONAR);//发送给上位机
+			break;
+		}
+		case REPORT_HEART_BEAT://心跳包  0x01  上位机下发指令，上位机返回指令作为心跳包
+		{
+			
+			chasis_pixhawks.report_heart_tx[0] = 0x11;
+			chasis_pixhawks.report_heart_tx[1] = 0x22;
+			chasis_pixhawks.report_heart_tx[2] = 0x33;
+
+			usart4_tx_DMA(chasis_pixhawks.report_heart_tx,sizeof(chasis_pixhawks.report_heart_tx),REPORT_HEART_BEAT);//返回心跳包
+			break;
+		}
+
+
+		case REPORT_BATERRY_CAPCITY://电量   0x02
+		{
+			
+			chasis_pixhawks.bat_tx.battery_percent = KULUN_DATA.battery_percent;//百分比
+			chasis_pixhawks.bat_tx.battery_voltage = KULUN_DATA.battery_voltage;
+			chasis_pixhawks.bat_tx.battery_current = KULUN_DATA.battery_electricity;//电流
+			chasis_pixhawks.bat_tx.battery_rated_capacity = KULUN_DATA.set_battery;//额定容量
+			chasis_pixhawks.bat_tx.currtent_dir = KULUN_DATA.electricity_dir;//方向
+			usart4_tx_DMA((u8 *)&chasis_pixhawks.bat_tx,sizeof(chasis_pixhawks.bat_tx),REPORT_BATERRY_CAPCITY);
+
+			break;
+		}
+		case REPORT_SWAP_STATE:  //清扫标志位情况，16路继电器状态  0x03
+		{
+			
+			chasis_pixhawks.swap_state = swap_str.swap_sta_flag;
+
+			usart4_tx_DMA((u8 *)&chasis_pixhawks.swap_state,sizeof(chasis_pixhawks.swap_state),REPORT_SWAP_STATE);
+
+
+			break;
+
+		}
+
+		case  REPORT_CRASH_STATE :   //防撞条状态   0x04
+		{
+
+			chasis_pixhawks.crash_state.crash_flagl = crash_sta_type.crash1_flag;
+			usart4_tx_DMA((u8 *)&chasis_pixhawks.crash_state.crash_flagl,sizeof(chasis_pixhawks.crash_state.crash_flagl),REPORT_CRASH_STATE);
+			break;
+
+		}
+		case REPORT_START_STATE://先预留  思路是总开关按下 中断，开始这个标志   0x05
+		{
+
+			
+
+			break;
+
+		}
+
+		case ACK_HEART_BEAT://   0x06 心跳包  预留
+		{
+			
+
+
+
+			break;
+		}
+
+		//以下内容为上位机设置底层动作内容
+		case SET_BREAK_POSITION:  //设置推杆移动距离     0x07
+		{
+			memcpy((u8 *)&chasis_pixhawks.break_dis,(u8 *)&UART4_PARA.rx_check_buf[3],sizeof(chasis_pixhawks.break_dis));
+			Break_start(chasis_pixhawks.break_dis.high_break_move_dis,chasis_pixhawks.break_dis.low_break_move_dis);//推杆运动
+			usart4_tx_DMA((u8 *)&chasis_pixhawks.break_dis,sizeof(chasis_pixhawks.break_dis),SET_BREAK_POSITION);//返回成功接收的数据
+			break;
+		}
+
+		case SET_ULTRA_TRIGGER://设置超声波触发距离  0x08
+		{
+			
+			memcpy((u8 *)&chasis_pixhawks.ultra_act_distacne,(u8 *)&UART4_PARA.rx_check_buf[3],sizeof(chasis_pixhawks.ultra_act_distacne));
+
+			ULTRA_DATA.avoid_act_dis_for_back = chasis_pixhawks.ultra_act_distacne.ultra_dis_for_back;
+			ULTRA_DATA.avoid_act_dis_left_right = chasis_pixhawks.ultra_act_distacne.ultra_dis_left_right;
+			usart4_tx_DMA((u8 *)&chasis_pixhawks.ultra_act_distacne,sizeof(chasis_pixhawks.ultra_act_distacne),SET_ULTRA_TRIGGER);//返回成功接收的数据
+			break;
+		}
+
+
+		case SET_MODOL_SWITCH :  //人工自主切换    0x09
+		{ 
+
+			break;
+		}
+		case UPDATE_SET_SOFT_RESET://APP更新复位  0x0A
+		{
+			Reset_Soft_hanle();
+
+			break;
+		}
+		case SOFT_RESET://实现复位      0x0B
+		{
+			soft_reset_hal();
+			break;
+		}
+
+		default:break;
+
+	}
+	 
+	//用于碰撞、急停、超声波出发等标志  
+	if((crash_sta_type.crash1_flag == 1)||(ULTRA_DATA.avoid_ultra_flag != 0))
+	{
+		
+		ULTRA_DATA.avoid_ultra_flag = 0;
+		crash_sta_type.crash1_flag = 0;
+		
+		Stop_BackWheel();//停止后轮电机运动
+		//停止所有动作操作，包括后轮电机、清扫  
+
+		CAN_data(BRUSH_STA_HAL);//停止清扫刷子
+		
+	}
+	
+	
+}
+
+
+
+
+//按协议打包一帧数据发送
+//tx_len 实际数据的长度
+void usart4_tx_DMA(u8 * tx_pix_buf,u8 tx_len,u8 Cmd_Data)
+{
+	u8 i,crc;
+	
+	UART4_PARA.tx_pixhawks_buf[0] = 0x7e;
+	UART4_PARA.tx_pixhawks_buf[1] = tx_len+1;//加1 是因为Cmd_Data也要放在实际数据里 所以数据的长度是tx_len+1
+	UART4_PARA.tx_pixhawks_buf[2] = Cmd_Data;//本次的对应的指令标识
+
+	for(i = 0; i < tx_len; i++)
+	{
+		UART4_PARA.tx_pixhawks_buf[i+3] = tx_pix_buf[i];
+	}
+	crc = uart4_get_crc(&UART4_PARA.tx_pixhawks_buf[0],tx_len+3);
+	
+	//tx_pix_buf[tx_len+3] = crc;
+	UART4_PARA.tx_pixhawks_buf[tx_len+3] = crc;
+	UART4_PARA.tx_pixhawks_buf[tx_len+4] = 0x7e;
+	//tx_pix_buf[tx_len+4] = 0x7e;
+
+
+	MYDMA_Uart4_Tx_Config(UART4_PARA.tx_pixhawks_buf,UART4_PARA.tx_pixhawks_buf[1]+4);
+	//MYDMA_Uart4_Tx_Config(tx_pix_buf,sizeof(tx_pix_buf));
+}
+
+
+
+
+u8 uart4_get_crc(u8 *ptr, u8 len)
+{
+	unsigned char crc=0x00; 				//计算的初始crc值
+
+	while(len--)
+	{
+		crc ^= *ptr++;  				    //每次先与需要计算的数据异或,计算完指向下一数据 
+	}
+
+	return (crc); 
+
+}

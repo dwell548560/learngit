@@ -1,0 +1,72 @@
+#ifndef  _SWAP_H
+#define  _SWAP_H
+#include "sys.h"
+#include <string.h>
+
+#define CAN_BAUD_NUM    18		//可用配置波特率个数
+
+
+
+//开外设时进行或运算，需要关某一项时进行与运算
+
+#define LEFT_LIGHT_HAL          0x0001//左转向灯开              边扫
+#define CLO_LEFT_LIGHT          0xfffe//左转向灯关
+
+#define RIGHT_LIGHT_HAL         0X0002//右转向灯开          喇叭
+#define CLO_RIGHT_LIGHT         0XFFFD//右转向灯关
+
+#define FOR_LIGHT_HAL           0X0004//前照灯开           大灯
+#define CLO_FOR_LIGHT           0XFFFB//前照灯关
+
+#define CLEAN_DUST_HAL          0X0008//震尘开
+#define CLO_CLEAN_DUST          0XFFF7//震尘关
+
+#define WATER_MOTOR_HAL         0X0010//水泵开
+#define CLO_WATER_MOTOR         0XFFEF//水泵关
+
+#define WARNING_LIGHT_HAL       0X0020//警示灯开     双闪
+#define CLO_WARNING_LIGHT       0XFFDF//警示灯关
+
+#define BRUSH_STA_HAL           0X0040//刷子启动
+#define CLO_BRUSH_STA           0XFFBF//刷子启动
+
+#define LOUTD_HAL               0X0080//喇叭
+#define CLO_LOUTD               0XFF7F//喇叭关
+
+#define LOUTD_BACK              0X0100//喇叭开倒车            主扫
+#define CLO_LOUTD_BACK          0XFEFF//喇叭关
+
+
+#define WITDH_LIGHT             0X0200//示宽                 报警灯
+#define CLO_WITDH_LIGHT         0XFDFF    
+
+#define BACK_LOUD               0x0400 //                   左后尾灯
+#define CLO_BACK_LOUD           0xfbff 
+
+#define TAIL_LIGHT              0X0800   //尾灯                倒车请注意        
+#define CLO_TAIL_LIGHT          0xf7ff    //关尾灯     
+
+#define TURN_UNLOCK             0X1000  //前轮解锁用
+#define CLO_TURN_UNLOCK         0XEFFF  //
+
+__packed typedef struct{
+
+u16 swap_sta_flag;//用一个标志的每一位来表示某一个16路机电电器通断与否
+
+
+}SWAP_STA_TYPE;
+
+extern SWAP_STA_TYPE swap_str;
+
+void CAN_Configuration(void);
+void CAN_Baud_Process(unsigned int Baud,CAN_InitTypeDef *CAN_InitStructure);
+void CAN1_WriteData(unsigned int ID,unsigned char* buf);
+void CAN_data(u16 a);
+
+
+
+
+
+
+
+#endif

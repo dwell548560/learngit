@@ -1,0 +1,63 @@
+#include "crash.h"
+
+CRASH_STU crash_sta_type;
+
+//PF14 中断
+void crash_GPIO_Init(void)
+{
+	  EXTI_InitTypeDef   EXTI_InitStructure;
+	  GPIO_InitTypeDef   GPIO_InitStructure;
+	  NVIC_InitTypeDef   NVIC_InitStructure;
+
+	  RCC_AHB1PeriphClockCmd( CRASH_CLK_GPIOE, ENABLE);
+	  /* Enable SYSCFG clock */
+	  RCC_APB2PeriphClockCmd( RCC_APB2Periph_SYSCFG, ENABLE);
+	  
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//GPIO_PuPd_NOPULL;
+	  GPIO_InitStructure.GPIO_Pin = GPIOX_CRASH_PIN;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100M
+	  GPIO_Init(  GPIOX_CRASH , &GPIO_InitStructure);
+
+	  SYSCFG_EXTILineConfig(  GPORTX_GPIO_EXTI_CRASH, GPORTX_EXTIPINSOURCE_CRASH   );
+
+	  EXTI_InitStructure.EXTI_Line = GPIOX_EXTI_LINE_CRASH;
+	  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;  
+	  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	  EXTI_Init(&EXTI_InitStructure);
+
+	  NVIC_InitStructure.NVIC_IRQChannel = GPIO_EXTI_IRn_CRASH;
+	  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x0; //等级最高
+	  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0;
+	  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	  NVIC_Init(&NVIC_InitStructure);
+	  
+	  EXTI_ClearITPendingBit( GPIOX_EXTI_LINE_CRASH ); 	
+
+}
+
+
+
+
+
+void GPIO_EXTI_IRQHANDLER_CRASH(void)
+{
+
+	if(EXTI_GetITStatus( GPIOX_EXTI_LINE_CRASH ) != RESET)//防碰撞条  PB13
+	{
+		//停止所有能动的运动
+		crash_sta_type.crash1_flag = 1;//标志置1   此标志值1时所有的运动停止
+
+		Stop_BackWheel();//停止后轮电机运动
+
+		CAN_data(BRUSH_STA_HAL);//停止清扫刷子
+
+
+
+	}
+		EXTI_ClearITPendingBit( GPIOX_EXTI_LINE_CRASH );
+
+}
+
+

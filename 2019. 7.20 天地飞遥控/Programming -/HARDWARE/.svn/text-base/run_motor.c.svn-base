@@ -1,0 +1,425 @@
+#include "run_motor.h"
+
+RUN_MOTOR run_motor_para;
+
+void Run_motor_usart1_init(u32 baud)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE); //
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);//
+	
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource9,GPIO_AF_USART1); //
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource10,GPIO_AF_USART1);//
+	
+		
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 |GPIO_Pin_11; //
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;//复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP; //上拉
+	GPIO_Init(GPIOA,&GPIO_InitStructure); //
+
+		
+	
+//USART3
+	USART_InitStructure.USART_BaudRate = baud;//波特率
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;//因为有一位偶校验所以9位,艾思控固定8位数据位，再加上一位校验位(偶校验)，就是9位字长，f407是这样的，其他芯片可能是分开的
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;//对于艾思控的驱动器在波特率位115200时，无奇偶校验时，停止位为2位
+	USART_InitStructure.USART_Parity = USART_Parity_No;//
+	USART_InitStructure.USART_HardwareFlowControl =USART_HardwareFlowControl_None;//无硬件控制流
+	USART_InitStructure.USART_Mode =  USART_Mode_Tx|USART_Mode_Rx;//收发模式
+	USART_Init(USART1, &USART_InitStructure); //
+	
+	USART_ClearFlag(USART1, USART_FLAG_TC);
+	
+	
+	USART_ITConfig(USART1, USART_IT_RXNE, DISABLE);//??????
+	USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);//??????
+	USART_DMACmd(USART1,USART_DMAReq_Rx,ENABLE); 
+
+	USART_DMACmd(USART1,USART_DMAReq_Tx,ENABLE); 
+	USART_ClearITPendingBit(USART1, USART_IT_TC);//清除中断TC位	
+
+	USART_Cmd(USART1, ENABLE); //
+
+
+
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;//????? 3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;  //????? 3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ ????
+	NVIC_Init(&NVIC_InitStructure);  //?????????? VIC ????
+
+
+}
+
+void USRAT1_DMA2_Init(void)
+{
+
+	DMA_InitTypeDef DMA_InitStructure;
+	NVIC_InitTypeDef  NVIC_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);  
+
+    DMA_DeInit(DMA2_Stream5);
+	while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART1->DR);  
+    DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(run_motor_para.rx_run_data);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_PeripheralToMemory;
+    DMA_InitStructure.DMA_BufferSize         = USART1_RX_MAX_SIZE;
+    DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Circular;
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+    DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA2_Stream5, &DMA_InitStructure); 
+                     
+    DMA_Cmd(DMA2_Stream5, ENABLE); 
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);  
+	DMA_DeInit(DMA2_Stream7);
+	while (DMA_GetCmdStatus(DMA2_Stream7) != DISABLE){}//?? DMA ???
+    DMA_InitStructure.DMA_Channel            = DMA_Channel_4;//发送管道
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)(&USART1->DR);  
+	DMA_InitStructure.DMA_Memory0BaseAddr    = (uint32_t)(run_motor_para.tx_run_data);
+    DMA_InitStructure.DMA_DIR                = DMA_DIR_MemoryToPeripheral;
+    DMA_InitStructure.DMA_BufferSize         = USART1_TX_MAX_SIZE;
+	DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+    DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+    DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_Byte;
+    DMA_InitStructure.DMA_Mode               = DMA_Mode_Normal;//正常模式
+    DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+	DMA_InitStructure.DMA_FIFOMode           = DMA_FIFOMode_Disable;
+    DMA_InitStructure.DMA_FIFOThreshold      = DMA_FIFOThreshold_1QuarterFull ;
+    DMA_InitStructure.DMA_MemoryBurst        = DMA_MemoryBurst_Single;
+    DMA_InitStructure.DMA_PeripheralBurst    = DMA_PeripheralBurst_Single;
+    DMA_Init(DMA2_Stream7, &DMA_InitStructure);  
+
+	//DMA_ITConfig(DMA1_Stream6, DMA_IT_TC, ENABLE);
+
+	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream7_IRQn; 
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; 
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 
+	NVIC_Init(&NVIC_InitStructure);
+
+
+
+
+}
+
+//void USART1_IRQHandler(void)
+//{
+
+//	u8 clearflag=0;
+//	u16 len =0;
+
+//	if(USART_GetITStatus(USART1,USART_IT_IDLE)==SET)
+//	{
+//		clearflag = USART1->SR;
+//		clearflag = USART1->DR;//先读SR  再读DR清除IDLE标志
+
+//		DMA_Cmd(DMA2_Stream5, DISABLE);
+
+//		//DMA_ClearFlag( DMA2_Stream2, DMA_FLAG_TCIF2 );    //清除传输完成标志位，否则进入传输完成中断
+//		while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}
+
+//		len = USART1_RX_MAX_SIZE-DMA_GetCurrDataCounter(DMA2_Stream5);
+
+//		if(len>0)
+//		{
+
+//			run_motor_para.rx_over_flag = 1;
+//			run_motor_para.rx_len = len;
+//			
+//			//Usart6_reopen_rx();
+//			//USART_Cmd(USART6, DISABLE); 
+//		}
+//		else 
+//		{
+//			//memset( ( uint8_t* )KULUN_DATA.kl_receive_data, 0 , sizeof(KULUN_DATA.kl_receive_data) );
+//		//	KULUN_DATA.rx_done_flag=0;
+//			USART1_Reopen();
+//							
+//		}
+//				
+//	}
+//	//USART_ClearITPendingBit(USART1,USART_IT_IDLE);
+//}
+
+
+
+void USART1_Reopen(void)
+{
+	DMA_Cmd(DMA2_Stream5, DISABLE);
+	DMA_ClearFlag( DMA2_Stream5, DMA_FLAG_TCIF5 );    //清除传输完成标志位，否则进入传输完成中断
+	while (DMA_GetCmdStatus(DMA2_Stream5) != DISABLE){}
+	
+	DMA_SetCurrDataCounter(DMA2_Stream5,USART1_RX_MAX_SIZE);
+	DMA_Cmd(DMA2_Stream5, ENABLE);
+
+}
+
+//发送一次数据
+void MYDMA2_TX_USART1_Config(u16 ndtx)
+{
+	
+	DMA_Cmd(DMA2_Stream7, DISABLE); //?? DMA ??
+	while (DMA_GetCmdStatus(DMA2_Stream7) != DISABLE){} //?? DMA ?????
+	USART_DMACmd(USART3,USART_DMAReq_Tx,ENABLE);
+	DMA_SetCurrDataCounter(DMA2_Stream7,ndtx); //?????
+	DMA_ClearFlag( DMA2_Stream7,DMA_FLAG_TCIF7 );	
+	//RS485_RX_EN = 1;//发送模式
+	DMA_Cmd(DMA2_Stream7, ENABLE); //?? DMA ??
+		
+	//while(DMA_GetFlagStatus(DMA1_Stream6,DMA_FLAG_TCIF6)==RESET){}
+	delay_ms(1);//等待发送请求指令完成
+	//RS485_RX_EN = 0;//485接收模式
+
+}
+
+//不用了
+void Send_usart1_driver(u8 *  driver_buf)
+{
+
+
+
+
+
+
+	
+
+
+
+}
+
+
+//函数将接收到的十进制的每一位转换成16进制的表示的ASCII
+//不用了
+u8 Hex_to_Ascii(u8 data)
+{
+
+	u8 para = 0;
+	
+	para = data;
+
+	if(para <= 9)
+	{
+		para += 0x30;
+
+	}
+
+}
+
+
+
+//将要设置的值，每一位变成16进制的ASCII值   123的ascii:31 32 33
+//n 是求得的这个数十进制有多少位，比如120  n=3
+void DEC_Per_Bit(u32 para)
+{
+	u8 i, n, count, data;
+	
+	n = para;
+	do           //判断十进制有几位,先计算后判断
+	{
+		n = n /10;
+		count++;
+	}while(n>0);
+
+	run_motor_para.ascii_avail_cnt = n;//记录本次有多少个有效为
+
+	for(i = n; i>0 ; i--)
+	{
+		//得到十进制的每一位，第一次得到的是最高位，并转成16进制ASCII存在缓冲中
+		//run_motor_para.hex_to_ascii_value[i] = Hex_to_Ascii((para/(u32)(pow(10,i-1)))% 10);
+		data = para/((u32)(pow(10,i-1)))% 10;
+
+		if(data <= 9)
+		{
+			data += 0x30;
+
+		}
+		run_motor_para.hex_to_ascii_value[i] = data;
+	}
+
+}
+
+
+
+
+
+
+
+//ordr：指令  id ：要操作的变量地址  memory:flash  ram  value: 要设置的值
+
+void Send_Buf_Set(u8 order,u8 memory,u8 id,u32 value )//这里没考虑地址
+{
+	u8 i,j,t,len = 0;
+	
+	run_motor_para.tx_run_data[0] = order;
+	run_motor_para.tx_run_data[1] = space_ASCII_ORDER;
+	run_motor_para.tx_run_data[2] = memory;
+
+	DEC_Per_Bit(id);
+	for(i = 0;i < run_motor_para.ascii_avail_cnt;i++)
+	{
+		run_motor_para.tx_run_data[3] = run_motor_para.hex_to_ascii_value[i];
+
+	}
+	run_motor_para.tx_run_data[i] = space_ASCII_ORDER;
+
+	
+	DEC_Per_Bit(value);
+	for(j = i+1;j < run_motor_para.ascii_avail_cnt+i+1;j++)
+	{
+		run_motor_para.tx_run_data[j] = run_motor_para.hex_to_ascii_value[t];
+		t++;
+	}
+
+	run_motor_para.tx_run_data[j] = RETURN_ASCII_ORDER;//回车
+
+	//run_motor_para.tx_run_data[3] = id;
+	//run_motor_para.tx_run_data[4] = space_ASCII_ORDER;
+	//run_motor_para.tx_run_data[5] = value1>>8;
+	//run_motor_para.tx_run_data[6] = value1&0xff;
+	//run_motor_para.tx_run_data[7] = RETURN_ASCII_ORDER;//回车
+
+	len = sizeof(run_motor_para.tx_run_data);
+
+	MYDMA2_TX_USART1_Config(len);//发送一次数据
+
+}
+
+
+
+void Send_Velocity_Handle(int16_t rate)
+{
+	int16_t velocity = 0;
+
+	velocity = rate;
+
+	velocity = FEEDBACK_ENCODER_COUNT * velocity/60;
+
+
+
+	Send_Buf_Set(s_ORDER_SET,r_ASCII_ORDER,ACCELARATE_SET_VALUE,100);//设置最大加速度
+	Send_Buf_Set(s_ORDER_SET,r_ASCII_ORDER,DECELERATE_SET_VALUE,100);//设置最大减速度
+	Send_Buf_Set(s_ORDER_SET,r_ASCII_ORDER,RATE_SET_VALUE,velocity);//设置速度值   单位  pul/s   脉冲/秒
+	Send_Buf_Set(s_ORDER_SET,r_ASCII_ORDER,RATE_MODE_ID,RATE_PROGRAME_SET);//设置速度模式，编程速度模式
+
+
+}
+
+
+
+void Run_motor_handle(void)
+{
+	u8 left_count = 0;
+	static u8 pwm_state_flag = 0;
+	s16 speed=0;
+	static u16 left_last_speed=0;
+
+	if(Pix_Left_Pwm.capture_end_flag==PIX_LEFT_CAPTURE_END)
+		{
+			left_count++;
+			pwm_state_flag |= PIX_LEFT_EXIST_SIGNAL;											 //存在PWM信号
+			
+			pix_left_pwm_process(Pix_Left_Pwm.capture_end_flag);
+			if(Pix_Left_Pwm.sample_flag == SAMPLE_END)
+			{
+				Pix_Left_Pwm.sample_flag=0;
+				
+				if(Pix_Left_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+				{
+					Pix_Left_Pwm.fault_flag = 0;
+				//	
+					pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);	
+					//增加向上位机报告该错误
+				}
+				else 
+				{
+					pwm_state_flag |= PIX_LEFT_CAPTURE_OK;										
+					
+					speed=pwm_convert_rev(Pix_Left_Pwm.pwm_duty);
+
+					
+					if(speed != 0)
+					{
+						if(left_last_speed != speed)
+						{
+							left_last_speed = speed;
+							Send_Velocity_Handle(speed);
+							speed = 0;
+						}
+
+					}
+					
+				}
+				
+			}
+			
+
+		}
+
+		if(left_count == 1)					//三路PWM捕获完毕
+		{
+			left_count  = 0;
+			if(((pwm_state_flag & PIX_CAPTURE_OK) != PIX_CAPTURE_OK) || ((pwm_state_flag & PIX_EXIST_SIGNAL) != PIX_EXIST_SIGNAL))
+			{
+				//此处应该增加一个停机处理，并向上位机反馈该错误标志
+				pwm_state_flag = 0;
+				motor_force_stop(ENABLE);
+				Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+				//led指示
+				//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+				//向上位机发送相应标志
+				
+			}
+			else if(((pwm_state_flag & PIX_EXIST_SIGNAL) == PIX_EXIST_SIGNAL) && ((pwm_state_flag & PIX_CAPTURE_OK) == PIX_CAPTURE_OK))
+			{
+				pwm_state_flag = 0;
+				if(Motor_Force_Flag == 0)                                           //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+				{
+					motor_force_stop(DISABLE);
+				}
+				Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);								
+				
+				//Led_Fault_Indication_Flag &= ( ~ LED_MOTOR_PWM_CAPTURE_FAULT);
+			}
+
+		}
+		else if(left_count != 1)            //电机任务执行三次，仍出现有未被捕获的PWM，此种情况判断为异常
+		{																																																				//电机执行三次，保证当捕获被意外打断时，延时不够用的情况，可以重新进行捕获，但是需要电机任务的状态重置
+			
+			left_count  = 0;
+			
+			//电机停机			
+			pwm_state_flag = 0;
+			motor_force_stop(ENABLE);
+			Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+			//led指示
+			//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+			//任务状态重置:先关闭所有捕获，再开第一路捕获
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+		//	pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+			//pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+			
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+		}
+
+
+
+}

@@ -1,0 +1,209 @@
+#ifndef _USART4_TO_PIXHAWKS
+#define _USART4_TO_PIXHAWKS
+#include "sys.h"
+#include <string.h>
+#include "ultrasonic.h"
+#include "kulun.h"
+#include "swap.h"
+#include "crash.h"
+#include "break.h"
+#include "crash.h"
+#include "reset.h"
+
+#define RX_MAX_SIZE     50
+#define TX_MAX_SIZE     50
+
+
+void Usart4_Pixhawks_Init(u32 baud);//与PIXHAWKS通信初始化
+void Usart4_DMA1_Init(void);
+
+void MYDMA_Uart4_Tx_Config(u8* tx_uart4_buf,u16 ndtx);
+void Usart4_reopen_rx(void);
+u8 Check_uart4_rx(void);//校验接收到的pixhawks数据
+u8 uart4_get_crc(u8 *ptr, u8 len);//自定义CRC校验
+
+void usart4_rx_handle(u8 * rx_check_pix,u8 avail_len);
+void usart4_tx_DMA(u8 * tx_pix_buf,u8 tx_len,u8 Cmd_Data);//向pixhawks发数据
+
+void uart4_pixhawks_handle(void);
+
+void soft_reset_hal(void);
+
+
+__packed typedef struct {
+
+u8 rx_finish_flag;//数据
+u8 rx_check_finish;//数据校验完成
+
+u8 rx_pixhawks_buf[RX_MAX_SIZE];
+u8 tx_pixhawks_buf[TX_MAX_SIZE];
+u8 rx_check_buf[RX_MAX_SIZE];//保存校验过的正确数据
+
+u8 rx_pixhawks_len;//接收的数据长度
+
+
+}uart4_pixhawks;
+
+extern uart4_pixhawks UART4_PARA;
+
+/*************通信参数定义**************/
+
+enum uart4_pix_order{
+
+	//stm32 to pixhawks
+	REPORT_ROVER_SONAR = 0,
+
+	REPORT_HEART_BEAT,//底层平台心态包1
+
+	REPORT_BATERRY_CAPCITY,//电量参数2
+
+	REPORT_SWAP_STATE,//清扫、灯光状态3
+
+	REPORT_CRASH_STATE,//防碰撞状态4
+
+	REPORT_START_STATE,//开始运行/急停按下标志5
+
+
+	//pixhawks to stm32
+	ACK_HEART_BEAT,//pixhawks应答确认心跳包6
+
+	SET_BREAK_POSITION,//设置刹车电动推杆位置7
+
+	SET_ULTRA_TRIGGER,//上位机设置超声波的触发距离8
+
+	SET_MODOL_SWITCH,//人工自主模式切换9
+	
+	UPDATE_SET_SOFT_RESET, //设置主控板软件复位  0X0A
+
+	SOFT_RESET,   //软件复位操作，仅复位不更新APP  0x0B
+
+
+};
+
+
+
+
+
+
+//没用到
+__packed typedef struct {
+
+u16 one_ultra_dis;//第一路超声数据
+u16 two_ultra_dis;//2
+u16 third_ultra_dis;//3
+u16 five_ultra_dis;//
+u16 six_ultra_dis;//
+u16 seven_ultra_dis;//
+u16 eight_ultra_dis;//
+u16 nine_ultra_dis;//
+u16 ten_ultra_dis;//
+u16 eleven_dis;//
+u16 twentle_ultra_dis;//第12路超声波
+
+
+}ULTRASONINC_PIX_UART4;
+
+
+struct heart_beat{
+
+u8 stm32_heart[5];//stm32 to pix
+};
+
+
+__packed typedef struct capcity_para{
+	u16  battery_percent;//电量百分比
+	u16 battery_voltage;//电压
+	u16 battery_current;//电流
+	u16 battery_rated_capacity;//额定电量
+	u16  currtent_dir;//电流方向，0放电，1充电
+
+
+}CAP_BAT;
+
+__packed typedef struct {
+
+u8 swap_flga;//刷子打开
+u8 right_turn_light_flag;
+u8 left_turn_light_flag;
+u8 for_light_flag;//前照灯
+u8 back_light_flag;//尾灯
+u8 double_light_flag;//双闪灯
+u8 fog_light_flag;//雾灯
+u8 show_width_light_flag;//示宽灯
+
+}SWAP_TX_STA;
+
+
+//防碰撞状态
+__packed typedef struct crash_state{
+
+u8 crash_flagl;//0 未触发 1 触发
+
+
+}CRA_STA; 
+
+
+
+//刹车电动推杆刹车，刹车距离是32数据，可正可负
+__packed typedef struct {
+
+short int high_break_move_dis;//高16位
+short int low_break_move_dis;//低16位
+
+}BREAK_PARA;
+
+
+
+__packed typedef struct {
+
+	u16 ultra_dis_for_back;//前后触发距离
+	u16 ultra_dis_left_right;//左右触发距离
+
+}ULTRA_DIS_ACTIVE;
+
+
+//上位机设置超声触发距离
+//struct set_ultra_act{
+
+	//struct for_back_set ultra_two;//前后各两个 距离相同
+
+	//struct left_right_set ultra_four;//左右各四个 距离相同
+
+//};
+
+
+extern  u8 modol_switch_flag;//人工 自主设置
+
+
+ struct run_state{
+u8 start_flag;//机器运行开始表示 0 未开始 1开始
+u8 stop_flag;//急停标志
+u8 soft_stop_flag;//软急停标志
+
+};
+
+
+
+
+__packed typedef struct {
+
+//ULTRASONINC_PIX_UART4  ultrasonic_tx;
+
+	u16 ultrasonic_tx[12];//保存12路超声波数据
+	u8 report_heart_tx[3];//底层发送的心跳内容
+
+	CAP_BAT bat_tx;//电量
+
+	u16 swap_state ;//清扫状态标志  16位来表示
+
+	CRA_STA crash_state;
+
+	BREAK_PARA break_dis;//刹车距离
+
+	ULTRA_DIS_ACTIVE ultra_act_distacne;
+
+}CHASIS_PARA;
+
+
+
+#endif

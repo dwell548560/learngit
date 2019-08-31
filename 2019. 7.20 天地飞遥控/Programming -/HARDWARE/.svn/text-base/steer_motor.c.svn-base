@@ -1,0 +1,997 @@
+#include "steer_motor.h"
+
+/***********************************************************************
+**版权:     福建(泉州)哈工大工程技术研究院
+**文件名:   motor_device.c
+**开发环境: MDK5.0
+**作者:     GBZ
+**生成时间: 2018.04.25
+**修改时间: 
+**功能:    
+**版本:     U1.00
+**说明:     
+						1.modbus具体协议规则见《雷赛伺服modbus RTU协议.pdf》
+						//以上记录与2018.04.25    GBZ
+						
+***********************************************************************/
+//#include "motor_device.h"
+//#include "Timer_Handle.h"
+//#include "rs485_device.h"
+//#include "task_timing_process.h"
+//#include "pixhawk_pwm_capture.h"
+//#include "debug.h"
+//#include "led_state_indication.h"
+//#include "ultrasonic_device.h"
+
+u8 Motor_Force_Flag;
+u32 pul_positon_last = 0;//记录上一次的脉冲数
+///////////////////////////////////////////////////////////////////////
+//电机通信处理及控制策略                           
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：void motor_all_stop(void)
+功    能：所有电机停止运行
+输入参数：
+输出参数：
+编写时间：2018.05.05
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void motor_all_stop(void)
+{
+
+	u8 rev_buf[2]={0,0};
+	u8 turn_zero_buf[4]={0x00,0x01,0xd5,0xba};
+	Motor_Device left_motor_device;
+	Motor_Device right_motor_device;
+	Motor_Device turn_motor_device;
+	
+	left_motor_device.device_num=DN_FIRST_MOTOR;
+	left_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+	left_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+	left_motor_device.data_length=2;
+	
+	right_motor_device.device_num=DN_SECOND_MOTOR;
+	right_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+	right_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+	right_motor_device.data_length=2;
+	
+	turn_motor_device.device_num=DN_THIRD_MOTOR;
+	turn_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+	turn_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+	turn_motor_device.data_length=4;
+
+	modbus_frame_send_process(left_motor_device,rev_buf);
+	modbus_frame_send_process(right_motor_device,rev_buf);
+	modbus_frame_send_process(turn_motor_device,turn_zero_buf);
+	
+	
+}
+/***********************************************************************
+函数名称：void motor_force_stop_init(void)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.06.04
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void motor_force_stop_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+					 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE); 				
+	
+	GPIO_InitStructure.GPIO_Pin = FIRST_MOTOR_FORCE_STOP_PIN | SECOND_MOTOR_FORCE_STOP_PIN | THIRD_MOTOR_FORCE_STOP_PIN; 									
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;								
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;				
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 								
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN; 								
+	GPIO_Init(GPIOG,&GPIO_InitStructure); 
+
+	motor_force_stop(DISABLE);
+  
+}
+
+/***********************************************************************
+函数名称：void motor_force_stop(u8 state)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.06.04
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void motor_force_stop(u8 state)
+{
+//	u16 count=1000;
+	
+	if(state == ENABLE)
+	{
+		FIRST_MOTOR_FORCE_STOP_CTR(ENABLE);
+		SECOND_MOTOR_FORCE_STOP_CTR(ENABLE);
+		THIRD_MOTOR_FORCE_STOP_CTR(ENABLE);
+	}
+	else if(state == DISABLE)
+	{
+		FIRST_MOTOR_FORCE_STOP_CTR(DISABLE);
+		SECOND_MOTOR_FORCE_STOP_CTR(DISABLE);
+		THIRD_MOTOR_FORCE_STOP_CTR(DISABLE);
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////数据帧函数
+////////////////////////////////////////////////////////////////////////////////////////
+
+/***********************************************************************
+函数名称：void modbus_frame_send_process(u8 device_num,u8 function_code,u16 register_addr,u8* data_buf,u16 data_length)
+功    能：处理数据帧、并发送
+输入参数：
+输出参数：
+编写时间：2018.04.24 
+编 写 人：GBZ
+注    意：
+         1.数据区高字节先发送！！
+				 //以上记录与2018.04.24    GBZ
+         2.对于modbus数据区的数据（位模式除外），均以16进制存在！！！所以data_buf要做对等转换
+				 //以上记录与2018.04.24    GBZ
+***********************************************************************/
+u8 modbus_frame_send_process(Motor_Device motor_device,u8* data_buf)
+{
+	u16 index=0;
+	u16 addr_temp=0;
+	u16 com_temp=0;
+	u16 crc_check_length=0;  	//需要校验的crc数据长度
+	u16 crc_result=0;        	//crc校验结果值 
+	u8 data_index_base=0;         //数据区开始的基准位置	
+	u8 data_len_index_base=0;   //数据长度区开始的基准位置
+	u16 total_length=0;         //整个数据整长度
+	u8 modbus_frame_buf[MODBUS_FRAME_LENGTH_MAX]={0};
+	
+	//帧头（通讯地址）、功能码
+	modbus_frame_buf[MODBUS_FRAME_DEVICE_NUM]=motor_device.device_num;
+	modbus_frame_buf[MODBUS_FRAME_FUNCTION_CODE]=motor_device.modbus_function_code;
+	//寄存器地址
+	addr_temp=motor_device.reg_addr&0xff00;
+	modbus_frame_buf[MODBUS_FRAME_REG_ADDR_HIGH]=addr_temp>>8;           							//传输过程中，高字节地址先传输
+	modbus_frame_buf[MODBUS_FRAME_REG_ADDR_LOW]=motor_device.reg_addr&0x00ff;   			        //获取低字节地址
+	//以下具体帧格式，根据功能码来选择
+	switch(motor_device.modbus_function_code)
+	{
+		/*****************************  写操作  ******************************/
+		//写单个数据（16位/1位）
+		case FC_WRITE_ONE_WORD:
+			{
+				data_index_base=MODBUS_FRAME_DATA_INDEX_BASE;
+				for(index=0;index<motor_device.data_length;index++)
+				{
+					modbus_frame_buf[data_index_base+index]=data_buf[index];
+				}
+				
+				crc_check_length=data_index_base+motor_device.data_length;                 	        //从帧头开始，到整个数据区均为需要crc校验计算的部分
+				crc_result=modbus_crc_cal(modbus_frame_buf,crc_check_length);
+				modbus_frame_buf[crc_check_length]=crc_result&0x00ff;       						//crc数据，低位先发送
+				modbus_frame_buf[crc_check_length+1]=(crc_result&0xff00)>>8;						//crc数据，高位后发送
+				total_length=crc_check_length+2;													//计算总长度
+			}break;
+		case FC_WRITE_ONE_BIT:																		//写一位，数据0/1；
+			{
+				data_index_base=MODBUS_FRAME_DATA_INDEX_BASE;
+				modbus_frame_buf[data_index_base]=data_buf[index];
+				
+				crc_check_length=data_index_base+motor_device.data_length;                 	        //从帧头开始，到整个数据区均为需要crc校验计算的部分
+				crc_result=modbus_crc_cal(modbus_frame_buf,crc_check_length);
+				modbus_frame_buf[crc_check_length]=crc_result&0x00ff;       						//crc数据，低位先发送
+				modbus_frame_buf[crc_check_length+1]=(crc_result&0xff00)>>8;						//crc数据，高位后发送
+				total_length=crc_check_length+2;													//计算总长度
+			}break;
+        //写多个数据（多个16位数据/多个1位数据）
+		case FC_WRITE_MULTI_BITS:
+		case FC_WRITE_MULTI_WORDS:
+			{	
+				data_len_index_base=MODBUS_FRAME_DATA_LEN_INDEX_BASE;    
+				//第一个数据长度表示，两个字节	
+				com_temp=(motor_device.data_length/2)&0xff00;										//第一个数据长度表示，两个字节,协议里数据长度num1的值表示的是16位数据（半字）的个数，而此处需要除以二
+				modbus_frame_buf[data_len_index_base]=com_temp>>8;           
+				com_temp=motor_device.data_length/2;
+				modbus_frame_buf[data_len_index_base+1]=com_temp&0x00ff;
+				//第二个数据长度表示，一个字，该字节的值=长度*2
+				modbus_frame_buf[data_len_index_base+2]=motor_device.data_length;          	        //协议里数据长度num2的值位数据区字节数，此处又要重新乘以2
+                //数据区处理                        
+				for(index=0;index<motor_device.data_length;index++)									//"data_len_index_base+3"为数据区开始下标
+				{
+					modbus_frame_buf[data_len_index_base+3+index]=data_buf[index]; 
+				}
+				
+				crc_check_length=data_len_index_base+3+motor_device.data_length;                    //从帧头开始，到整个数据区均为需要crc校验计算的部分
+				crc_result=modbus_crc_cal(modbus_frame_buf,crc_check_length);
+				modbus_frame_buf[crc_check_length]=crc_result&0x00ff;       						//crc数据，低位先发送
+				modbus_frame_buf[crc_check_length+1]=(crc_result&0xff00)>>8;						//crc数据，高位后发送
+				total_length=crc_check_length+2;													//计算总长度
+			}break;
+		
+		/*****************************  读操作  ******************************/
+		//读多个数据
+		case FC_READ_MULTI_BITS:
+		case FC_READ_MULTI_WORDS:
+			{
+				data_len_index_base=MODBUS_FRAME_DATA_LEN_INDEX_BASE;
+				com_temp=motor_device.data_length&0xff00;										    //第一个数据长度表示，两个字节
+				modbus_frame_buf[data_len_index_base]=com_temp>>8;           
+				modbus_frame_buf[data_len_index_base+1]=motor_device.data_length&0x00ff;
+				
+				crc_check_length=data_len_index_base+2;           									//数据长度表示区，下一个段位crc校验段
+				crc_result=modbus_crc_cal(modbus_frame_buf,crc_check_length);
+				modbus_frame_buf[crc_check_length]=crc_result&0x00ff;         						//crc数据，低位先发送
+				modbus_frame_buf[crc_check_length+1]=(crc_result&0xff00)>>8;						//crc数据，高位后发送
+				total_length=crc_check_length+2;													//计算总长度
+			}break;
+		default:
+			break;
+	}
+
+	usart2_DMA_send(modbus_frame_buf,total_length);
+	//RS485_Send_Data(modbus_frame_buf,total_length);
+//	rs485_dma_send(modbus_frame_buf,total_length);
+	return 0;
+//	return modbus_frame_return_process(modbus_frame_buf,total_length);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***********************************************************************
+函数名称：u8 modbus_frame_return_process(u8* sendbuf)
+功    能：对modbus返回的数据进行判断处理
+输入参数：
+输出参数：
+编写时间：2018.04.25
+编 写 人：GBZ
+注    意：
+					1.modbus超时检测和重发机制
+					 当在规定时间内，未收到返回帧，则进行重发，重发规定次数，如果仍没有收到返回帧，则判断通信异常！！
+           注意，当为广播模式时，无返回帧！！！
+					 
+***********************************************************************/
+//u8 modbus_frame_return_process(u8* sendbuf,u16 length)
+//{
+//	u8 index=0;
+//	u16 check_crc=0;
+//	u8 crc_high=0;
+//	u8 crc_low=0;
+//	u16 time_out=0;
+//	static u8 time_out_counter=0;
+//	Motor_Device return_md;
+//	
+//	time_out=(MODBUS_FRAME_INTERVAL_DELAY/2)*10;												 				//计数以100us为时间间隔，MODBUS_FRAME_INTERVAL_DELAY为ms单位，所以此处需要乘以10
+//																																							//回复帧，间隔时间为：MODBUS_FRAME_INTERVAL_DELAY/2
+//	Com_Time_Out_Handle(TIME_OUT_START,time_out);
+//	
+//	while((time_out_counter<2)&&((RS485_Rec_Flag!=(u8)RS485_REC_COMPLETE)
+//				||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=DN_FIRST_MOTOR)
+//				||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=DN_SECOND_MOTOR)
+//				||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=DN_THIRD_MOTOR)
+//				||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=DN_FOURTH_MOTOR)
+//				||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=DN_ZERO_BROADCAST)))
+//	{
+//		if(Com_Time_Out_Flag==TIME_OUT_OCCUR)
+//		{
+//			Com_Time_Out_Flag=0;
+//			if(time_out_counter<1)
+//			{
+//				//System_Delay_ms(MODBUS_FRAME_INTERVAL_DELAY);													//增加帧间隔延时
+//				RS485_Send_Data(sendbuf,length);	
+//			}			
+//			else
+//			{
+//				time_out_counter=0;
+//				Com_Time_Out_Handle(TIME_OUT_END,time_out);														//结束超时，time_out无实际意义
+//				//此处异常强制电机停机
+//				motor_force_stop(ENABLE);
+//				Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;												//设置错误标志位
+//				
+//				return MODBUS_TIME_OUT_ERROR;
+//			}
+//			time_out_counter++;
+//		}
+//	}
+//	
+//	if((RS485_Rec_Flag==(u8)RS485_REC_COMPLETE)&&(time_out_counter<1)&&
+//			((RS485_buff[MODBUS_FRAME_DEVICE_NUM]==DN_FIRST_MOTOR)
+//			||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]==DN_SECOND_MOTOR)
+//			||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]==DN_THIRD_MOTOR)
+//			||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]==DN_FOURTH_MOTOR)
+//			||(RS485_buff[MODBUS_FRAME_DEVICE_NUM]==DN_ZERO_BROADCAST)))				 
+//	{
+//		Com_Time_Out_Handle(TIME_OUT_END,time_out);																//结束超时，time_out无实际意义
+//		RS485_Rec_Flag=0;
+//		time_out_counter=0;
+//		return_md.data_length=RS485_Rec_Counter;
+//		
+//		if((sendbuf[MODBUS_FRAME_FUNCTION_CODE] & MODBUS_RETURN_FAULT_CODE) != MODBUS_RETURN_FAULT_CODE)        //返回的不是故障码
+//		{
+//			switch(sendbuf[MODBUS_FRAME_FUNCTION_CODE])
+//			{
+//				/*****************************  写操作  ******************************/
+//				//写单个数据（16位/1位）
+//				case FC_WRITE_ONE_WORD:																			//该命令返回的帧与下发的帧相同
+//				case FC_WRITE_ONE_BIT:
+//					{
+//						for(index=0;index<return_md.data_length;index++)
+//						{
+//							if(RS485_buff[index]!=sendbuf[index])
+//							{
+//								return_md.return_flag=MODBUS_RETURN_WRITE_FALSE;
+//								//此处异常强制电机停机
+//								motor_force_stop(ENABLE);
+//								Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;								//设置错误标志位
+//							}
+//						}
+//						return_md.return_flag=MODBUS_RETURN_WRITE_TRUE;
+//						//电机状态正常
+//						if(Motor_Force_Flag == 0)                                                               //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+//						{
+//							motor_force_stop(DISABLE);
+//						}
+//						Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);			
+//					}break;
+//				//写多个数据（多个16位数据/多个1位数据）
+//				case FC_WRITE_MULTI_BITS:
+//				case FC_WRITE_MULTI_WORDS:
+//					{	
+//						for(index=0;index<=MODBUS_FRAME_REG_ADDR_LOW;index++)
+//						{
+//							if(RS485_buff[index]!=sendbuf[index])
+//							{
+//								return_md.return_flag=MODBUS_RETURN_WRITE_FALSE;
+//								//此处异常强制电机停机
+//								motor_force_stop(ENABLE);
+//								Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;								//设置错误标志位
+//							}
+//						}
+//						return_md.return_flag=MODBUS_RETURN_WRITE_TRUE;
+//						//电机状态正常
+//						if(Motor_Force_Flag == 0)                                                               //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+//						{
+//							motor_force_stop(DISABLE);
+//						}
+//						Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);			
+//					}break;
+//				
+//				/*****************************  读操作  ******************************/
+//				//读多个数据
+//				case FC_READ_MULTI_BITS:
+//				case FC_READ_MULTI_WORDS:
+//					{
+//						if((RS485_buff[MODBUS_FRAME_DEVICE_NUM]!=sendbuf[MODBUS_FRAME_DEVICE_NUM])||(RS485_buff[MODBUS_FRAME_FUNCTION_CODE]!=sendbuf[MODBUS_FRAME_FUNCTION_CODE])
+//							||(RS485_buff[MODBUS_FRAME_DEVICE_NUM+4]!=sendbuf[MODBUS_FRAME_DEVICE_NUM+2]))      //比较设备号、功能码、数据长度是否正确
+//						{
+//							return_md.return_flag=MODBUS_RETURN_READ_FALSE;
+//							//此处异常强制电机停机
+//							if(Motor_Force_Flag == 0)                                                           //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+//							{
+//								motor_force_stop(DISABLE);
+//							}
+//							Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);							
+//						}
+//						else																					//比较设备号、功能码、数据长度均正确，则校验crc值
+//						{
+//							check_crc=modbus_crc_cal(RS485_buff,(return_md.data_length-3));						//此处减3：最后两位crc不参与crc校验验证
+//							crc_low=check_crc&0x00ff;															//取出crc低字节
+//							crc_high=(check_crc&0xff00)>>8;														//取出cec高字节
+//							if((crc_low!=RS485_buff[return_md.data_length-2])||(crc_high!=RS485_buff[return_md.data_length-1]))//发送时，crc低字节先发送
+//							{
+//								return_md.return_flag=MODBUS_RETURN_READ_FALSE;
+//								//此处异常强制电机停机
+//								motor_force_stop(ENABLE);
+//								Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;								
+//							}
+//							return_md.return_flag=MODBUS_RETURN_READ_TRUE;
+//							//电机状态正常
+//							if(Motor_Force_Flag == 0)                                                           //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+//							{
+//								motor_force_stop(DISABLE);
+//							}
+//							Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);									
+//						}
+//					}break;
+//				default:
+//					break;
+//			}
+//		}
+//		else
+//		{
+//			return_md.return_flag=sendbuf[MODBUS_FRAME_FUNCTION_CODE] & 0x0f;									//提取故障码
+//		}
+//		return return_md.return_flag;
+//	}
+//	return_md.return_flag=MODBUS_RETURN_READ_FALSE;
+//	//此处异常强制电机停机
+//	motor_force_stop(ENABLE);
+//	Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+//	return return_md.return_flag;
+//}
+
+
+/***********************************************************************
+函数名称：void modbus_crc_cal(unsigned char *data_buf, unsigned char length)
+功    能：modbus crc计算
+输入参数：
+输出参数：
+编写时间：2018.04.24
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+u16 modbus_crc_cal(u8 *data_buf, u8 length)
+{
+	u16 crc = 0xFFFF;
+	u8 i;
+	u8 j;
+	
+	if(length > 78) return 0;
+	j = 0;
+	while(j < length)
+	{
+		crc ^= data_buf[j];
+		for(i=0; i < 8; i++)
+		{
+			if(crc & 0x01)
+			{
+				crc >>= 1;
+				crc ^= 0xA001;
+			}
+			else
+			{
+				crc >>= 1;
+			}
+		}
+		j++;
+	}
+	return crc;
+}
+/***********************************************************************
+函数名称：void motor_back_zaro_control(void)
+功    能：回零操作
+输入参数：
+输出参数：
+编写时间：2018.06.01
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void motor_back_zaro_operate(void)
+{
+	u8 back_zero_buf[TURN_ZAROING_DATA_LENGTH] = 
+	{
+		(TURN_ZAROING_COMMAND & 0xff00) >> 8,
+		TURN_ZAROING_COMMAND & 0x00ff
+	};
+	Motor_Device turn_motor_device;
+	
+	turn_motor_device.device_num						=	DN_THIRD_MOTOR;
+	turn_motor_device.modbus_function_code	= FC_WRITE_ONE_WORD;
+	turn_motor_device.reg_addr							=	ADDR_ZEROING_REGISTER;
+	turn_motor_device.data_length						=	TURN_ZAROING_DATA_LENGTH;
+	
+	modbus_frame_send_process(turn_motor_device,back_zero_buf);
+}
+/***********************************************************************
+函数名称：void motor_control(void)
+功    能：电机控制总体策略
+输入参数：
+输出参数：
+编写时间：2018.05.05
+编 写 人：GBZ
+注    意：
+					1.三路捕获、电机控制分时处理
+					先对转向轮处理使能，处理完后，打开左轮处理使能，处理完后，打开右轮处理使能，处理完之后，再次打开转向轮处理使能。
+					//记录于2018.05.05  gbz
+					2.新增信号异常处理
+					//记录于2018.06.06  gbz
+					3.修改策略：执行一次电机任务就将三路电机捕获和控制都执行完（原来的策略是一次任务执行一路电机捕获和控制）；
+            具体实施：左右轮之间增加2.5ms左右的延时；
+                     右轮与转向轮之间增加45ms左右的延时；
+            以上延时均大于等于所采集波形的2倍（采样定理）。
+					//以上记录于2018.06.13    GBZ
+***********************************************************************/
+void motor_control(void)
+{
+//	static u8 task_count=0;
+//	u8 left_count=0;
+//	u8 right_count=0;
+//	u8 turn_count=0;
+//	static u8 pwm_state_flag = 0;
+//	s16 speed=0;
+//	s32 turn_position=0;
+//	u8 rev_buf[2]={0};
+////	u8 speed_direction=0;
+//	u8 turn_position_buf[(TURN_POSITION_DATA_LENGTH*2)]=
+//	{
+//		((TURN_PR_MODE & 0xff00) >> 8),
+//		(TURN_PR_MODE & 0x00ff),
+//		0,
+//		0,
+//		0,
+//		0,
+//		((TURN_NOMAL_RUN_SPEED & 0xff00) >> 8),
+//		(TURN_NOMAL_RUN_SPEED & 0x00ff),
+//		((TURN_ACCELERATE_TIME & 0xff00) >> 8),
+//		(TURN_ACCELERATE_TIME & 0x00ff),
+//		((TURN_SLOW_DOWN_TIME & 0xff00) >> 8),
+//		(TURN_SLOW_DOWN_TIME & 0x00ff),
+//		((TURN_STOP_TIME & 0xff00) >> 8),
+//		(TURN_STOP_TIME & 0x00ff),
+//		((TURN_PR_TRIGGER & 0xff00) >> 8),
+//		(TURN_PR_TRIGGER & 0x00ff),
+//	};
+//	static u16 left_last_speed=0;
+//	static u16 right_last_speed=0;
+//	static s32 turn_last_position=0;			//转动的位移量，以脉冲数计量，其中转动一圈，10000个脉冲
+//	Motor_Device left_motor_device;
+//	Motor_Device right_motor_device;
+//	Motor_Device turn_motor_device;
+//	
+//	left_motor_device.device_num=DN_FIRST_MOTOR;
+//	left_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+//	left_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+//	left_motor_device.data_length=2;
+//	
+//	right_motor_device.device_num=DN_SECOND_MOTOR;
+//	right_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+//	right_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+//	right_motor_device.data_length=2;
+//	
+//	turn_motor_device.device_num=DN_THIRD_MOTOR;
+//	turn_motor_device.modbus_function_code=FC_WRITE_MULTI_WORDS;
+//	turn_motor_device.reg_addr=ADDR_LM_INITIAL_REGISTER;
+//	turn_motor_device.data_length=(TURN_POSITION_DATA_LENGTH * 2);
+//	
+//	//计算任务运行次数，三路电机控制，任务分三次进行
+//	task_count += 1;
+//	
+//	if(Pix_Left_Pwm.capture_end_flag==PIX_LEFT_CAPTURE_END)
+//		{
+//			left_count++;
+//			pwm_state_flag |= PIX_LEFT_EXIST_SIGNAL;											 //存在PWM信号
+//			
+//			pix_left_pwm_process(Pix_Left_Pwm.capture_end_flag);
+//			if(Pix_Left_Pwm.sample_flag == SAMPLE_END)
+//			{
+//				Pix_Left_Pwm.sample_flag=0;
+//				
+//				if(Pix_Left_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+//				{
+//					Pix_Left_Pwm.fault_flag = 0;
+//				//	
+//					pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);	
+//					//增加向上位机报告该错误
+//				}
+//				else 
+//				{
+//					pwm_state_flag |= PIX_LEFT_CAPTURE_OK;										
+//					
+//					speed=pwm_convert_rev(Pix_Left_Pwm.pwm_duty);
+//					//判断当前方向是否存在障碍物
+//					if(speed >= 0)
+//					{
+//						//未检测到障碍物
+//						if(((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//							|| (speed == 0))																						 //速度等于0，可以下发速度值
+//						{
+//							//if((left_last_speed != speed) || (speed == 0))
+//							if(left_last_speed != speed)
+//							{
+//								left_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								
+//								modbus_frame_send_process(left_motor_device,rev_buf);
+//							
+//								#if(DEBUG_FLAG==1)
+//								printf("left_rev=%d  \n",speed);
+//								#endif
+//							
+//								speed = 0;
+//							}
+//						}
+//						//检测到障碍物
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);									//借其他标志，触发电机停机异常标志！   ——gbz 2018.6.21
+//						}
+//					}
+//					if(speed < 0)
+//					{
+//						//未检测到障碍物
+//						if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//						{
+//							if(left_last_speed != speed)
+//							{
+//								left_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								
+//								modbus_frame_send_process(left_motor_device,rev_buf);
+//							
+//								#if(DEBUG_FLAG==1)
+//								printf("left_rev=%d  \n",speed);
+//								#endif
+//							
+//								speed = 0;
+//							}
+//						}
+//						//检测到障碍物
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);									//借其他标志，触发电机停机异常标志！   ——gbz 2018.6.21
+//						}
+//					}
+//					
+//				}
+//			}
+//			pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_ENABLE);   //开启右轮捕获
+//		}
+//		motor_task_delay(2000000);
+//		if(Pix_Right_Pwm.capture_end_flag==PIX_RIGHT_CAPTURE_END)
+//		{
+//			right_count++;
+//			
+//			pwm_state_flag |= PIX_RIGHT_EXIST_SIGNAL;	
+//			
+//			pix_right_pwm_process(Pix_Right_Pwm.capture_end_flag);
+//			if(Pix_Right_Pwm.sample_flag == SAMPLE_END)
+//			{
+//				Pix_Right_Pwm.sample_flag=0;
+//				if(Pix_Right_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+//				{
+//					Pix_Right_Pwm.fault_flag = 0;
+//					pwm_state_flag &= ( ~ PIX_RIGHT_CAPTURE_OK);
+//					
+//				}
+//				else
+//				{
+//					pwm_state_flag |= PIX_RIGHT_CAPTURE_OK;
+//					
+//					speed=pwm_convert_rev(Pix_Right_Pwm.pwm_duty);
+//					//因左右轮电机对称安装，左右轮转向相反，车轮转向才能一致
+//					speed = -speed;													
+//					if(speed <= 0)
+//					{
+//						//未检测到障碍物
+//						if(((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//							|| (speed == 0))
+//						{
+////							if((right_last_speed != speed) || (speed == 0))
+//							if(right_last_speed != speed)
+//							{
+//								right_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								modbus_frame_send_process(right_motor_device,rev_buf);
+//								
+//								#if(DEBUG_FLAG==1)
+//								printf("right_rev=%d  \n",speed);
+//								#endif
+//								
+//								speed = 0;
+//							}
+//						}
+//						//检测到障碍物
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_RIGHT_CAPTURE_OK);									//借其他标志，触发电机停机异常标志！   ——gbz 2018.6.21
+//						}
+//					}
+//					else if(speed > 0)
+//					{
+//						//未检测到障碍物
+//						if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//						{
+//							if(right_last_speed != speed)
+//							{
+//								right_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								modbus_frame_send_process(right_motor_device,rev_buf);
+//								
+//								#if(DEBUG_FLAG==1)
+//								printf("right_rev=%d  \n",speed);
+//								#endif
+//								
+//								speed = 0;
+//							}
+//						}
+//						//检测到障碍物
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~PIX_RIGHT_CAPTURE_OK);									//借其他标志，触发电机停机异常标志！   ——gbz 2018.6.21
+//						}
+//					}
+//				}
+//			}
+//			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_ENABLE);
+//		}
+//		motor_task_delay(2000000);
+//		if(Pix_Turn_Pwm.capture_end_flag==PIX_TURN_CAPTURE_END)
+//		{
+//			turn_count++;
+//			
+//			pwm_state_flag |= PIX_TURN_EXIST_SIGNAL;
+//			
+//			pix_turn_pwm_process(Pix_Turn_Pwm.capture_end_flag);
+//			if(Pix_Turn_Pwm.sample_flag == SAMPLE_END)
+//			{
+//				Pix_Turn_Pwm.sample_flag = 0;
+//				if(Pix_Turn_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+//				{
+//					Pix_Turn_Pwm.fault_flag = 0;
+//					pwm_state_flag &= ( ~ PIX_TURN_CAPTURE_OK);
+//				}
+//				else
+//				{
+//					pwm_state_flag |= PIX_TURN_CAPTURE_OK;
+//					
+//					turn_position = turn_pwm_convert_rev(Pix_Turn_Pwm.pwm_duty);
+//					if(turn_last_position != turn_position)
+//					{
+//						turn_last_position = turn_position;
+//						turn_position_buf[TURN_POSITION_HIGH_INDEX] 		= (turn_last_position & 0xff000000) >> 24;
+//						turn_position_buf[TURN_POSITION_HIGH_INDEX + 1] = (turn_last_position & 0x00ff0000) >> 16;
+//						turn_position_buf[TURN_POSITION_LOW_INDEX]      = (turn_last_position & 0x0000ff00) >> 8;
+//						turn_position_buf[TURN_POSITION_LOW_INDEX + 1]  = (turn_last_position & 0x000000ff);
+//						
+//						modbus_frame_send_process(turn_motor_device,turn_position_buf);
+//						
+//						#if(DEBUG_FLAG==1)
+//						printf("turn_rev=%d  \n",speed);
+//						#endif
+//						
+//						turn_position = 0;
+//					}
+//				}
+//				
+//			}
+//			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+//		}
+//		
+//		if((left_count == 1) && (right_count == 1) && (turn_count == 1))					//三路PWM捕获完毕
+//		{
+//			left_count  = 0;
+//			right_count = 0;
+//			turn_count  = 0;
+//			
+//			//信号异常（波形/无信号）处理
+//			if(((pwm_state_flag & PIX_CAPTURE_OK) != PIX_CAPTURE_OK) || ((pwm_state_flag & PIX_EXIST_SIGNAL) != PIX_EXIST_SIGNAL))
+//			{
+//				//此处应该增加一个停机处理，并向上位机反馈该错误标志
+//				pwm_state_flag = 0;
+//				motor_force_stop(ENABLE);
+//				Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+//				//led指示
+//				Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+//				//向上位机发送相应标志
+//				
+//			}
+//			else if(((pwm_state_flag & PIX_EXIST_SIGNAL) == PIX_EXIST_SIGNAL) && ((pwm_state_flag & PIX_CAPTURE_OK) == PIX_CAPTURE_OK))
+//			{
+//				pwm_state_flag = 0;
+//				if(Motor_Force_Flag == 0)                                           //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+//				{
+//					motor_force_stop(DISABLE);
+//				}
+//				Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);								
+//				
+//				Led_Fault_Indication_Flag &= ( ~ LED_MOTOR_PWM_CAPTURE_FAULT);
+//			}
+//		}
+//		else if(((left_count != 1) || (right_count != 1) || (turn_count != 1)) && (task_count >= 2))            //电机任务执行三次，仍出现有未被捕获的PWM，此种情况判断为异常
+//		{																																																				//电机执行三次，保证当捕获被意外打断时，延时不够用的情况，可以重新进行捕获，但是需要电机任务的状态重置
+//			task_count 	= 0;
+//			left_count  = 0;
+//			right_count = 0;
+//			turn_count  = 0;
+//			//电机停机			
+//			pwm_state_flag = 0;
+//			motor_force_stop(ENABLE);
+//			Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+//			//led指示
+//			Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+//			//任务状态重置:先关闭所有捕获，再开第一路捕获
+//			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+//			pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+//			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+//			
+//			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+//		}
+}
+
+
+
+
+/***********************************************************************
+函数名称：turn_control_hanlde
+功    能：实现前轮运动
+输入参数：
+输出参数：
+编写时间：2018.10.30
+编 写 人：PYQ
+注    意：
+***********************************************************************/
+void turn_control_hanlde(void)
+{
+	u8 turn_count=0;
+	static u8 pwm_state_flag = 0;
+	s32 turn_position=0;
+
+	if(Pix_Turn_Pwm.capture_end_flag == PIX_TURN_CAPTURE_END)
+	{
+		turn_count++;//超时保护
+		pwm_state_flag |= PIX_TURN_EXIST_SIGNAL;//转向存在
+		pix_turn_pwm_process(Pix_Turn_Pwm.capture_end_flag);//计算占空比等参数 
+
+		if(Pix_Turn_Pwm.sample_flag == SAMPLE_END)
+		{
+			Pix_Turn_Pwm.sample_flag = 0;
+			if(Pix_Turn_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+			{
+				Pix_Turn_Pwm.fault_flag = 0;
+			}
+			else
+			{
+				pwm_state_flag |= PIX_TURN_CAPTURE_OK;//捕获成功  
+				turn_position = turn_pwm_convert_rev(Pix_Turn_Pwm.pwm_duty);//获取需要转动的脉冲数
+				turn_motor_control(turn_position);//给脉脉冲数，400000 一圈
+			}
+		}
+
+	}
+
+	if(turn_count == 1)//捕获完毕
+	{
+		turn_count = 0;
+		if(((pwm_state_flag & PIX_CAPTURE_OK) != PIX_CAPTURE_OK) || ((pwm_state_flag & PIX_EXIST_SIGNAL) != PIX_EXIST_SIGNAL))
+		{
+			//此处应该增加一个停机处理，并向上位机反馈该错误标志
+				pwm_state_flag = 0;
+				motor_force_stop(ENABLE);
+				Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+//				//led指示
+				//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+//				//向上位机发送相应标志
+		}
+		else if(((pwm_state_flag & PIX_EXIST_SIGNAL) == PIX_EXIST_SIGNAL) && ((pwm_state_flag & PIX_CAPTURE_OK) == PIX_CAPTURE_OK))
+			{
+				pwm_state_flag = 0;
+				if(Motor_Force_Flag == 0)                                           //需要确定是否存在其他异常引起的电机停机，如果有则此处不能释放停机信号
+				{
+					motor_force_stop(DISABLE);
+				}
+				Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);								
+				
+				//Led_Fault_Indication_Flag &= ( ~ LED_MOTOR_PWM_CAPTURE_FAULT);
+			}
+	}
+	else if(( (turn_count != 1)) )  //电机任务执行三次，仍出现有未被捕获的PWM，此种情况判断为异常
+		{																																																				//电机执行三次，保证当捕获被意外打断时，延时不够用的情况，可以重新进行捕获，但是需要电机任务的状态重置
+//			task_count 	= 0;
+//			left_count  = 0;
+//			right_count = 0;
+			turn_count  = 0;
+			//电机停机			
+			pwm_state_flag = 0;
+			motor_force_stop(ENABLE);
+			Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+			//led指示
+			//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+			//任务状态重置:先关闭所有捕获，再开第一路捕获
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+			//pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+			
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+		}
+
+}
+
+/***********************************************************************
+函数名称：
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void motor_task_delay(uint32_t ncount)
+{ 
+  while(ncount > 0)
+  { 
+  	  ncount --;   
+  }
+}
+
+
+
+/***********************************************************************
+函数名称：void turn_motor_control(s32 position_pulse)
+功    能：无人车转向电机控制
+输入参数：
+输出参数：
+编写时间：2018.10.14
+编 写 人：GBZ
+注    意： 扫地车 该驱动器是地址0x03 PYQ 2018.10.26,使用USART2 DMA  在break.c里
+***********************************************************************/
+void turn_motor_control(s32 position_pulse)
+{
+    s32 turn_position=0;
+
+	if(pul_positon_last != position_pulse)
+	{
+		u8 turn_position_buf[(TURN_POSITION_DATA_LENGTH*2)]=
+		{
+			((TURN_PR_MODE & 0xff00) >> 8),
+			(TURN_PR_MODE & 0x00ff),
+			0,
+			0,
+			0,
+			0,
+			((TURN_NOMAL_RUN_SPEED & 0xff00) >> 8),
+			(TURN_NOMAL_RUN_SPEED & 0x00ff),
+			((TURN_ACCELERATE_TIME & 0xff00) >> 8),
+			(TURN_ACCELERATE_TIME & 0x00ff),
+			((TURN_SLOW_DOWN_TIME & 0xff00) >> 8),
+			(TURN_SLOW_DOWN_TIME & 0x00ff),
+			((TURN_STOP_TIME & 0xff00) >> 8),
+			(TURN_STOP_TIME & 0x00ff),
+			((TURN_PR_TRIGGER & 0xff00) >> 8),
+			(TURN_PR_TRIGGER & 0x00ff),
+		};
+		
+		Motor_Device turn_motor_device;
+		
+		turn_motor_device.device_num=DN_THIRD_MOTOR;
+		turn_motor_device.modbus_function_code=FC_WRITE_MULTI_WORDS;//写入16位
+		turn_motor_device.reg_addr=ADDR_LM_INITIAL_REGISTER;
+		turn_motor_device.data_length=(TURN_POSITION_DATA_LENGTH * 2);
+
+		turn_position = position_pulse;
+
+		pul_positon_last = turn_position;//保存本次的脉冲数
+		
+		turn_position_buf[TURN_POSITION_HIGH_INDEX] 	= (turn_position & 0xff000000) >> 24;
+		turn_position_buf[TURN_POSITION_HIGH_INDEX + 1] = (turn_position & 0x00ff0000) >> 16;
+		turn_position_buf[TURN_POSITION_LOW_INDEX]      = (turn_position & 0x0000ff00) >> 8;
+		turn_position_buf[TURN_POSITION_LOW_INDEX + 1]  = (turn_position & 0x000000ff);
+		
+		modbus_frame_send_process(turn_motor_device,turn_position_buf);
+	}
+}
+
+
+
+

@@ -1,0 +1,33 @@
+#include "reset.h"
+
+
+//复位并更新APP，进入不去之前的APP
+void Reset_Soft_hanle(void)
+{
+	u8 flash_download_flag;
+	
+	if(UART4_PARA.rx_check_buf[3] == 1 )//如果是更新APP的复位操作
+	{
+		flash_download_flag = 0xbb;//标志本次有APP更新的复位操作
+		iap_write_appbin(ADDR_FLASH_SECTOR_8,&flash_download_flag,4);
+	}
+
+	//关闭所有中断,以防中断
+	__set_FAULTMASK(1);
+	NVIC_SystemReset();
+
+}
+
+
+
+//仅复位，会进入之前的APP
+void soft_reset_hal(void)
+{
+
+	//关闭所有中断,以防中断
+	__set_FAULTMASK(1);
+	NVIC_SystemReset();
+
+
+
+}

@@ -1,0 +1,52 @@
+#ifndef _KULUN_H
+#define _KULUN_H
+#include "sys.h"
+#include <string.h>
+#include "usart4_to_pixhawks.h"
+void Kulun_Usart6_Init(void);
+void DMA_Usart6_Init(void);
+void Kulun_handle(void);
+void Kulun_Check_handle(void);//数据接收校验
+void Usart6_reopen_rx(void);//重新打开串口6接收
+
+#define KULUN_DATA_LEN  15  //库仑计数据15字节发送
+#define USART6_RE_BUF   50  //串口6数据接收缓存
+
+#define KULUN_TIMEOUT_CMD  0X71 //库仑计超时标识命令符
+
+__packed typedef struct Kulun{
+
+u8 kl_receive_data[USART6_RE_BUF];//接收数据缓存
+
+u8 kl_success_data[KULUN_DATA_LEN];//对接收到的数据经过校验后得到的一帧有效数据
+
+u8 rx_index;
+
+u8 tx_index;
+
+u8 rx_done_flag;//接收完成标志
+
+u16 rx_len_data;//实际接收到的数据长度
+
+u8 rx_check_flag;//校验成功标志
+
+u8 battery_percent;//电量百分比
+
+u16 battery_voltage;//电压
+
+u16 battery_electricity;//电流
+
+u16 set_battery;//额定容量
+
+u8 electricity_dir;//电流方向
+
+u8 kulun_timeout_cnt;//库仑计超时计数，计时放在超声波超时的定时器里计数
+u8 kulun_timeout_flag;//库仑计超时标识指令
+
+}KL_type;
+
+extern KL_type KULUN_DATA;//库仑计参数结构体
+
+
+#endif
+

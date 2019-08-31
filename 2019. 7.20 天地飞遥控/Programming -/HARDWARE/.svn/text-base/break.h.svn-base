@@ -1,0 +1,69 @@
+#ifndef _BREAK_H
+#define _BREAK_H
+#include "sys.h"
+#include <string.h>
+#include "ultrasonic.h"
+#include "usart4_to_pixhawks.h"
+#include "kulun.h"
+
+#define BREAK_485_EN      PGout(4)     //0：接收  1：发送
+
+#define BREAK_RX_SIZE      50
+
+
+void Break_485_usart2_Init(u32 baud);
+void Break_485_DMA(void);
+
+void Break_start(short int High_position,short int Low_position);
+
+void Break_Position_Set(void);
+
+unsigned short CRC16(u8 *puchmsg, unsigned short usDataLen) ;
+
+extern void usart2_DMA_send(u8 * usart2_dma_buf,u16 num);
+
+void break_usart2_dma_reopen(void);
+
+void break_rx_check_handle(void);
+
+void break_rx_handle(void);//对接收到的数据处理工作
+
+void break_reset_handle(void);//上电复位
+
+
+extern u8 break_rx_data[8];
+
+extern u8 break_rx_right_flag;
+
+extern u8 break_rx_err_flag;
+
+extern u8 break_set_positon_flag;//设置绝对位置模式完成
+
+
+
+__packed typedef struct{
+
+u8 break_rx_para[BREAK_RX_SIZE];//接收到的数据
+u8 break_tx_para[17];//要发送给驱动器的数据
+
+u8 break_rx_check[8];//经过校验后的数据
+
+u8 break_rx_flag;//接收完成数据
+u8 break_check_flag;//校验完成
+u8 set_position_flag;//位置设置成功标志
+
+u16 break_rx_len;
+
+u8 break_rx_err_flag;
+
+u8 break_order_ok_flag;//指令正确，驱动器返回数据
+u8 break_order_err_flag;//表示指令错误，驱动器反馈了故障代码
+
+u8 reset_flag;//上电复位标志
+
+}break_type;
+
+
+
+#endif
+

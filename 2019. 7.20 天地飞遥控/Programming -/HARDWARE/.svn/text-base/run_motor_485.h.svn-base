@@ -1,0 +1,28 @@
+#ifndef  _RUN_MOTOR_485
+#define  _RUN_MOTOR_485
+
+#include "sys.h"
+#include <string.h>
+#include "break.h"
+void Write_Data_Driver(u8 W_R_register,u16 handle_data,u8 W_R_order);
+void BackWheel_Forwa(u16 move_data);
+void BackWheel_Conver(u16 move_data);
+u16 Nega_to_Posi(u16 data);
+void Stop_BackWheel(void);
+
+
+__packed typedef struct{
+
+u8 tx_run_motor_485[8];
+
+
+
+
+
+
+
+}run_485_para;
+
+
+
+#endif

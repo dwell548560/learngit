@@ -1,0 +1,69 @@
+#ifndef _ULTRASONIC_H
+#define _ULTRASONIC_H
+#include "sys.h"
+#include <string.h>
+#include "delay.h"
+#include "break.h"
+#include "run_motor_485.h"
+#include "swap.h"
+#include "usart4_to_pixhawks.h"
+#include "kulun.h"
+void ultrasonic_485_init(void);
+void DMA_Usart3_Init(void);
+
+void DMA_Usart3TX_Config(u16 tx_len);
+
+void MYDMA_Tx_Config(u16 ndtx);
+void Usart3_reopen_rx(void);//重新打开串口3接收
+void Usart3_rx_Check(void);
+void Ultra_hanle(void);//数据处理函数
+void Ultra_data_save(void);
+
+void Time_ultra_avoid_Init(void);
+
+void ultra_avoid_handle(void);//避障操作
+
+u8 BCD_to_HEX(u8 data);
+
+#define RS485_RX_EN   PGout(2)     //PD3位带操作，0：接收，1：发送
+
+#define ULTRA_RX_SIZE   50
+#define ULTRA_TX_SIZE   3   //每次只发送3个字节
+#define ULTRA_NDTX_SIZE 39  //12路超声波回传数据的长度
+#define LEFT_STOP_DISTANCE   300//左右侧停止触发距离
+#define LEFT_RUN_DISTANCE    400//放行距离  
+
+#define FOR_STOP_DISTANCE    300//前后停止距离
+#define FOR_RUN_DISTANCE     400//前后放行距离 
+
+#define ULTRA_TIMEOUT_CMD    0x70//超声波超时标识指令
+
+__packed typedef struct {
+
+u8 rx_485_ultra[ULTRA_RX_SIZE];
+u8 tx_485_ultra[ULTRA_TX_SIZE];
+u8 rx_check_ultra[ULTRA_NDTX_SIZE];
+u8 rx_done_flag;
+u8 rx_check_flag;
+
+u16 rx_len_ultra;
+
+u16 ultra_distance[12];//12路超声波数据
+
+u16 avoid_ultra_flag;//超声波避障标志，用12位来表示12路超声波的触发情况  
+
+u16 avoid_act_dis_for_back;//前后安全距离
+u16 avoid_act_dis_left_right;//左右安全距离
+
+u8 ultrasonic_allow_move_flag;//超声波放行标志，当标志为0时其他运动部分才能进行
+
+
+u8 timeout_ultrasonic_cnt;//超时计数,超过计数时间，就上报相应标志
+u8 timeout_ultrs_flag;//超时标志
+
+}ultra_para;
+
+extern ultra_para  ULTRA_DATA;
+
+
+#endif

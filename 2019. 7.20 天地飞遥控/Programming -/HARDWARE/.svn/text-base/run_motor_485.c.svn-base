@@ -1,0 +1,71 @@
+#include "run_motor_485.h"
+
+run_485_para RUN_MOTOR_PARA_485;
+
+//Modbus协议
+void Write_Data_Driver(u8 W_R_register,u16 handle_data,u8 W_R_order)
+{
+	u8 i;
+	unsigned short CRC_Check2 = 0;
+	
+	RUN_MOTOR_PARA_485.tx_run_motor_485[0] = 0x04;//地址是0x04
+	RUN_MOTOR_PARA_485.tx_run_motor_485[1] = W_R_order;
+	RUN_MOTOR_PARA_485.tx_run_motor_485[2] = 0x00;
+	RUN_MOTOR_PARA_485.tx_run_motor_485[3] = W_R_register;
+	RUN_MOTOR_PARA_485.tx_run_motor_485[4] = handle_data>>8;//数据高八位;
+	RUN_MOTOR_PARA_485.tx_run_motor_485[5] = handle_data&0x00ff;//数据低八位
+
+	CRC_Check2 = CRC16(RUN_MOTOR_PARA_485.tx_run_motor_485,6);
+
+	RUN_MOTOR_PARA_485.tx_run_motor_485[6] = (CRC_Check2 & 0xff);//CRC低8位
+
+	RUN_MOTOR_PARA_485.tx_run_motor_485[7] = (CRC_Check2>>8) & 0xff;//CRC高8位
+
+	usart2_DMA_send(RUN_MOTOR_PARA_485.tx_run_motor_485,8);
+
+}
+
+//正转启动,给定换向频率启动，2000*0.1启动，这里还可以改为，可以把启动和加减速合并 只占用两个按键就行
+//800 ——— -800 给负值就是反转  
+void BackWheel_Forwa(u16 move_data)
+{
+
+	Write_Data_Driver(0x43,move_data,0x06);//设定速度闭环控制目标
+
+}
+
+
+
+
+//对于反转启动来说是要给一个负数换向频率，这部分在反转函数里进行了补码运算，只要给反转函数一个你想要的换向频率的正数即可
+void BackWheel_Conver(u16 move_data)
+{
+
+	u16 rate;
+	
+	rate = Nega_to_Posi(move_data);//计算补码
+
+	Write_Data_Driver(0x43,rate,0x06);
+
+}
+
+
+
+//求负数的补码
+u16 Nega_to_Posi(u16 data)
+{
+	u16 n;
+	n=data;
+	n=~n;
+	n+=1;
+	return n;
+}
+
+
+//停止指令
+void Stop_BackWheel(void)
+{
+	Write_Data_Driver(0x43,0,0x06);
+
+
+}

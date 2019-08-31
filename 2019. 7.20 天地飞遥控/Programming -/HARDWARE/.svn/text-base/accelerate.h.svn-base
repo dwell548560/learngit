@@ -1,0 +1,28 @@
+#ifndef _ACCELERTE_H
+#define _ACCELERTE_H
+#include "sys.h"
+#include <string.h>
+
+#define ACCELERATE_ADC_NUM  10  //adc一次保存数据 进行平均值滤波
+
+void Accelerate_ADC_Init(void);
+
+void Accelerate_DMA(void);
+
+
+__packed typedef struct accele{
+
+u8 accelerate_re[ACCELERATE_ADC_NUM];
+
+float adc_result;
+
+
+}ACCELERATE_TYPE;
+
+
+void ADC_average_handle(u8 * ave_data);
+
+
+
+//ACCELERATE_TYPE  acce_data;
+#endif

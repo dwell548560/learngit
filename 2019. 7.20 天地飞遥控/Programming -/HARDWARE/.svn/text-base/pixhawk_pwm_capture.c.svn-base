@@ -1,0 +1,1351 @@
+/***********************************************************************
+**版权:     福建(泉州)哈工大工程技术研究院
+**文件名:   pixhawk_pwm_capture.c
+**开发环境: MDK5.0
+**作者:     GBZ
+**生成时间: 2018.05.01
+**修改时间: 
+**功能:    	捕获pixhawk输入的pwm波
+**版本:     U1.00
+**说明:     
+***********************************************************************/
+#include "pixhawk_pwm_capture.h"
+#include "stdlib.h"
+//#include "fault_flag.h"
+//#include "includes.h"
+//#include "led_state_indication.h"
+
+Pix_Pwm Pix_Left_Pwm;
+Pix_Pwm Pix_Right_Pwm;
+Pix_Pwm Pix_Turn_Pwm;
+///////////////////////////////////////////////////////////////////////
+//初始化、使能/失能控制                           
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：void pix_pwm_input_init(void)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.03
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void pix_pwm_input_init(void)
+{
+	left_pwm_input_init();//给后轮电机用，控制后轮电机转速
+	//right_pwm_input_init();//10.26 PYQ
+	turn_pwm_input_init();//给前轮电机  舵机用  PYQ 10.30
+
+	pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+	//pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_ENABLE);
+}
+/***********************************************************************
+函数名称：void pix_pwm_capture_switch(u8 type_select,u8 state_flag)
+功    能：三路定时器使能/失能开关
+输入参数：u8 type_select：选择对那一路pwm进行操作,u8 state_flag：选择使能/失能
+输出参数：
+编写时间：2018.05.03
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void pix_pwm_capture_switch(u8 type_select,u8 state_flag)
+{
+	switch (type_select)
+  {
+	case PIX_LEFT_CAPTURE:
+	  {
+			switch(state_flag)
+			{
+				case STATE_CAPTURE_ENABLE:
+					{
+						PIX_LEFT_TIME_COUNTER_CLEAR;										//定时器计数器清零
+						PIX_LEFT_INT_FLAG_CLEAR;												//中断挂起标志，要记得清掉，否则一使能就会立马出发中断！！
+						PIX_LEFT_TIME_ENABLE;	
+						PIX_LEFT_TIME_INT_ENABLE;
+					}break;
+				case STATE_CAPTURE_DISABLE:
+					{
+						PIX_LEFT_TIME_INT_DISABLE;
+						PIX_LEFT_TIME_DISABLE;
+						PIX_LEFT_TIME_COUNTER_CLEAR;
+					}break;
+				default:break;
+			}
+	  }break;
+	case PIX_RIGHT_CAPTURE:
+	  {
+	    switch(state_flag)
+			{
+				case STATE_CAPTURE_ENABLE:
+					{
+						PIX_RIGHT_TIME_COUNTER_CLEAR;										//定时器计数器清零
+						PIX_RIGHT_INT_FLAG_CLEAR;												//中断挂起标志，要记得清掉，否则一使能就会立马出发中断！！
+						PIX_RIGHT_TIME_ENABLE;	
+						PIX_RIGHT_TIME_INT_ENABLE;
+					}break;
+				case STATE_CAPTURE_DISABLE:
+					{
+						PIX_RIGHT_TIME_INT_DISABLE;
+						PIX_RIGHT_TIME_DISABLE;
+						PIX_RIGHT_TIME_COUNTER_CLEAR;
+					}break;
+				default:break;
+			}
+	  }break;
+  case PIX_TURN_CAPTURE:
+	  {
+	    switch(state_flag)
+			{
+				case STATE_CAPTURE_ENABLE:
+					{
+						PIX_TURN_TIME_COUNTER_CLEAR;										//定时器计数器清零
+						PIX_TURN_INT_FLAG_CLEAR;												//中断挂起标志，要记得清掉，否则一使能就会立马出发中断！！
+						PIX_TURN_TIME_ENABLE;	
+						PIX_TURN_TIME_INT_ENABLE;
+					}break;
+				case STATE_CAPTURE_DISABLE:
+					{
+						PIX_TURN_TIME_INT_DISABLE;
+						PIX_TURN_TIME_DISABLE;
+						PIX_TURN_TIME_COUNTER_CLEAR;
+					}break;
+				default:break;
+			}     
+	  }break;
+	default:break;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////
+//pixhawk左侧轮PWM处理                           
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：void left_pwm_input_init(void)
+功    能：定时器捕获初始化
+输入参数：
+输出参数：
+编写时间：2018.05.01
+编 写 人：GBZ
+注    意：
+					1.使用定时器5，通道1
+					2.使用PWM输入模式，时序：
+					   ____    ___
+					__|    |__|   |__
+					  ^    ^  ^
+					  |    |  |
+				ccr1   ccr2 ccr1
+			  ccr2   捕获 捕获
+				捕获计数值清零
+					//以上记录于2018.05.01    GBZ
+***********************************************************************/
+void left_pwm_input_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef  TIM5_ICInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+		
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5,ENABLE);  						//TIM5时钟使能    
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 					//使能PORTA时钟	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0; 											//GPIOA0
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;										//复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;							//翻转频率100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 									//推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN; 									//下拉
+	GPIO_Init(GPIOA,&GPIO_InitStructure); 													//初始化PA0
+
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource0,GPIO_AF_TIM5); 					//PA0复用位定时器5
+  	  
+	TIM_TimeBaseStructure.TIM_Prescaler=PIX_LEFT_TIME_PSC;  											//定时器分频
+	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 			//向上计数模式
+	TIM_TimeBaseStructure.TIM_Period=PIX_LEFT_TIME_ARR;   												//自动重装载值
+	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
+	
+	TIM_TimeBaseInit(TIM5,&TIM_TimeBaseStructure);
+
+	//PWM输入模式
+	TIM5_ICInitStructure.TIM_Channel = TIM_Channel_1;							   //CC1S=01 	选择输入端 IC1映射到TI1上
+	TIM5_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;		 //上升沿捕获
+	TIM5_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
+	TIM5_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 //配置输入分频,不分频 
+	TIM5_ICInitStructure.TIM_ICFilter = 0x00;											   //IC1F=0000 配置输入滤波器 不滤波
+	TIM_PWMIConfig(TIM5, &TIM5_ICInitStructure);
+	
+	TIM5_ICInitStructure.TIM_Channel = TIM_Channel_2;							   //ccr2
+	TIM5_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;		 //下降沿捕获
+	TIM5_ICInitStructure.TIM_ICSelection = TIM_ICSelection_IndirectTI; //将CCR2映射到TI1上
+	TIM5_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 //配置输入分频,不分频 
+	TIM5_ICInitStructure.TIM_ICFilter = 0x00;											   //IC1F=0000 配置输入滤波器 不滤波
+	TIM_PWMIConfig(TIM5, &TIM5_ICInitStructure);
+
+
+	TIM_ClearITPendingBit(TIM5,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2);
+//	TIM_ITConfig(TIM5,TIM_IT_CC1|TIM_IT_CC2,ENABLE);								 //允许更新中断 ,允许CC1IE/CCIE捕获中断	
+	
+	TIM_SetCounter(TIM5,0);
+//  TIM_Cmd(TIM5,ENABLE ); 																					 //使能定时器5
+//	TIM_DMACmd(TIM5,TIM_DMA_CC1,ENABLE);  
+ 
+	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;          //抢占优先级2
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =0;								 //子优先级0
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			             //IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	                                 //根据指定的参数初始化VIC寄存器、
+}
+/***********************************************************************
+函数名称：void pix_left_pwm_capture_switch(u8 state_flag)
+功    能：定时器使能/失能开关
+输入参数：
+输出参数：
+编写时间：2018.05.03
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void pix_left_pwm_capture_switch(u8 state_flag)
+{
+	switch(state_flag)
+	{
+		case STATE_CAPTURE_ENABLE:
+			{
+				TIM_SetCounter(TIM5,0);
+				PIX_LEFT_TIME_ENABLE;	
+				PIX_LEFT_TIME_INT_ENABLE;
+			}break;
+		case STATE_CAPTURE_DISABLE:
+			{
+				PIX_LEFT_TIME_INT_DISABLE;
+				PIX_LEFT_TIME_DISABLE;
+			}break;
+		default:break;
+	}
+}
+
+/**********************************************************************
+函数：void TIM5_IRQHandler(void)
+输入：none
+输出：none
+功能：捕获中断处理函数
+说明：捕获状态
+     1.[7]:0,没有成功的捕获;1,成功捕获到一次.
+     2.[6]:0,还没捕获到低电平;1,已经捕获到低电平了.
+     3.[5:0]:捕获低电平后溢出的次数(对于32位定时器来说,1us计数器加1,溢出时间:4294秒)
+**********************************************************************/
+void TIM5_IRQHandler(void)
+{
+	//OSIntEnter();
+	if(TIM_GetITStatus(TIM5, TIM_IT_CC1) != RESET)								//捕获1发生捕获事件
+	{	
+		Pix_Left_Pwm.ccr1_capture_count += 1;
+		if(Pix_Left_Pwm.ccr1_capture_count == 1)										//ccr1第一次捕获
+		{	  			
+			Pix_Left_Pwm.ccr1_cache_1 = TIM_GetCapture1(TIM5);				//获取当前的捕获值(第一次).
+		}
+		else if(Pix_Left_Pwm.ccr1_capture_count == 2)  							//第二次捕获，此时捕获到一个完整的pwm周期
+		{
+			Pix_Left_Pwm.ccr1_capture_count = 0;
+			Pix_Left_Pwm.ccr1_cache_2 = TIM_GetCapture1(TIM5);					//获取当前的捕获值(第二次).
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+			TIM_SetCounter(TIM5,0);
+			
+			Pix_Left_Pwm.capture_end_flag = PIX_LEFT_CAPTURE_END;			//标志捕获结束  
+
+		}		    
+	}			
+	if(TIM_GetITStatus(TIM5, TIM_IT_CC2) != RESET)							  //整个PWM输入捕获周期中，ccr2只进入一次（捕获一次）
+	{
+		Pix_Left_Pwm.ccr2_cache_1 = TIM_GetCapture2(TIM5);
+	}
+
+	TIM_ClearITPendingBit(TIM5, TIM_IT_CC1|TIM_IT_CC2);						//清除中断标志位
+	//OSIntExit();
+}	
+/***********************************************************************
+函数名称：Pix_Pwm* pix_pwm_process(Pix_Pwm* com_pwm,u8 capture_flag)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.01
+编 写 人：GBZ
+注    意：
+         1.输入的PWM占空比应该存在最大最小界限！！！
+           不能达到最大，当占空比为100%时，CCR1和CCR2等值，出现无法出发中断的情况
+           占空比过低，导致识别出来的ccr2比ccr1小（实际相反），得到错误的结果，最小占空比高电平最少要持续一个定时器计时周期！
+         //以上记录于2018.05.02    GBZ
+				 2.duty不进行累加求均计算，防止实际有效的占空比被消除掉（在多个采样周期中，有可能存在有效的占空比变化）
+           多次采样中，仅获取最后一次的duty值
+					//以上记录于2018.05.03    GBZ
+***********************************************************************/
+Pix_Pwm* pix_left_pwm_process(u8 capture_flag)
+{ 
+
+	u32 period_d_value=0;											//周期比差值
+//	u32 duty_d_value=0;												//占空比差值
+	static u8 left_sample_count=0;
+	
+	if(capture_flag == PIX_LEFT_CAPTURE_END)
+	{
+		Pix_Left_Pwm.capture_end_flag = 0;
+		//计算周期
+		if(Pix_Left_Pwm.ccr1_cache_1 < Pix_Left_Pwm.ccr1_cache_2)
+		{
+			Pix_Left_Pwm.pwm_period = Pix_Left_Pwm.ccr1_cache_2 -  Pix_Left_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Left_Pwm.ccr1_cache_1 > Pix_Left_Pwm.ccr1_cache_2)
+		{
+			Pix_Left_Pwm.pwm_period = (PIX_LEFT_TIME_ARR - Pix_Left_Pwm.ccr1_cache_1) + Pix_Left_Pwm.ccr1_cache_2;
+		}
+		//计算占空比
+		if(Pix_Left_Pwm.ccr2_cache_1 > Pix_Left_Pwm.ccr1_cache_1)									//正常情况下ccr2的值比ccr1大！
+		{
+			Pix_Left_Pwm.pwm_duty = Pix_Left_Pwm.ccr2_cache_1 -  Pix_Left_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Left_Pwm.ccr2_cache_1 < Pix_Left_Pwm.ccr1_cache_1)
+		{
+			Pix_Left_Pwm.pwm_duty = (PIX_RIGHT_TIME_ARR - Pix_Left_Pwm.ccr1_cache_1) + Pix_Left_Pwm.ccr2_cache_1;
+		}
+		
+		//求与周期标准值的差值,如果超过两次直接返回错误标志
+		period_d_value = Pix_Left_Pwm.pwm_period - PIX_LR_PWM_PERIOD;
+		if(abs(period_d_value) >= PIX_LR_PWM_D_VALUE)
+		{
+			if(left_sample_count >= PIX_PWM_CAPTURE_COUNT)
+			{
+				left_sample_count = 0;
+				Pix_Left_Pwm.duty_percentage = DUTY_DEAD;														 //如果捕获到几次PWM的频率都存在问题，此处停车处理
+				Pix_Left_Pwm.fault_flag = PIX_CAPTURE_PERIOD_ERROR;                  //该标志位，谁用谁清零
+				return &Pix_Left_Pwm;
+			}
+			left_sample_count++;
+		}
+		else if(abs(period_d_value) < PIX_LR_PWM_D_VALUE)
+		{
+			Pix_Left_Pwm.duty_percentage=(Pix_Left_Pwm.pwm_duty*100)/Pix_Left_Pwm.pwm_period;
+			
+		}
+
+		Pix_Left_Pwm.sample_flag = SAMPLE_END;
+	}
+	return &Pix_Left_Pwm;																											//此处返回值无实际意义，sample_flag标志位为0
+}
+
+///////////////////////////////////////////////////////////////////////
+//右轮                          
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：void pix_right_pwm_init(void)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.02
+编 写 人：GBZ
+注    意：
+					1.使用定时器5，通道1
+					2.使用PWM输入模式，时序：
+					   ____    ___
+					__|    |__|   |__
+					  ^    ^  ^
+					  |    |  |
+				ccr1   ccr2 ccr1
+			  ccr2   捕获 捕获
+				捕获计数值清零
+					//以上记录于2018.05.01    GBZ
+***********************************************************************/
+void right_pwm_input_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef  TIM_ICInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);  						//TIM5时钟使能    
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 					//使能PORTA时钟	
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5; 											//GPIOA0
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;										//复用功能
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;							//翻转频率100MHz
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 									//推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN; 									//下拉
+	GPIO_Init(GPIOA,&GPIO_InitStructure); 													//初始化PA0
+
+	GPIO_PinAFConfig(GPIOA,GPIO_PinSource5,GPIO_AF_TIM2); 					//PA0复用位定时器5
+  
+	  
+	TIM_TimeBaseStructure.TIM_Prescaler=PIX_RIGHT_TIME_PSC;  				//定时器分频
+	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 			//向上计数模式
+	TIM_TimeBaseStructure.TIM_Period=PIX_RIGHT_TIME_ARR;   					//自动重装载值
+	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
+	
+	TIM_TimeBaseInit(TIM2,&TIM_TimeBaseStructure);
+
+	//PWM输入模式
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;							   //CC1S=01 	选择输入端 IC1映射到TI1上
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;		 //上升沿捕获
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI1上
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 //配置输入分频,不分频 
+  TIM_ICInitStructure.TIM_ICFilter = 0x00;											   //IC1F=0000 配置输入滤波器 不滤波
+  TIM_PWMIConfig(TIM2, &TIM_ICInitStructure);
+	
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;							   //ccr2
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;		 //下降沿捕获
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_IndirectTI; //将CCR2映射到TI1上
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 //配置输入分频,不分频 
+  TIM_ICInitStructure.TIM_ICFilter = 0x00;											   //IC1F=0000 配置输入滤波器 不滤波
+  TIM_PWMIConfig(TIM2, &TIM_ICInitStructure);
+
+
+	TIM_ClearITPendingBit(TIM2,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2);;
+	//TIM_ITConfig(TIM2,TIM_IT_CC1|TIM_IT_CC2,ENABLE);								 //允许更新中断 ,允许CC1IE/CCIE捕获中断	
+	
+	TIM_SetCounter(TIM2,0);
+  //TIM_Cmd(TIM2,ENABLE ); 																					 //使能定时器5
+//	TIM_DMACmd(TIM2,TIM_DMA_CC1,ENABLE);  
+ 
+  NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;          //抢占优先级2
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;								 //子优先级0
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			             //IRQ通道使能
+	NVIC_Init(&NVIC_InitStructure);	                                 //根据指定的参数初始化VIC寄存器、
+}
+/***********************************************************************
+函数名称：void pix_right_pwm_capture_switch(u8 state_flag)
+功    能：定时器使能/失能开关
+输入参数：
+输出参数：
+编写时间：2018.05.03
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void pix_right_pwm_capture_switch(u8 state_flag)
+{
+	switch(state_flag)
+	{
+		case STATE_CAPTURE_ENABLE:
+			{
+				TIM_SetCounter(TIM2,0);
+				PIX_RIGHT_TIME_ENABLE;	
+				PIX_RIGHT_TIME_INT_ENABLE;
+			}break;
+		case STATE_CAPTURE_DISABLE:
+			{
+				PIX_RIGHT_TIME_INT_DISABLE;
+				PIX_RIGHT_TIME_DISABLE;
+			}break;
+		default:break;
+	}
+}
+
+/**********************************************************************
+函数：void TIM2_IRQHandler(void)
+输入：none
+输出：none
+功能：捕获中断处理函数
+说明：捕获状态
+     1.[7]:0,没有成功的捕获;1,成功捕获到一次.
+     2.[6]:0,还没捕获到低电平;1,已经捕获到低电平了.
+     3.[5:0]:捕获低电平后溢出的次数(对于32位定时器来说,1us计数器加1,溢出时间:4294秒)
+**********************************************************************/
+void TIM2_IRQHandler(void)
+{
+	//OSIntEnter();
+	if(TIM_GetITStatus(TIM2, TIM_IT_CC1) != RESET)										//捕获1发生捕获事件
+	{	
+		Pix_Right_Pwm.ccr1_capture_count += 1;
+		if(Pix_Right_Pwm.ccr1_capture_count == 1)												//ccr1第一次捕获
+		{	  			
+			Pix_Right_Pwm.ccr1_cache_1 = TIM_GetCapture1(TIM2);						//获取当前的捕获值(第一次).
+			//TIM_OC1PolarityConfig(TIM2,TIM_ICPolarity_Falling); 				//CC1P=0 设置为上升沿捕获
+		}
+		else if(Pix_Right_Pwm.ccr1_capture_count == 2)  								//第二次捕获，此时捕获到一个完整的pwm周期
+		{
+			Pix_Right_Pwm.ccr1_capture_count = 0;
+			Pix_Right_Pwm.ccr1_cache_2=TIM_GetCapture1(TIM2);							//获取当前的捕获值(第二次).
+			pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+			TIM_SetCounter(TIM2,0);
+			
+			Pix_Right_Pwm.capture_end_flag = PIX_RIGHT_CAPTURE_END;				//标志捕获结束
+		}		    
+	}			
+	if(TIM_GetITStatus(TIM2, TIM_IT_CC2) != RESET)										//整个PWM输入捕获周期中，ccr2只进入一次（捕获一次）
+	{
+		Pix_Right_Pwm.ccr2_cache_1 = TIM_GetCapture2(TIM2);
+	}
+
+	TIM_ClearITPendingBit(TIM2, TIM_IT_CC1|TIM_IT_CC2); 							//清除中断标志位
+	//OSIntExit();
+}	
+
+/***********************************************************************
+函数名称：Pix_Pwm* pix_right_pwm_process(u8 capture_flag)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.01
+编 写 人：GBZ
+注    意：
+         1.输入的PWM占空比应该存在最大最小界限！！！
+           不能达到最大，当占空比为100%时，CCR1和CCR2等值，出现无法出发中断的情况
+           占空比过低，导致识别出来的ccr2比ccr1小（实际相反），得到错误的结果，最小占空比高电平最少要持续一个定时器计时周期！
+         //以上记录于2018.05.02    GBZ
+***********************************************************************/
+Pix_Pwm* pix_right_pwm_process(u8 capture_flag)
+{
+	u32 period_d_value=0;
+	static u8 right_sample_count=0;
+	
+	if(capture_flag == PIX_RIGHT_CAPTURE_END)
+	{
+		Pix_Right_Pwm.capture_end_flag = 0;
+		//计算周期
+		if(Pix_Right_Pwm.ccr1_cache_1 < Pix_Right_Pwm.ccr1_cache_2)
+		{
+			Pix_Right_Pwm.pwm_period = Pix_Right_Pwm.ccr1_cache_2 -  Pix_Right_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Right_Pwm.ccr1_cache_1 > Pix_Right_Pwm.ccr1_cache_2)
+		{
+			Pix_Right_Pwm.pwm_period = (PIX_LEFT_TIME_ARR - Pix_Right_Pwm.ccr1_cache_1) + Pix_Right_Pwm.ccr1_cache_2;
+		}
+		//计算占空比
+		if(Pix_Right_Pwm.ccr2_cache_1 > Pix_Right_Pwm.ccr1_cache_1)									//正常情况下ccr2的值比ccr1大！
+		{
+			Pix_Right_Pwm.pwm_duty = Pix_Right_Pwm.ccr2_cache_1 -  Pix_Right_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Right_Pwm.ccr2_cache_1 < Pix_Right_Pwm.ccr1_cache_1)
+		{
+			Pix_Right_Pwm.pwm_duty = (PIX_RIGHT_TIME_ARR - Pix_Right_Pwm.ccr1_cache_1) + Pix_Right_Pwm.ccr2_cache_1;
+		}
+		//求与标准值的差值,如果超过两次直接返回错误标志
+		period_d_value = Pix_Right_Pwm.pwm_period - PIX_LR_PWM_PERIOD;
+		
+		if(abs(period_d_value) >= PIX_LR_PWM_D_VALUE)
+		{
+			if(right_sample_count >= PIX_PWM_CAPTURE_COUNT)
+			{
+				right_sample_count = 0;
+				Pix_Right_Pwm.duty_percentage = DUTY_DEAD;														 //如果捕获到几次PWM的频率都存在问题，此处停车处理
+				Pix_Right_Pwm.fault_flag = PIX_CAPTURE_PERIOD_ERROR;                  //该标志位，谁用谁清零
+				return &Pix_Right_Pwm;
+			}
+			right_sample_count++;
+		}
+		else if(abs(period_d_value) < PIX_LR_PWM_D_VALUE)
+		{
+			Pix_Right_Pwm.duty_percentage=(Pix_Right_Pwm.pwm_duty*100)/Pix_Right_Pwm.pwm_period;
+			
+		}
+		Pix_Right_Pwm.sample_flag=SAMPLE_END;
+	}
+	return &Pix_Right_Pwm;																											//此处返回值无实际意义，sample_flag标志位为0
+}
+///////////////////////////////////////////////////////////////////////
+//转向                           
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：void turn_pwm_input_init(void)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.02
+编 写 人：GBZ
+注    意：
+					1.使用定时器5，通道1
+					2.使用PWM输入模式，时序：
+					   ____    ___
+					__|    |__|   |__
+					  ^    ^  ^
+					  |    |  |
+				ccr1   ccr2 ccr1
+			  ccr2   捕获 捕获
+				捕获计数值清零
+					//以上记录于2018.05.01    GBZ
+				3.使用定时器12，16位
+***********************************************************************/
+void turn_pwm_input_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	TIM_ICInitTypeDef  TIM_ICInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM12,ENABLE);  					 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE); 				
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14; 									
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;								
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;				
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 								
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN; 								
+	GPIO_Init(GPIOB,&GPIO_InitStructure); 													
+
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource14,GPIO_AF_TIM12); 			
+  
+	  
+	TIM_TimeBaseStructure.TIM_Prescaler=PIX_TURN_TIME_PSC;  										
+	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 			
+	TIM_TimeBaseStructure.TIM_Period=PIX_TURN_TIME_ARR;   												
+	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
+	
+	TIM_TimeBaseInit(TIM12,&TIM_TimeBaseStructure);
+
+	//PWM输入模式
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;							
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;		
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 
+  TIM_ICInitStructure.TIM_ICFilter = 0x00;											   
+  TIM_PWMIConfig(TIM12, &TIM_ICInitStructure);
+	
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;							  
+  TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Falling;		 
+  TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_IndirectTI;
+  TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;					 
+  TIM_ICInitStructure.TIM_ICFilter = 0x00;											   
+  TIM_PWMIConfig(TIM12, &TIM_ICInitStructure);
+
+
+	TIM_ClearITPendingBit(TIM12,TIM_IT_Update|TIM_IT_CC1|TIM_IT_CC2);;
+	//TIM_ITConfig(TIM12,TIM_IT_CC1|TIM_IT_CC2,ENABLE);								
+	
+	TIM_SetCounter(TIM12,0);
+ // TIM_Cmd(TIM12,ENABLE ); 																					
+//	TIM_DMACmd(TIM12,TIM_DMA_CC1,ENABLE);  
+ 
+  NVIC_InitStructure.NVIC_IRQChannel = TIM8_BRK_TIM12_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=0;        
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =2;								 
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			             
+	NVIC_Init(&NVIC_InitStructure);	                                 
+}
+/***********************************************************************
+函数名称：void pix_turn_pwm_capture_switch(u8 state_flag)
+功    能：定时器使能/失能开关
+输入参数：
+输出参数：
+编写时间：2018.05.03
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+void pix_turn_pwm_capture_switch(u8 state_flag)
+{
+	switch(state_flag)
+	{
+		case STATE_CAPTURE_ENABLE:
+			{
+				TIM_SetCounter(TIM12,0);
+				PIX_TURN_TIME_ENABLE;	
+				PIX_TURN_TIME_INT_ENABLE;
+			}break;
+		case STATE_CAPTURE_DISABLE:
+			{
+				PIX_TURN_TIME_INT_DISABLE;
+				PIX_TURN_TIME_DISABLE;
+			}break;
+		default:break;
+	}
+}
+/**********************************************************************
+函数：void TIM8_BRK_TIM12_IRQHandler(void)
+输入：none
+输出：none
+功能：捕获中断处理函数
+说明：捕获状态
+     1.[7]:0,没有成功的捕获;1,成功捕获到一次.
+     2.[6]:0,还没捕获到低电平;1,已经捕获到低电平了.
+     3.[5:0]:捕获低电平后溢出的次数(对于32位定时器来说,1us计数器加1,溢出时间:4294秒)
+**********************************************************************/
+void TIM8_BRK_TIM12_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM12, TIM_IT_CC1) != RESET)											//捕获1发生捕获事件
+	{	
+		Pix_Turn_Pwm.ccr1_capture_count += 1;
+		if(Pix_Turn_Pwm.ccr1_capture_count == 1)													//ccr1第一次捕获
+		{	  			
+			Pix_Turn_Pwm.ccr1_cache_1 = TIM_GetCapture1(TIM12);							//获取当前的捕获值(第一次).
+			//TIM_OC1PolarityConfig(TIM12,TIM_ICPolarity_Falling); 					//CC1P=0 设置为上升沿捕获
+		}
+		else if(Pix_Turn_Pwm.ccr1_capture_count == 2)  										//第二次捕获，此时捕获到一个完整的pwm周期
+		{
+			Pix_Turn_Pwm.ccr1_capture_count = 0;
+			Pix_Turn_Pwm.ccr1_cache_2=TIM_GetCapture1(TIM12);								//获取当前的捕获值(第二
+			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+			TIM_SetCounter(TIM12,0);
+
+			Pix_Turn_Pwm.capture_end_flag = PIX_TURN_CAPTURE_END;						//标志捕获结束
+		}		    
+	}			
+	if(TIM_GetITStatus(TIM12, TIM_IT_CC2) != RESET)											//整个PWM输入捕获周期中，ccr2只进入一次（捕获一次）
+	{
+		Pix_Turn_Pwm.ccr2_cache_1 = TIM_GetCapture2(TIM12);
+	}
+
+	TIM_ClearITPendingBit(TIM12, TIM_IT_CC1|TIM_IT_CC2); 								//清除中断标志位
+}	
+/***********************************************************************
+函数名称：Pix_Pwm* pix_turn_pwm_process(u8 capture_flag)
+功    能：
+输入参数：
+输出参数：
+编写时间：2018.05.01
+编 写 人：GBZ
+注    意：
+					1.舵机一个周期20ms
+					//以上记录于2018.05.04    GBZ
+					2.此处不做滤波处理，会降低响应速度
+					//以上记录于2018.05.05    GBZ
+***********************************************************************/
+Pix_Pwm* pix_turn_pwm_process(u8 capture_flag)
+{
+	u32 period_d_value=0;
+	static u8 sample_count=0;
+	
+	if(capture_flag == PIX_TURN_CAPTURE_END)
+	{
+		Pix_Turn_Pwm.capture_end_flag = 0;
+		//计算周期
+		if(Pix_Turn_Pwm.ccr1_cache_1 < Pix_Turn_Pwm.ccr1_cache_2)
+		{
+			Pix_Turn_Pwm.pwm_period = Pix_Turn_Pwm.ccr1_cache_2 -  Pix_Turn_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Turn_Pwm.ccr1_cache_1 > Pix_Turn_Pwm.ccr1_cache_2)
+		{
+			Pix_Turn_Pwm.pwm_period = (PIX_LEFT_TIME_ARR - Pix_Turn_Pwm.ccr1_cache_1) + Pix_Turn_Pwm.ccr1_cache_2;
+		}
+		//计算占空比
+		if(Pix_Turn_Pwm.ccr2_cache_1 > Pix_Turn_Pwm.ccr1_cache_1)									//正常情况下ccr2的值比ccr1大！
+		{
+			Pix_Turn_Pwm.pwm_duty = Pix_Turn_Pwm.ccr2_cache_1 -  Pix_Turn_Pwm.ccr1_cache_1;
+		}
+		else if(Pix_Turn_Pwm.ccr2_cache_1 < Pix_Turn_Pwm.ccr1_cache_1)
+		{
+			Pix_Turn_Pwm.pwm_duty = (PIX_RIGHT_TIME_ARR - Pix_Turn_Pwm.ccr1_cache_1) + Pix_Turn_Pwm.ccr2_cache_1;
+		}
+		//求与标准值的差值,如果超过两次直接返回错误标志
+		period_d_value = Pix_Turn_Pwm.pwm_period - PIX_TURN_PWM_PERIOD;
+		
+		if(abs(period_d_value) >= PIX_TURN_PWM_D_VALUE)
+		{
+			if(sample_count >= PIX_PWM_CAPTURE_COUNT)
+			{
+				sample_count = 0;
+//				Pix_Turn_Pwm.duty_percentage = DUTY_DEAD;														 //如果捕获到几次PWM的频率都存在问题，此处停车处理
+				Pix_Turn_Pwm.fault_flag = PIX_CAPTURE_PERIOD_ERROR;                  //该标志位，谁用谁清零
+				return &Pix_Turn_Pwm;
+			}
+			sample_count++;
+		}
+		else if(abs(period_d_value) < PIX_TURN_PWM_D_VALUE)
+		{
+			Pix_Turn_Pwm.duty_percentage=((float)(Pix_Turn_Pwm.pwm_duty*100))/(float)Pix_Turn_Pwm.pwm_period;
+			
+		}
+		Pix_Turn_Pwm.sample_flag=SAMPLE_END;
+	}
+	return &Pix_Turn_Pwm;																											//此处返回值无实际意义，sample_flag标志位为0
+}
+///////////////////////////////////////////////////////////////////////
+//PWM转换成转速/角度                           
+///////////////////////////////////////////////////////////////////////
+/***********************************************************************
+函数名称：u16 pwm_convert_rev()
+功    能：pwm转换成转速
+输入参数：u8 duty_percentage:占空比百分比
+输出参数：
+编写时间：2018.05.02
+编 写 人：GBZ
+注    意：
+					1.计算公式：转速n=（60*当前速度*减速比）/周长    单位RPM 
+					2.0-DUTY_DEAD_MIN为后退区，DUTY_DEAD_MAX-100%为前进区
+					//以上记录于2018.05.02    GBZ
+***********************************************************************/
+s16 pwm_convert_rev(float lr_duty)
+{
+	s16 rev=0;
+	float temp_speed=0;
+	
+	//正向转动  艾思控的换向频率对于洁亚扫地车只能给到800至-800（这里实际是80HZ）
+	if((lr_duty > PIX_LR_PWM_FORWARD_MIN) && (lr_duty < PIX_LR_PWM_FORWARD_MAX))
+	{
+		//temp_speed = (float)(lr_duty - PIX_LR_PWM_FORWARD_MIN)/((float) PIX_LR_PWM_COEFFICIENT);//11.14
+		temp_speed  = (float)(((lr_duty - PIX_LR_PWM_FORWARD_MIN)*SPEED_MAX)/(PIX_LR_PWM_FORWARD_MAX-PIX_LR_PWM_FORWARD_MIN));//11.15
+		//rev = (60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER);	//11.14
+		rev = temp_speed;//11.14
+							                  
+	}
+	//反向转动
+	if((lr_duty > PIX_LR_PWM_REVESE_MIN) && (lr_duty < PIX_LR_PWM_REVESE_MAX))
+	{
+		//temp_speed = (float)(PIX_LR_PWM_REVESE_MAX - lr_duty)/((float) PIX_LR_PWM_COEFFICIENT);//11.14
+		temp_speed  = (float)(((lr_duty - PIX_LR_PWM_FORWARD_MIN)*SPEED_MAX)/(PIX_LR_PWM_FORWARD_MAX-PIX_LR_PWM_FORWARD_MIN));//11.15
+		//rev = -((60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER));//11.14
+		rev = temp_speed;//11.14
+								                  
+	}
+	//死区
+	if((lr_duty > PIX_LR_PWM_REVESE_MAX) && (lr_duty < PIX_LR_PWM_FORWARD_MIN))
+	{
+		rev = 0;                
+	}
+	
+//	//如果占空比 比最小的值小   比最大的值大  速度设为 0
+//	if((lr_duty < PIX_LR_PWM_REVESE_MIN )||(lr_duty > PIX_LR_PWM_FORWARD_MAX))
+//	{
+//		rev = 0;  
+//	
+//	}
+	
+	
+	
+	
+//	//正向转动
+//	if((duty_percentage > DUTY_DEAD_MAX)&&(duty_percentage <= 99))																					//
+//	{
+//		duty_convert=(float)(duty_percentage-((float)DUTY_DEAD_MAX))/((float)FORWARD_CONVERT_COEFFICIENT);		//前进占空比转换系数，此时输入的pwm落在DUTY_DEAD_MAX-100之间
+//		temp_speed=(float)SPEED_MAX*duty_convert;																					                    //通过占空比计算当前速度
+//		rev=(60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER);								                  //60:将n转/秒——>转/分钟
+//	}
+//	if(duty_percentage > 99)
+//	{
+//		duty_percentage = 99;
+//		duty_convert=(float)(duty_percentage-((float)DUTY_DEAD_MAX))/((float)FORWARD_CONVERT_COEFFICIENT);		//前进占空比转换系数，此时输入的pwm落在DUTY_DEAD_MAX-100之间
+//		temp_speed=(float)SPEED_MAX*duty_convert;																					                    //通过占空比计算当前速度
+//		rev=(60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER);								                  //60:将n转/秒——>转/分钟
+//	}
+//	//反向转动
+//	if((duty_percentage < DUTY_DEAD_MIN)&&(duty_percentage > 0))
+//	{
+//		duty_percentage = DUTY_DEAD_MIN - duty_percentage;																									 //占空比增长方向变换（速度增长方向变换），由死区-0，速度处于递增状态。——2018.05.10
+//		duty_convert=duty_percentage/((float)REVERSE_CONVERT_COEFFICIENT);					                         //后退（反向）占空比转换系数，此时输入的pwm落在0-DUTY_DEAD_MIN之间
+//		temp_speed=((float)SPEED_MAX)*duty_convert;																					                 //通过占空比计算当前速度
+//		rev = -((60*temp_speed*REDUCTION_RATIO)/((float)WHEEL_PERIMETER));										               //此处加上一个负号！！！
+//	}
+//	//在死区内
+//	if((DUTY_DEAD_MIN <= duty_percentage)&&(duty_percentage <= DUTY_DEAD_MAX))		                         //死区，转速为0
+//	{
+//		rev=0;
+//	}
+	return rev;
+}
+
+//s16 pwm_convert_rev(float duty_percentage)
+//{
+//	s16 rev=0;
+//	float temp_speed=0;
+//	float duty_convert=0;
+//	
+//	//正向转动
+//	if((duty_percentage > DUTY_DEAD_MAX)&&(duty_percentage <= 99))																					//
+//	{
+//		duty_convert=(float)(duty_percentage-((float)DUTY_DEAD_MAX))/((float)FORWARD_CONVERT_COEFFICIENT);		//前进占空比转换系数，此时输入的pwm落在DUTY_DEAD_MAX-100之间
+//		temp_speed=(float)SPEED_MAX*duty_convert;																					                    //通过占空比计算当前速度
+//		rev=(60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER);								                  //60:将n转/秒——>转/分钟
+//	}
+//	if(duty_percentage > 99)
+//	{
+//		duty_percentage = 99;
+//		duty_convert=(float)(duty_percentage-((float)DUTY_DEAD_MAX))/((float)FORWARD_CONVERT_COEFFICIENT);		//前进占空比转换系数，此时输入的pwm落在DUTY_DEAD_MAX-100之间
+//		temp_speed=(float)SPEED_MAX*duty_convert;																					                    //通过占空比计算当前速度
+//		rev=(60*temp_speed*(float)REDUCTION_RATIO)/((float)WHEEL_PERIMETER);								                  //60:将n转/秒——>转/分钟
+//	}
+//	//反向转动
+//	if((duty_percentage < DUTY_DEAD_MIN)&&(duty_percentage > 0))
+//	{
+//		duty_percentage = DUTY_DEAD_MIN - duty_percentage;																									 //占空比增长方向变换（速度增长方向变换），由死区-0，速度处于递增状态。——2018.05.10
+//		duty_convert=duty_percentage/((float)REVERSE_CONVERT_COEFFICIENT);					                         //后退（反向）占空比转换系数，此时输入的pwm落在0-DUTY_DEAD_MIN之间
+//		temp_speed=((float)SPEED_MAX)*duty_convert;																					                 //通过占空比计算当前速度
+//		rev = -((60*temp_speed*REDUCTION_RATIO)/((float)WHEEL_PERIMETER));										               //此处加上一个负号！！！
+//	}
+//	//在死区内
+//	if((DUTY_DEAD_MIN <= duty_percentage)&&(duty_percentage <= DUTY_DEAD_MAX))		                         //死区，转速为0
+//	{
+//		rev=0;
+//	}
+//	return rev;
+//}
+/***********************************************************************
+函数名称：s16 speed_convert_rev(u16 speed)
+功    能：速度转换成转速
+输入参数：s16 speed:速度值，单位mm/s
+输出参数：
+编写时间：2018.05.21
+编 写 人：GBZ
+注    意：
+***********************************************************************/
+s16 speed_convert_rev(s16 speed)
+{
+	s16 rev=0;
+	
+	if(speed < 0)
+	{
+		rev = ((60 * ((float)speed / 1000) * (float)REDUCTION_RATIO) / ((float)WHEEL_PERIMETER));
+	}
+	else 
+	{
+		rev = (60 * ((float)speed / 1000)  * (float)REDUCTION_RATIO) / ((float)WHEEL_PERIMETER);
+	}
+	return rev;
+}
+/***********************************************************************
+函数名称：float conert_angle(float duty_percentag)
+功    能：将pwm转换成角度
+输入参数：float duty_percentag：占空比
+输出参数：转换的角度结果
+编写时间：2018.05.05
+编 写 人：GBZ
+注    意：
+			1.高电平脉冲的时间：
+            0.5ms的话，舵机转到0度，
+            1ms -45度 
+			1.5ms--90度   
+            2ms--135度
+            2.5ms-180度，
+            只能在0.5~2.5ms之间调节，转动0到180度任意角度，只要控制PWM波的高电平占空比就要可以达到自己想要的转动角度。
+				  2.其中0°为正左方，90°正前方，180°正右方
+					3.因此计算出来的角度需要和90度进行比较：
+            ＜90°：左转
+            ＞90°：右转
+            ＝90°：正前（也可能向后，具体根据后驱的转动方向）
+            注意：转弯也可能存在死区，届时根据实际情况调整。
+				4.左转的角度为负值，右转为正值。
+						//以上记录于2018.05.05    GBZ
+				5.PWM与角度转换关系更新：
+						设y为转弯角度，x为PWM高电平值，400/30=（x-1500）/y ----> y=(30/400)*x-112.5
+						注：此处的PWM输出对应的角度为车轮角度！！！！
+						//以上记录于2018.05.31    GBZ
+				6.车轮角度转化为减速器输出轴角度：
+						计算公式：y=a+b*x+c*x*x,其中y为减速机输出轴转角，x小车前内轮转角
+						//以上记录于2018.06.01    GBZ
+				7.减速器转动角度与转动位置的关系：
+						假设y为电机转动圈数，x为所需转动角度，则计算公式：y=减速比/360 * x;
+						//以上记录于2018.05.31    GBZ
+***********************************************************************/
+s32 turn_pwm_convert_rev(float turn_duty)
+{
+	
+	double reducer_angle = 0;					 			//减速器转角
+	double wheel_angle   = 0;								//内侧车轮转动角度								
+	s32 position_pulse   = 0;								//位移脉冲数
+
+	if((turn_duty > WHEEL_TURN_LEFT_PWM_MIN) && (turn_duty < WHEEL_TURN_LEFT_PWM_MAX))
+	{
+		wheel_angle    = (float)(WHEEL_TURN_LEFT_PWM_MAX - turn_duty) / WHEEL_TURN_PWM_COEFFICIENT;
+		//reducer_angle  = WHEEL_COVERT_MOTOR_A_COE + (WHEEL_COVERT_MOTOR_B_COE * wheel_angle) + (WHEEL_COVERT_MOTOR_C_COE * wheel_angle * wheel_angle);
+		//position_pulse = ((MOTOR_REDUCER_CAL_COEFFICIENT * reducer_angle) * MOTOR_ONE_CYCLE_PLUSE);
+
+		position_pulse = ((MOTOR_REDUCER_CAL_COEFFICIENT * wheel_angle) * MOTOR_ONE_CYCLE_PLUSE);//PYQ 10.31 因为转向不是打靶方案，这里直接乘即可,  (400000/360 ) * wheel_angle
+
+		return position_pulse = ZERO_POINT_OFFSET - position_pulse;
+	}
+	if((turn_duty > WHEEL_TURN_RIGHT_PWM_MIN) && (turn_duty < WHEEL_TURN_RIGHT_PWM_MAX))
+	{
+		wheel_angle    = (float)(turn_duty - WHEEL_TURN_RIGHT_PWM_MIN) / WHEEL_TURN_PWM_COEFFICIENT;
+		//reducer_angle  = WHEEL_COVERT_MOTOR_A_COE + (WHEEL_COVERT_MOTOR_B_COE * wheel_angle) + (WHEEL_COVERT_MOTOR_C_COE * wheel_angle * wheel_angle);
+		//position_pulse = (MOTOR_REDUCER_CAL_COEFFICIENT * reducer_angle) * MOTOR_ONE_CYCLE_PLUSE;
+
+		position_pulse = ((MOTOR_REDUCER_CAL_COEFFICIENT * wheel_angle) * MOTOR_ONE_CYCLE_PLUSE);//PYQ 10.31 因为转向不是打靶方案，这里直接乘即可
+
+		return position_pulse = ZERO_POINT_OFFSET + position_pulse;
+	}	
+	if((turn_duty >= WHEEL_TURN_LEFT_PWM_MAX) && (turn_duty <= WHEEL_TURN_RIGHT_PWM_MIN))
+	{
+		return position_pulse = ZERO_POINT_OFFSET;
+	}
+	
+	return position_pulse = ZERO_POINT_OFFSET;
+	
+	
+//	double reducer_angle = 0;					 			//减速器转角
+//	double wheel_angle   = 0;								//内侧车轮转动角度								
+//	s32 position_pulse   = 0;								//位移脉冲数
+//	
+//	
+//	if((turn_duty >= PIX_TURN_DUTY_MIN) && (turn_duty <= PIX_TURN_DUTY_MAX))
+//	{
+//		wheel_angle    = WHEEL_TURN_ANGLE_CONVERT_COEFFICIENT * turn_duty - WHEEL_TURN_ANGLE_CAL_CONSTANT;
+//		reducer_angle  = WHEEL_COVERT_MOTOR_A_COE + (WHEEL_COVERT_MOTOR_B_COE * wheel_angle) - (WHEEL_COVERT_MOTOR_C_COE * wheel_angle * wheel_angle);
+//		position_pulse = (MOTOR_REDUCER_CAL_COEFFICIENT * reducer_angle) * MOTOR_ONE_CYCLE_PLUSE;
+//		return position_pulse;
+//	}
+//	position_pulse = 0;
+//	return position_pulse;
+	
+}
+
+
+
+
+
+void motor_control_handle(void)
+{
+
+	//	static u8 task_count=0;
+	u8 left_count=0;
+	u8 right_count=0;
+	u8 turn_count=0;
+	static u8 pwm_state_flag = 0;
+	s16 speed=0;
+	s32 turn_position=0;
+	u8 rev_buf[2]={0};
+//	u8 speed_direction=0;
+	u8 turn_position_buf[(TURN_POSITION_DATA_LENGTH*2)]=
+	{
+		((TURN_PR_MODE & 0xff00) >> 8),
+		(TURN_PR_MODE & 0x00ff),
+		0,
+		0,
+		0,
+		0,
+		((TURN_NOMAL_RUN_SPEED & 0xff00) >> 8),
+		(TURN_NOMAL_RUN_SPEED & 0x00ff),
+		((TURN_ACCELERATE_TIME & 0xff00) >> 8),
+		(TURN_ACCELERATE_TIME & 0x00ff),
+		((TURN_SLOW_DOWN_TIME & 0xff00) >> 8),
+		(TURN_SLOW_DOWN_TIME & 0x00ff),
+		((TURN_STOP_TIME & 0xff00) >> 8),
+		(TURN_STOP_TIME & 0x00ff),
+		((TURN_PR_TRIGGER & 0xff00) >> 8),
+		(TURN_PR_TRIGGER & 0x00ff),
+	};
+	static u16 left_last_speed=0;
+	static u16 right_last_speed=0;
+	static s32 turn_last_position=0;			//
+	Motor_Device left_motor_device;
+	//Motor_Device right_motor_device;
+	Motor_Device turn_motor_device;
+	
+	left_motor_device.device_num = DN_FIRST_MOTOR;//扫地车没有用到向该地址发送消息  11.08 PYQ  这里仅仅是为了计算采集到的PWM，然后通过485发给地址0x04后轮电机
+	left_motor_device.modbus_function_code = FC_WRITE_ONE_WORD;
+	left_motor_device.reg_addr = ADDR_SPEED_REGISTER;
+	left_motor_device.data_length = 2;
+	
+//	right_motor_device.device_num=DN_SECOND_MOTOR;
+//	right_motor_device.modbus_function_code=FC_WRITE_ONE_WORD;
+//	right_motor_device.reg_addr=ADDR_SPEED_REGISTER;
+//	right_motor_device.data_length=2;
+	
+	turn_motor_device.device_num = DN_THIRD_MOTOR;//转向电机的modbus地址是0x03 11.08
+	turn_motor_device.modbus_function_code=FC_WRITE_MULTI_WORDS;
+	turn_motor_device.reg_addr=ADDR_LM_INITIAL_REGISTER;
+	turn_motor_device.data_length=(TURN_POSITION_DATA_LENGTH * 2);
+	
+	//????è?????DD′?êy￡?èy?·μ??ú????￡?è???·?èy′???DD
+	//task_count += 1;
+	
+	if(Pix_Left_Pwm.capture_end_flag == PIX_LEFT_CAPTURE_END)
+		{
+			left_count++;
+			pwm_state_flag |= PIX_LEFT_EXIST_SIGNAL;											 //′??úPWMD?o?
+			
+			pix_left_pwm_process(Pix_Left_Pwm.capture_end_flag);
+
+			if(Pix_Left_Pwm.sample_flag == SAMPLE_END)
+			{
+				Pix_Left_Pwm.sample_flag=0;
+				
+				if(Pix_Left_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+				{
+					Pix_Left_Pwm.fault_flag = 0;
+				//	
+					pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);	
+					//???ó?òé????ú±¨????′í?ó
+				}
+				else 
+				{
+					pwm_state_flag |= PIX_LEFT_CAPTURE_OK;										
+					
+					speed = pwm_convert_rev(Pix_Left_Pwm.pwm_duty);//计算速度  艾思控的换向频率
+					//?D??μ±?°·??òê?·?′??ú??°-??
+				
+					if(speed >= 0)
+					{
+						//?′?ì2aμ???°-??
+//						if(((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//							|| (speed == 0))																						 //?ù?èμèóú0￡??éò???·￠?ù?è?μ
+						//{
+							//if((left_last_speed != speed) || (speed == 0))
+							if(left_last_speed != speed)
+							{
+								left_last_speed = speed;
+
+								//Send_Velocity_Handle(speed);//使用德马克电机  后轮   PYQ 11.5   德玛可驱动器使用
+								//speed = (speed*800)/3520;//11.14
+
+								if((ULTRA_DATA.ultrasonic_allow_move_flag == 0)&&(crash_sta_type.crash1_flag == 0))//如果超声波、防碰撞没有触发
+								{
+
+									BackWheel_Forwa(speed);//485 modbus，艾思控驱动器使用  11.12
+								}
+
+								
+
+								//rev_buf[0]=(speed&0xff00)>>8;
+								//rev_buf[1]=speed&0x00ff;
+								
+								//modbus_frame_send_process(left_motor_device,rev_buf);
+							
+//								#if(DEBUG_FLAG==1)
+//								printf("left_rev=%d  \n",speed);
+//								#endif
+							
+								speed = 0;
+							}
+						//}
+						//?ì2aμ???°-??
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);									//?è????±ê??￡?′￥·￠μ??úí￡?úòì3￡±ê??￡?   ?a?agbz 2018.6.21
+//						}
+					}
+					if(speed < 0)
+					{
+						//?′?ì2aμ???°-??
+//						if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//						{
+							if(left_last_speed != speed)
+							{
+								left_last_speed = speed;
+								//Send_Velocity_Handle(speed);//使用德马克电机  后轮   PYQ 11.5
+								//speed = (speed*800)/3520;//11.14
+
+								if((ULTRA_DATA.ultrasonic_allow_move_flag == 0)&&(crash_sta_type.crash1_flag == 0))//如果超声波、防碰撞没有触发
+								{
+									BackWheel_Conver(Nega_to_Posi(speed));//485 modbus，艾思控驱动器使用  11.12
+								}
+								
+
+								//BackWheel_Forwa(Nega_to_Posi(speed));//485 modbus，艾思控驱动器使用  11.12
+								
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								
+//								modbus_frame_send_process(left_motor_device,rev_buf);
+							
+//								#if(DEBUG_FLAG==1)
+//								printf("left_rev=%d  \n",speed);
+//								#endif
+							
+								speed = 0;
+							}
+						//}
+						//?ì2aμ???°-??
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_LEFT_CAPTURE_OK);									//?è????±ê??￡?′￥·￠μ??úí￡?úòì3￡±ê??￡?   ?a?agbz 2018.6.21
+//						}
+					}
+					
+				}
+			}
+		
+			
+			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_ENABLE);
+		}
+			
+
+//pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_ENABLE);
+	
+	//delay_ms(100);
+
+		motor_task_delay(2000000);
+//		if(Pix_Right_Pwm.capture_end_flag==PIX_RIGHT_CAPTURE_END)
+//		{
+//			right_count++;
+//			
+//			pwm_state_flag |= PIX_RIGHT_EXIST_SIGNAL;	
+//			
+//			pix_right_pwm_process(Pix_Right_Pwm.capture_end_flag);
+//			if(Pix_Right_Pwm.sample_flag == SAMPLE_END)
+//			{
+//				Pix_Right_Pwm.sample_flag=0;
+//				if(Pix_Right_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+//				{
+//					Pix_Right_Pwm.fault_flag = 0;
+//					pwm_state_flag &= ( ~ PIX_RIGHT_CAPTURE_OK);
+//					
+//				}
+//				else
+//				{
+//					pwm_state_flag |= PIX_RIGHT_CAPTURE_OK;
+//					
+//					speed=pwm_convert_rev(Pix_Right_Pwm.pwm_duty);
+//					//òò×óóò??μ??ú??3?°2×°￡?×óóò??×a?ò?à·′￡?3μ??×a?ò2??üò???
+//					speed = -speed;													
+//					if(speed <= 0)
+//					{
+//						//?′?ì2aμ???°-??
+//						if(((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//							|| (speed == 0))
+//						{
+////							if((right_last_speed != speed) || (speed == 0))
+//							if(right_last_speed != speed)
+//							{
+//								right_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								modbus_frame_send_process(right_motor_device,rev_buf);
+//								
+//								#if(DEBUG_FLAG==1)
+//								printf("right_rev=%d  \n",speed);
+//								#endif
+//								
+//								speed = 0;
+//							}
+//						}
+//						//?ì2aμ???°-??
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_FIRST_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_SECOND_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~ PIX_RIGHT_CAPTURE_OK);									//?è????±ê??￡?′￥·￠μ??úí￡?úòì3￡±ê??￡?   ?a?agbz 2018.6.21
+//						}
+//					}
+//					else if(speed > 0)
+//					{
+//						//?′?ì2aμ???°-??
+//						if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER)
+//							&& (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_NON_EXIST_BARRIER))
+//						{
+//							if(right_last_speed != speed)
+//							{
+//								right_last_speed = speed;
+//								rev_buf[0]=(speed&0xff00)>>8;
+//								rev_buf[1]=speed&0x00ff;
+//								modbus_frame_send_process(right_motor_device,rev_buf);
+//								
+//								#if(DEBUG_FLAG==1)
+//								printf("right_rev=%d  \n",speed);
+//								#endif
+//								
+//								speed = 0;
+//							}
+//						}
+//						//?ì2aμ???°-??
+//						else if((Ultrasonic_Record.detect_result_flag[ULT_THIRD_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER)
+//							|| (Ultrasonic_Record.detect_result_flag[ULT_FOURTH_PROBE_INDEX] == ULTRASONIC_EXIST_BARRIER))
+//						{
+//							pwm_state_flag &= ( ~PIX_RIGHT_CAPTURE_OK);									//?è????±ê??￡?′￥·￠μ??úí￡?úòì3￡±ê??￡?   ?a?agbz 2018.6.21
+//						}
+//					}
+//				}
+//			}
+//			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_ENABLE);
+//		}
+		//motor_task_delay(2000000);
+
+
+		if(Pix_Turn_Pwm.capture_end_flag == PIX_TURN_CAPTURE_END)
+		{
+			turn_count++;
+			
+			pwm_state_flag |= PIX_TURN_EXIST_SIGNAL;
+			
+			pix_turn_pwm_process(Pix_Turn_Pwm.capture_end_flag);
+			if(Pix_Turn_Pwm.sample_flag == SAMPLE_END)
+			{
+				Pix_Turn_Pwm.sample_flag = 0;
+				if(Pix_Turn_Pwm.fault_flag == PIX_CAPTURE_PERIOD_ERROR)
+				{
+					Pix_Turn_Pwm.fault_flag = 0;
+					pwm_state_flag &= ( ~ PIX_TURN_CAPTURE_OK);
+				}
+				else
+				{
+					pwm_state_flag |= PIX_TURN_CAPTURE_OK;
+					
+					turn_position = turn_pwm_convert_rev(Pix_Turn_Pwm.pwm_duty);//计算位置脉冲数
+
+					if(turn_last_position != turn_position)
+					{
+
+						if((ULTRA_DATA.ultrasonic_allow_move_flag == 0)&&(crash_sta_type.crash1_flag == 0))//如果超声波、防碰撞没有触发
+						{
+							turn_last_position = turn_position;
+
+							turn_position_buf[TURN_POSITION_HIGH_INDEX] 		= (turn_last_position & 0xff000000) >> 24;
+							turn_position_buf[TURN_POSITION_HIGH_INDEX + 1] = (turn_last_position & 0x00ff0000) >> 16;
+							turn_position_buf[TURN_POSITION_LOW_INDEX]      = (turn_last_position & 0x0000ff00) >> 8;
+							turn_position_buf[TURN_POSITION_LOW_INDEX + 1]  = (turn_last_position & 0x000000ff);
+							
+							modbus_frame_send_process(turn_motor_device,turn_position_buf);
+							
+	//						#if(DEBUG_FLAG==1)
+	//						printf("turn_rev=%d  \n",speed);
+	//						#endif
+							turn_position = 0;
+
+						}
+						
+					}
+				}
+				
+			}
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+		}
+		
+		if((left_count == 1)  && (turn_count == 1))					//èy?·PWM2???íê±?
+		{
+			left_count  = 0;
+			//right_count = 0;
+			turn_count  = 0;
+			
+			//D?o?òì3￡￡¨2¨D?/?TD?o?￡?′|àí
+			if(((pwm_state_flag & PIX_CAPTURE_OK) != PIX_CAPTURE_OK) || ((pwm_state_flag & PIX_EXIST_SIGNAL) != PIX_EXIST_SIGNAL))
+			{
+				//′?′|ó|?????óò???í￡?ú′|àí￡?2￠?òé????ú·′à???′í?ó±ê??
+				pwm_state_flag = 0;
+				motor_force_stop(ENABLE);
+				Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+				//led??ê?
+				//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+				//?òé????ú·￠?í?àó|±ê??
+				
+			}
+			else if(((pwm_state_flag & PIX_EXIST_SIGNAL) == PIX_EXIST_SIGNAL) && ((pwm_state_flag & PIX_CAPTURE_OK) == PIX_CAPTURE_OK))
+			{
+				pwm_state_flag = 0;
+				if(Motor_Force_Flag == 0)                                           //Dèòaè·?¨ê?·?′??ú????òì3￡òy?eμ?μ??úí￡?ú￡?è?1?óD?ò′?′|2??üêí·?í￡?úD?o?
+				{
+					motor_force_stop(DISABLE);
+				}
+				Motor_Force_Flag &= ( ~RS485_FAULT_MOTOR_FORCE_STOP);								
+				
+				//Led_Fault_Indication_Flag &= ( ~ LED_MOTOR_PWM_CAPTURE_FAULT);
+			}
+
+//			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+//			//pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+//			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+//			
+//			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+
+
+		}
+		else if(((left_count != 1)  || (turn_count != 1)) )            //μ??úè????′DDèy′?￡?è?3???óD?′±?2???μ?PWM￡?′????é???D???aòì3￡
+		{																																																				//μ??ú?′DDèy′?￡?±￡?¤μ±2???±?òaía′ò??ê±￡??óê±2?1?ó?μ??é??￡??éò???D???DD2???￡?μ?ê?Dèòaμ??úè???μ?×′ì?????
+			//task_count 	= 0;
+			left_count  = 0;
+			//right_count = 0;
+			turn_count  = 0;
+			//μ??úí￡?ú			
+			pwm_state_flag = 0;
+			motor_force_stop(ENABLE);
+			Motor_Force_Flag |= RS485_FAULT_MOTOR_FORCE_STOP;	
+			//led??ê?
+			//Led_Fault_Indication_Flag |= LED_MOTOR_PWM_CAPTURE_FAULT;
+			//è???×′ì?????:?è1?±??ùóD2???￡??ù?aμúò??·2???
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_DISABLE);
+			//pix_pwm_capture_switch(PIX_RIGHT_CAPTURE,STATE_CAPTURE_DISABLE);
+			pix_pwm_capture_switch(PIX_TURN_CAPTURE,STATE_CAPTURE_DISABLE);
+			
+			pix_pwm_capture_switch(PIX_LEFT_CAPTURE,STATE_CAPTURE_ENABLE);
+		}
+
+}
+
+
+

@@ -1,0 +1,177 @@
+#ifndef _STEER_MOTOR_H
+#define _STEER_MOTOR_H
+#include "sys.h"
+#include <string.h>
+
+//#ifndef  _MOTOR_DEVICE_H_
+//#define  _MOTOR_DEVICE_H_
+#include "stm32f4xx.h"
+#include "break.h"
+#include "pixhawk_pwm_capture.h"
+
+void turn_control_hanlde(void);//舵机运动控制，根据脉冲运动，PYQ 10.30
+void RS485_Send_Data(unsigned char *send_buff,unsigned int length);
+
+
+
+#define RS485_BAUD    							38400
+//主到从，两帧之间的发送间隔和波特率有关
+#define _115200_RESPONSE_INTERCAL 	6									//当波特率位38400时，帧间隔延时6ms
+#define _38400_RESPONSE_INTERCAL  	10                //当波特率位38400时，帧间隔延时10ms
+#define _19200_RESPONSE_INTERCAL  	20                //当波特率位19200，帧间隔延时20ms
+#define _9600_RESPONSE_INTERCAL   	20                //当波特率位9600，帧间隔延时20ms'
+
+#if (RS485_BAUD==38400)
+#define MODBUS_FRAME_INTERVAL_DELAY _38400_RESPONSE_INTERCAL
+#endif
+#if (RS485_BAUD==19200)
+#define MODBUS_FRAME_INTERVAL_DELAY _19200_RESPONSE_INTERCAL
+#endif
+#if (RS485_BAUD==9600)
+#define MODBUS_FRAME_INTERVAL_DELAY _9600_RESPONSE_INTERCAL
+#endif
+
+#define RS485_RESPONSE_TIME_OUT		  100								//回复帧超时时间100ms
+#define MOTOR_RESPONSE_TIME_OUT			1000							//
+
+#define TRUE											  1
+#define FALSE											  0
+
+///////////////////////////////////////////////////////////////////////
+//电机急停                           
+///////////////////////////////////////////////////////////////////////
+#define ULTRA_MOTOR_FORCE_STOP							0X01			//超声波检测，强制停车
+#define PWM_CAP_FAULT_MOTOR_FORCE_STOP			0X02			//PWM捕获异常，强制停车
+#define RS485_FAULT_MOTOR_FORCE_STOP				0X04			//485通信异常，强制停车
+#define MASTER_COMM_FAULT_MOTOR_FORCE_STOP	0X10			//与上位机通信异常，强制停车
+#define CODE_FAULT_MOTOR_FORCE_STOP					0X20			//代码异常（如触发hardfault），强制停车
+
+#define SPEED_DIRECTION_FORWARD							0X01
+#define SPEED_DIRECTION_REVERSE							0X02
+
+//#define FIRST_MOTOR_FORCE_STOP_PIN	GPIO_Pin_2
+#define SECOND_MOTOR_FORCE_STOP_PIN	GPIO_Pin_3
+//#define THIRD_MOTOR_FORCE_STOP_PIN	GPIO_Pin_4
+
+#define FIRST_MOTOR_FORCE_STOP_PIN	GPIO_Pin_5//因为和其他引脚冲突 修改引脚  PYQ 10.26
+#define THIRD_MOTOR_FORCE_STOP_PIN	GPIO_Pin_6
+
+
+#define FIRST_MOTOR_FORCE_STOP_CTR(x) if(x == DISABLE) GPIO_ResetBits(GPIOG,FIRST_MOTOR_FORCE_STOP_PIN);\
+                                      else if(x == ENABLE) GPIO_SetBits(GPIOG,FIRST_MOTOR_FORCE_STOP_PIN);
+#define SECOND_MOTOR_FORCE_STOP_CTR(x) if(x == DISABLE) GPIO_ResetBits(GPIOG,SECOND_MOTOR_FORCE_STOP_PIN);\
+                                      else if(x == ENABLE) GPIO_SetBits(GPIOG,SECOND_MOTOR_FORCE_STOP_PIN);
+#define THIRD_MOTOR_FORCE_STOP_CTR(x) if(x == DISABLE) GPIO_ResetBits(GPIOG,THIRD_MOTOR_FORCE_STOP_PIN);\
+                                      else if(x == ENABLE) GPIO_SetBits(GPIOG,THIRD_MOTOR_FORCE_STOP_PIN);
+
+extern u8 Motor_Force_Flag;
+
+void motor_force_stop_init(void);
+void motor_force_stop(u8 state);
+///////////////////////////////////////////////////////////////////////
+//modbus数据帧                           
+///////////////////////////////////////////////////////////////////////
+#define FC_READ_MULTI_BITS								0X01     //读取多个位数据
+#define FC_READ_MULTI_WORDS								0X03     //读取多个半字（16位）数据
+#define FC_WRITE_ONE_BIT  								0X05     //写一位
+#define FC_WRITE_ONE_WORD									0X06     //写一个半字（16位）
+#define FC_WRITE_MULTI_BITS  							0X0F     //写入多位数据
+#define FC_WRITE_MULTI_WORDS		 					0X10     //写入半字（16位）数据
+
+
+#define MODBUS_FRAME_LENGTH_MAX   				30       //设定传输的数据帧，最大长度为30个字节
+
+#define MODBUS_FRAME_DEVICE_NUM   				0        //modbus帧头
+#define MODBUS_FRAME_FUNCTION_CODE 				1        //功能码
+#define MODBUS_FRAME_REG_ADDR_HIGH 				2        //寄存器地址，高字节
+#define MODBUS_FRAME_REG_ADDR_LOW 				3        //寄存器地址，低字节
+#define MODBUS_FRAME_DATA_INDEX_BASE    	4        //数据区下标基数
+#define MODBUS_FRAME_DATA_LEN_INDEX_BASE  4        //数据长度区下标基数，针对多个数据写入时使用
+//#define MODBUS_FRAME_DATA_HIGH        5        	 //数据区长度，低字节
+//#define MODBUS_FRAME_
+
+#define MODBUS_RETURN_WRITE_TRUE					0x04
+#define MODBUS_RETURN_WRITE_FALSE					0x05
+#define MODBUS_RETURN_READ_TRUE					  0x06
+#define MODBUS_RETURN_READ_FALSE					0x07
+
+#define MODBUS_RETURN_FAULT_CODE					0X80		 //故障码
+
+//错误类型
+#define MODBUS_TIME_OUT_ERROR							0x08		 //通信超时错误
+#define MODBUS_FAULT_FUNCTION_CODE        0X01		 //错误的功能码
+#define MODBUS_FAULT_ACCESS_ADDR		      0X02		 //错误的访问地址
+#define MODBUS_FAULT_DATA			Q		        0X03		 //错误的数据，例如写数据超限幅值
+
+typedef struct
+{
+	u8 device_num;
+	u8 modbus_function_code;
+	u16 last_speed;
+	u16 reg_addr;
+	u16 data_length;
+	u8 return_flag;
+	u8* virtual_read;											  //用于读操作时，传递的指针，无实际意义
+	short int speed_value;									//速度值，命令中速度可能存在负值，该变量针对速度操作指令
+}Motor_Device;
+///////////////////////////////////////////////////////////////////////
+//驱动器设备                      
+///////////////////////////////////////////////////////////////////////
+//相关寄存器地址
+#define ADDR_SPEED_REGISTER       0X0063   //转速设置地址，16位
+#define ADDR_LM_INITIAL_REGISTER	0X6200	 //位置模式初始地址
+#define ADDR_ZEROING_REGISTER     0X6002	 //归零地址
+
+//设备地址，驱动器轴通信地址（对应modbus设备号）
+#define DN_ZERO_BROADCAST					0X00     //设备号0，为广播地址
+#define DN_FIRST_MOTOR						0X01     //一号电机
+#define DN_SECOND_MOTOR						0X02     //二号电机
+#define DN_THIRD_MOTOR						0X03     //三号电机
+#define DN_FOURTH_MOTOR						0X04     //四号电机
+
+/*****************************  转向轮转动位移设置  ******************************/
+#define TURN_POSITION_FRAME_LENGTH	25		 //数据帧长度
+#define TURN_POSITION_DATA_LENGTH	0X0008 	 //帧长度
+//#define TURN_NOMAL_RUN_SPEED			0X0190	 //转向电机正常转动速度，单位：rpm
+#define TURN_NOMAL_RUN_SPEED			0X0258	 //转向电机正常转动速度，单位：rpm
+#define TURN_ACCELERATE_TIME			0X0064	 //加速时间，单位：ms/Krpm
+#define TURN_SLOW_DOWN_TIME				0X0064	 //减速时间，单位：ms/Krpm
+#define TURN_STOP_TIME						0X0000	 //停顿时间
+#define TURN_PR_TRIGGER						0X0010	 //PR触发
+#define TURN_PR_MODE							0X0001	 //pr0模式，双边沿触发
+
+#define TURN_POSITION_HIGH_INDEX	0X02		 //位移高两个字节下标			
+#define TURN_POSITION_LOW_INDEX	  0X04		 //位移低两个字节下标		
+
+/*****************************  转向轮电机归零操作  ******************************/
+#define TURN_ZAROING_FRAME_LENGTH 8				 //帧长度
+#define TURN_ZAROING_DATA_LENGTH	2				 //数据区长度
+#define TURN_ZAROING_COMMAND			0X0020	 			
+
+void motor_all_stop(void);
+void motor_control(void);
+void motor_back_zaro_operate(void);
+u8 modbus_frame_send_process(Motor_Device motor_device,u8* data_buf);
+
+u16 modbus_crc_cal(u8 *data_buf, u8 length);
+u8 modbus_frame_return_process(u8* sendbuf,u16 length);
+void motor_task_delay(uint32_t ncount);
+//u8 modbus_frame_send_process(u8 device_num,u8 function_code,u16 register_addr,u8* data_buf,u16 data_length);
+
+/*****************************  无人车转向电机  ******************************/
+//LD5-750电机用于无人车转向功能，走位置模式
+void turn_motor_control(s32 position_pulse);
+
+
+
+
+
+
+
+
+
+
+#endif
+
+
+

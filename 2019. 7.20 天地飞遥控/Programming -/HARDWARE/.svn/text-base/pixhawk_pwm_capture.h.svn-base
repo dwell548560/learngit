@@ -1,0 +1,210 @@
+/***********************************************************************
+**版权:     福建(泉州)哈工大工程技术研究院
+**文件名:   pixhawk_pwm_capture.h
+**开发环境: MDK5.0
+**作者:     GBZ
+**生成时间: 2018.05.01
+**修改时间: 
+**功能:    	捕获pixhawk输入的pwm波
+**版本:     U1.00
+**说明:     
+***********************************************************************/
+#ifndef __PIXHAWK_PWM_CAPTURE_H
+#define __PIXHAWK_PWM_CAPTURE_H
+
+#include "stm32f4xx.h"
+#include "steer_motor.h"
+
+#include "run_motor.h"
+#include "run_motor_485.h"
+#include "crash.h"
+///////////////////////////////////////////////////////////////////////
+//电机相关                           
+///////////////////////////////////////////////////////////////////////
+#define REDUCTION_RATIO           40      								//驱动轮减速比
+#define TURN_REDUCTION_RATIO			40                     //转向舵轮减速比1：40   转向轮   PYQ 10.31
+#define WHEEL_DIAMETER						0.4     								//轮子直径,单位：m
+#define WHEEL_PERIMETER						(WHEEL_DIAMETER*3.14)		//轮子周长,单位：m
+//#define SPEED_MAX                 2.1												//最大运动速度
+#define SPEED_MAX                 800				//最大运动速度  PYQ 11.14  这里的800是给艾思控驱动器的换向频率
+#define DUTY_DEAD_MAX							55											//死区最大值55%
+#define DUTY_DEAD_MIN							45											//死区最小值45%
+#define DUTY_DEAD									50											//占空比刚好为50%，死区中点
+
+#define DUTY_RESOLUTION_MIN				2												//占空比最小分辨率为2%，与中断服务程序的执行时间有关系，详见《代码思路记录》						
+
+///////////////////////////////////////////////////////////////////////
+//PWM输入捕获错误标志                           
+///////////////////////////////////////////////////////////////////////
+#define PIX_CAPTURE_PERIOD_ERROR	0X60			//pwm输入信号，周期错误，杂波
+#define PIX_LEFT_CAPTURE_OK				0X01
+#define PIX_RIGHT_CAPTURE_OK   		0X02
+#define PIX_TURN_CAPTURE_OK    		0X04
+#define PIX_LEFT_EXIST_SIGNAL			0x10
+#define PIX_RIGHT_EXIST_SIGNAL		0x20
+#define PIX_TURN_EXIST_SIGNAL			0x40
+
+#define PIX_CAPTURE_OK						0X07
+#define PIX_EXIST_SIGNAL					0X70
+///////////////////////////////////////////////////////////////////////
+//PWM捕获                           
+///////////////////////////////////////////////////////////////////////
+#define PIX_CAPTURE_END           0X01
+#define PIX_LEFT_CAPTURE_END			0X02
+#define PIX_RIGHT_CAPTURE_END			0X03
+#define PIX_TURN_CAPTURE_END			0X04
+
+#define SAMPLE_END								0XA0
+//捕获定时器使能/失能
+#define STATE_CAPTURE_ENABLE			0XA1
+#define STATE_CAPTURE_DISABLE			0XA2	
+#define PIX_LEFT_CAPTURE					0XA3
+#define PIX_RIGHT_CAPTURE					0XA4
+#define PIX_TURN_CAPTURE					0XA6
+
+#define PIX_PWM_CAPTURE_COUNT			0X02																			 //捕获次数，该值用于当捕获到一个异常PWM波时，重新捕获的次数
+
+#define PIX_LR_PWM_FREQ					  (1*50)                       					   //左右轮输入频率1khz
+#define PIX_LR_PWM_PERIOD				  (u32)(1000*1000)/((u32)PIX_LR_PWM_FREQ)    //转化为时间周期，单位us
+#define PIX_LR_PWM_D_VALUE				(PIX_LR_PWM_PERIOD*0.01)				             //周期差值		
+#define PIX_LR_PWM_DEAD_ZONE			 30                                        //死区单位：us
+#define PIX_LR_PWM_REVESE_MAX			 (1500-PIX_LR_PWM_DEAD_ZONE)
+#define PIX_LR_PWM_REVESE_MIN				1090
+#define PIX_LR_PWM_FORWARD_MAX      1910
+#define PIX_LR_PWM_FORWARD_MIN      (1500+PIX_LR_PWM_DEAD_ZONE)
+#define PIX_LR_PWM_COEFFICIENT			 ((PIX_LR_PWM_FORWARD_MAX-PIX_LR_PWM_FORWARD_MIN)/SPEED_MAX)
+#define FORWARD_CONVERT_COEFFICIENT		(100-DUTY_DEAD_MAX) 									 //前进占空比转换系数，此时输入的pwm落在DUTY_DEAD_MAX-100之间
+#define REVERSE_CONVERT_COEFFICIENT    DUTY_DEAD_MIN                         //后退（反向）占空比转换系数，此时输入的pwm落在0-DUTY_DEAD_MIN之间
+
+
+typedef struct
+{
+	u32 pwm_period;									//PWM周期
+	u32 pwm_duty;										//pwm占空比
+	u32 ccr1_cache_1;								//用于缓存第一次捕获到的ccr1值
+	u32 ccr1_cache_2;								//用于缓存第二次捕获到的ccr1值
+	u32 ccr2_cache_1;								//用于缓存第一次捕获到的ccr2值
+	u32 ccr2_cache_2;								//用于缓存第二次捕获到的ccr2值
+	u8 ccr1_capture_count;					//ccr1捕获次数
+	u8 ccr2_capture_count;					//ccr1捕获次数
+	u8 capture_end_flag;						//捕获标志，一次用于指示一个完整的PWM波捕获结束
+//	float duty_percentage;					//占空比百分比,浮点数
+	u16 duty_percentage;						//占空比百分比,整型数，为了降低电机对PWM的相应灵敏度——2018.05.10 gbz
+	u8 sample_flag;									//pwm采样标志
+	u8 fault_flag;									//错误标志
+}Pix_Pwm;
+
+
+/*****************************  左侧pwm捕获   ******************************/
+#define PIX_LEFT_TIME_PSC					(84-1)   //定时器预分频
+#define PIX_LEFT_TIME_ARR					0XFFFFFFFF//定时器5，32位
+
+#define PIX_LEFT_TIME_COUNTER_CLEAR TIM_SetCounter(TIM5,0);
+#define PIX_LEFT_INT_FLAG_CLEAR		TIM_ClearITPendingBit(TIM5, TIM_IT_CC1|TIM_IT_CC2)
+
+#define PIX_LEFT_TIME_ENABLE      TIM_Cmd(TIM5,ENABLE )
+#define PIX_LEFT_TIME_DISABLE     TIM_Cmd(TIM5,DISABLE )
+#define PIX_LEFT_TIME_INT_ENABLE  TIM_ITConfig(TIM5,TIM_IT_CC1|TIM_IT_CC2,ENABLE)
+#define PIX_LEFT_TIME_INT_DISABLE TIM_ITConfig(TIM5,TIM_IT_CC1|TIM_IT_CC2,DISABLE)
+
+
+extern Pix_Pwm Pix_Left_Pwm;
+
+void left_pwm_input_init(void);
+void pix_left_pwm_capture_switch(u8 state_flag);
+Pix_Pwm* pix_left_pwm_process(u8 capture_flag);
+
+/*****************************  右侧pwm捕获  ******************************/
+//#define PIX_RIGHT_TIME_PSC				 (84-1)   //定时器预分频
+#define PIX_RIGHT_TIME_PSC				 (84-1)   //定时器预分频
+#define PIX_RIGHT_TIME_ARR				 0XFFFFFFFF //32位定时器
+
+#define PIX_RIGHT_TIME_COUNTER_CLEAR  TIM_SetCounter(TIM2,0);
+#define PIX_RIGHT_INT_FLAG_CLEAR	TIM_ClearITPendingBit(TIM2, TIM_IT_CC1|TIM_IT_CC2)
+
+#define PIX_RIGHT_TIME_ENABLE      TIM_Cmd(TIM2,ENABLE )
+#define PIX_RIGHT_TIME_DISABLE     TIM_Cmd(TIM2,DISABLE )
+#define PIX_RIGHT_TIME_INT_ENABLE  TIM_ITConfig(TIM2,TIM_IT_CC1|TIM_IT_CC2,ENABLE)
+#define PIX_RIGHT_TIME_INT_DISABLE TIM_ITConfig(TIM2,TIM_IT_CC1|TIM_IT_CC2,DISABLE)
+
+extern Pix_Pwm Pix_Right_Pwm;
+
+void right_pwm_input_init(void);
+void pix_right_pwm_capture_switch(u8 state_flag);
+Pix_Pwm* pix_right_pwm_process(u8 capture_flag);
+
+/*********************  转向pwm捕获定时器12 16位  *************************/
+#define PIX_TURN_TIME_PSC				 	(84-1)   //定时器预分频
+#define PIX_TURN_TIME_ARR				 	0XFFFF   //32位定时器
+
+#define PIX_TURN_TIME_COUNTER_CLEAR  TIM_SetCounter(TIM12,0);
+#define PIX_TURN_INT_FLAG_CLEAR   TIM_ClearITPendingBit(TIM12, TIM_IT_CC1|TIM_IT_CC2)
+
+#define PIX_TURN_TIME_ENABLE     	TIM_Cmd(TIM12,ENABLE )
+#define PIX_TURN_TIME_DISABLE     TIM_Cmd(TIM12,DISABLE )
+#define PIX_TURN_TIME_INT_ENABLE  TIM_ITConfig(TIM12,TIM_IT_CC1|TIM_IT_CC2,ENABLE)
+#define PIX_TURN_TIME_INT_DISABLE TIM_ITConfig(TIM12,TIM_IT_CC1|TIM_IT_CC2,DISABLE)
+
+#define PIX_TURN_DUTY_MAX		      1980			//最大高电平值1.9ms*1000=1900us
+#define PIX_TURN_DUTY_MIN					1000			//最小高电平值
+#define PIX_TURN_DUTY_ZERO_POINT	1500		  //零点对应的高电平值
+#define PIX_TURN_DUTY_INTERVAL		400				//转向区间值（高电平值）：1900-1500=400；1500-1100=400
+
+#define PIX_TRUN_DUTY_PERCENT_MAX	((float)PIX_TURN_DUTY_MAX/(float)PIX_TURN_PWM_PERIOD)//最大占空比
+#define PIX_TRUN_DUTY_PERCENT_MIN	(float)((float)PIX_TURN_DUTY_MIN/(float)PIX_TURN_PWM_PERIOD)//最小占空比
+	
+#define PIX_TURN_PWM_FREQ					50																				 //转向轮PWM输入频率50hz		  
+#define PIX_TURN_PWM_PERIOD				(u32)(1000*1000)/((u32)PIX_TURN_PWM_FREQ)	 //转化为周期，单位us
+#define PIX_TURN_PWM_D_VALUE			(PIX_TURN_PWM_PERIOD*0.01)				         //周期差值
+
+#define PIX_TURN_ANGLE_RANGE			180																				 //转弯角度0-180°，此处需要结合pixhawk固件以及 实际使用的机械结构进行修改
+#define TURN_ANGLE_CONVERT_COEFFICIENT  (float)(((PIX_TURN_ANGLE_RANGE-WHEEL_TURN_ZERO_ANGLE_MAX)+WHEEL_TURN_ZERO_ANGLE_MIN)/(PIX_TRUN_DUTY_PERCENT_MAX-PIX_TRUN_DUTY_PERCENT_MIN))
+																																						 //角度转换系数，此处假设转弯角度最大为180°，因此每1%对应的转动角度为180/10=18°/1%
+#define WHEEL_TURN_ZERO_BASE_VALUE			(float)(PIX_TURN_ANGLE_RANGE/2)			 //车轮转动零度对应的pwm输出的角度
+#define WHEEL_TURN_ZERO_ANGLE_MAX	 90																				 //车轮转动角度为0的范围，最大值
+#define WHEEL_TURN_ZERO_ANGLE_MIN	 90																				 //最小值，WHEEL_TURN_ZERO_ANGLE_MAX和WHEEL_TURN_ZERO_ANGLE_MIN确定了车轮不转动的范围区间
+/*****************************  PWM转换为车轮转动角度  ******************************/
+#define WHEEL_TURN_ANGLE_INTERVAL	 30						  													 //转弯角度区间值
+#define WHEEL_TURN_ANGLE_CONVERT_COEFFICIENT	((double)WHEEL_TURN_ANGLE_INTERVAL/(double)PIX_TURN_DUTY_INTERVAL)	  									 
+																																						 //设y为转弯角度，x为PWM高电平值，400/30=（x-1500）/y ----> y=(30/400)*x-112.5
+#define WHEEL_TURN_ANGLE_CAL_CONSTANT (double)(112.5)												 //该值含义：y=(30/400)*x-112.5
+#define WHEEL_TURN_ANGLE_MAX_RIGHT  33.5 			      													 //车轮右转最大角度
+#define WHEEL_TURN_ANGLE_MAX_LEFT  (-33.5)		                                 //车轮左转最大角度 
+#define WHEEL_PWM_DEAD_ZONE			  30                                        //死区单位：us
+//#define WHEEL_TURN_ANGLE_MAX				33.5
+#define WHEEL_TURN_ANGLE_MAX				60                 //扫地车单侧最大角度60 PYQ 11.5
+#define WHEEL_TURN_LEFT_PWM_MAX			(1500-WHEEL_PWM_DEAD_ZONE)
+#define WHEEL_TURN_LEFT_PWM_MIN			1090
+#define WHEEL_TURN_RIGHT_PWM_MIN		(1500+WHEEL_PWM_DEAD_ZONE)
+#define WHEEL_TURN_RIGHT_PWM_MAX		1900
+#define WHEEL_TURN_PWM_COEFFICIENT	((float)(WHEEL_TURN_LEFT_PWM_MAX - WHEEL_TURN_LEFT_PWM_MIN)/(float)WHEEL_TURN_ANGLE_MAX)
+//#define ZERO_POINT_OFFSET						131944
+#define ZERO_POINT_OFFSET						66666   //PYQ 11.05
+/***************************  车轮转动角度转换为电机角度 ****************************/
+#define WHEEL_COVERT_MOTOR_A_COE		0.0672942993431178											 //计算公式：y=a+b*x+c*x*x,其中y为减速机输出轴转角，x小车前内轮转角
+#define WHEEL_COVERT_MOTOR_B_COE		1.64748148536507												 
+#define WHEEL_COVERT_MOTOR_C_COE		-0.00690382377892169			
+/***********************  电机转动角度与减速器输出之间的关系  ************************/
+#define MOTOR_ONE_CYCLE_PLUSE			 10000																		 //电机转动一圈所需的脉冲数
+#define MOTOR_REDUCER_CAL_COEFFICIENT	((float)TURN_REDUCTION_RATIO/360)			 //假设y为电机转动圈数，x为所需转动角度，则计算公式：y=减速比/360 * x;
+
+
+extern Pix_Pwm Pix_Turn_Pwm;;
+
+void turn_pwm_input_init(void);
+void pix_turn_pwm_capture_switch(u8 state_flag);
+Pix_Pwm* pix_turn_pwm_process(u8 capture_flag);
+s32 turn_pwm_convert_rev(float turn_duty);
+/*****************************  公共函数  ******************************/
+
+void pix_pwm_input_init(void);
+s16 pwm_convert_rev(float duty_percentage);
+void pix_pwm_capture_switch(u8 type_select,u8 state_flag);
+s16 speed_convert_rev(s16 speed);
+
+void motor_control_handle(void);
+
+
+#endif
+
+
